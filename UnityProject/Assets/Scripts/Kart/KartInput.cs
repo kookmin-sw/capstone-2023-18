@@ -13,12 +13,15 @@ public class KartInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        Hmove = Input.GetAxis("Horizontal");
-        Vmove = Input.GetAxis("Vertical");
-        Drift = Input.GetKey(KeyCode.LeftShift);
-        Item = Input.GetKeyUp(KeyCode.LeftControl);
-        
+        if (!CompareTag("AI"))
+        {
+            Debug.Log("Not AI");
+            Hmove = Input.GetAxis("Horizontal");
+            Vmove = Input.GetAxis("Vertical");
+            Drift = Input.GetKey(KeyCode.LeftShift);
+            Item = Input.GetKeyUp(KeyCode.LeftControl);
+        }
+
     }
 
 }

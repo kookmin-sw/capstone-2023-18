@@ -240,7 +240,7 @@ public class KartController : MonoBehaviour
         //Friction
         if (carVelocity.magnitude > 0)
         {
-            Debug.Log(-carVelocity.normalized.x);
+            //Debug.Log(-carVelocity.normalized.x);
             //frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             for (int i=0; i<TireMeshes.Length; i++)
             {
