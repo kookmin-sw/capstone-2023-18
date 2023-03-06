@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,15 @@ public class CheckpointManager : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < List.Length; i++)
+        {
+            List[i].GetComponent<cp>().currentCnt = i;
+            List[i].GetComponent<cp>().nextCnt = i + 1;
         }
     }
 

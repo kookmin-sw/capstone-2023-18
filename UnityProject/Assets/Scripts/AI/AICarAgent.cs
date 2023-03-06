@@ -23,10 +23,10 @@ public class AICarAgent : Agent
     
 
     [Header("===Info===")] 
-    [SerializeField] private int currentCheckpoint;
+    [SerializeField] public int currentCheckpoint;
     [SerializeField] private GameObject nextCheckpoint;
     [SerializeField] private GameObject startPos;
-    private int totalCheckpoint;
+    public int totalCheckpoint;
     private Transform agentTransform;
     private Rigidbody agentRigidbody;
     private KartController controller;
@@ -52,6 +52,7 @@ public class AICarAgent : Agent
     {
         currentCheckpoint = 0;
         agentRigidbody.velocity = Vector3.zero;
+        agentTransform.localRotation = Quaternion.Euler(0,0,0);
         totalCheckpoint = cm.totalCheckPoint();
         agentTransform.position = startPos.transform.position;
 
@@ -96,40 +97,6 @@ public class AICarAgent : Agent
         discreteActions[0] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Checkpoint"))
-        {
-            if (other.gameObject == nextCheckpoint)
-            {
-                Debug.Log("getCP");
-                SetReward(1f * currentCheckpoint);
-                
-                currentCheckpoint++;
-            }
-            else //방문했던 체크포인트
-            {
-                Debug.Log("reverse");
-                AddReward(-10f);
-                EndEpisode();
-            }
-        }
-        
-        else if (other.CompareTag("Goal"))
-        {
-            if (currentCheckpoint < totalCheckpoint)
-            {
-                Debug.Log("wrong Way");
-                AddReward(-30f);
-            }
-            else
-            {
-                Debug.Log("Goal");
-                SetReward(totalCheckpoint * 1f);
-            }
-            EndEpisode();
-        }
-    }
 
     public void OnCollisionStay(Collision collision)
     {
