@@ -5742,14 +5742,14 @@ MonoBehaviour:
   CentreOfMass: {fileID: 2883374083340779453}
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
-  speed: 3000
-  DownValue: 500
-  turn: 600
-  friction: 150
-  dragAmount: 50
+  speed: 5000
+  DownValue: 2000
+  turn: 700
+  friction: 100
+  dragAmount: 40
   TurnAngle: 30
   maxRayLength: 0.6128212
-  slerpTime: 0.1
+  slerpTime: 0.2
   grounded: 0
   TireMeshes:
   - {fileID: 2883374083195501438}
@@ -5788,21 +5788,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.28115222
-      inSlope: 0.02348243
-      outSlope: 0.02348243
+      value: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.07898448
+      outWeight: 0
     - serializedVersion: 3
-      time: 1.0073144
+      time: 1
       value: 1
-      inSlope: 0.05877141
-      outSlope: 0.05877141
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.25246835
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5871,15 +5871,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.11642711
       value: 0.8547545
-      inSlope: 0.9165555
-      outSlope: 0.9165555
+      inSlope: 0.28942972
+      outSlope: 0.28942972
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.5687885
-      outWeight: 0.11248002
+      outWeight: 0.08874798
     - serializedVersion: 3
-      time: 1
-      value: 0.9258891
+      time: 0.9942627
+      value: 0.9924937
       inSlope: 0.052834902
       outSlope: 0.052834902
       tangentMode: 0
@@ -5893,22 +5893,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001411438
-      value: 0.99999994
-      inSlope: -0.030255001
-      outSlope: -0.030255001
-      tangentMode: 0
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.056130975
+      outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 0.8
-      inSlope: 0.004572676
-      outSlope: 0.004572676
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.16238843
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -6009,12 +6009,49 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  hasItem: 1
+  BoostPower: 9000
+  isBoost: 0
+  BoostCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.25
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23591219
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   carVelocity: {x: 0, y: 0, z: 0}
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
-  SkidEnable: 20
-  skidWidth: 0.05
+  SkidEnable: 30
+  skidWidth: 0.2
+  TextKMH: {fileID: 0}
   normalDir: {x: 0, y: 0, z: 0}
   input: {fileID: 0}
 --- !u!136 &395780279
