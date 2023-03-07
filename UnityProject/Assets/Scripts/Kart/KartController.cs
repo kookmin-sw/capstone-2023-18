@@ -54,7 +54,7 @@ public class KartController : MonoBehaviour
     //public bool drftSndMachVel;
 
     [Header("Other Settings")]
-    public AudioSource[] engineSounds;
+    public AudioSource engineSound;
     public bool airDrag;
     public float UpForce;
     public float SkidEnable = 20f;
@@ -65,15 +65,16 @@ public class KartController : MonoBehaviour
     [HideInInspector]
     public Vector3 normalDir;
 
-    private KartInput input;
+    public KartInput input;
 
     private void Awake()
     {
         input = GetComponent<KartInput>();
 
         rb = GetComponent<Rigidbody>();
+
+        engineSound = GetComponent<AudioSource>();
         grounded = false;
-        engineSounds[1].mute = true;
         rb.centerOfMass = CentreOfMass.localPosition;
     }
 
@@ -142,37 +143,7 @@ public class KartController : MonoBehaviour
 
     public void audioControl()
     {
-        //audios
-        if (grounded)
-        {
-            if (Mathf.Abs(carVelocity.x) > SkidEnable - 0.1f)
-            {
-                engineSounds[1].mute = false;
-            }
-            else { engineSounds[1].mute = true; }
-        }
-        else
-        {
-            engineSounds[1].mute = true;
-        }
-
-        /*if (drftSndMachVel) 
-        { 
-            engineSounds[1].pitch = (0.7f * (Mathf.Abs(carVelocity.x) + 10f) / 40);
-        }
-        else { engineSounds[1].pitch = 1f; }*/
-
-        engineSounds[1].pitch = 1f;
-
-        engineSounds[0].pitch = 2 * engineCurve.Evaluate(curveVelocity);
-        if (engineSounds.Length == 2)
-        {
-            return;
-        }
-        else { engineSounds[2].pitch = 2 * engineCurve.Evaluate(curveVelocity); }
-
-
-
+        engineSound.pitch = 2 * engineCurve.Evaluate(curveVelocity);
     }
 
     public void tireVisuals()
