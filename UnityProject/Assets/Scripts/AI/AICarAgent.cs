@@ -29,9 +29,8 @@ public class AICarAgent : Agent
     public int totalCheckpoint;
     private Transform agentTransform;
     private Rigidbody agentRigidbody;
-    private KartController controller;
-    
-    
+
+
     public override void Initialize()
     {
         currentCheckpoint = 0;
@@ -42,7 +41,7 @@ public class AICarAgent : Agent
         input = GetComponent<KartInput>();
         agentTransform = GetComponent<Transform>();
         agentRigidbody = GetComponent<Rigidbody>();
-        controller = GetComponent<KartController>();
+        
         
         Hmove = input.Hmove;
         Vmove = input.Vmove;
@@ -83,9 +82,9 @@ public class AICarAgent : Agent
 
         
         if(input.Vmove < 0) AddReward(-0.1f);
-        float handleAd = Mathf.Abs(input.Hmove * 0.1f);
+        float handleAd = Mathf.Abs(input.Hmove * 0.01f);
         AddReward(-handleAd);
-        AddReward(-0.01f);
+        AddReward(-0.1f);
     }
     
     public override void Heuristic(in ActionBuffers actionOut)
@@ -102,7 +101,9 @@ public class AICarAgent : Agent
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            AddReward(-0.1f);
+            AddReward(-20f);
+            //Debug.Log("wall");
+            EndEpisode();
         }
     }
 }

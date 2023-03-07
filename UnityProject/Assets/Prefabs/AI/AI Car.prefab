@@ -5996,7 +5996,7 @@ MonoBehaviour:
   speed: 3000
   DownValue: 500
   turn: 600
-  friction: 100
+  friction: 150
   dragAmount: 50
   TurnAngle: 30
   maxRayLength: 0.6128212
@@ -6287,7 +6287,7 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 01000000
+      BranchSizes: 02000000
     VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
@@ -6315,7 +6315,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 3000
   Hmove: 0
   Vmove: 0
   Drift: 0
@@ -6350,7 +6350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
+  m_SensorName: WallSensor
   m_DetectableTags:
   - Wall
   - Checkpoint
@@ -6358,7 +6358,7 @@ MonoBehaviour:
   m_RaysPerDirection: 12
   m_MaxRayDegrees: 120
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967176
@@ -11954,8 +11954,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.11961013, y: -0.000000019621256, z: 0.0000000023638709, w: 0.992821}
-  m_LocalPosition: {x: 0, y: 1.0000001, z: -4.09}
+  m_LocalRotation: {x: 0.119610265, y: -0.00000001519594, z: 0.0000000018307337, w: 0.9928209}
+  m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

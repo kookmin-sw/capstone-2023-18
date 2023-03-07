@@ -21,12 +21,12 @@ public class Sensor : MonoBehaviour
             if (other.gameObject.GetComponent<cp>().currentCnt == script.currentCheckpoint)
             {
                 script.currentCheckpoint = other.gameObject.GetComponent<cp>().nextCnt;
-                script.SetReward(1f * script.currentCheckpoint);
+                script.AddReward(1f * script.currentCheckpoint);
             }
 
             else
             {
-                script.AddReward(-10f);
+                script.AddReward(-40f);
                 script.EndEpisode();
             }
         }
@@ -41,7 +41,7 @@ public class Sensor : MonoBehaviour
             else
             {
                 Debug.Log("Goal");
-                script.SetReward(script.totalCheckpoint * 1f);
+                script.SetReward(script.totalCheckpoint * 5f);
             }
             script.EndEpisode();
         }
