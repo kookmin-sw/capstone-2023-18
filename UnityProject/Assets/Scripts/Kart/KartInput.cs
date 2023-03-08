@@ -19,7 +19,15 @@ public class KartInput : MonoBehaviour
             Hmove = Input.GetAxis("Horizontal");
             Vmove = Input.GetAxis("Vertical");
             Drift = Input.GetKey(KeyCode.LeftShift);
-            Item = Input.GetKeyUp(KeyCode.LeftControl);
+
+            if(Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Item = true;
+            }
+            else if(Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                Item = false;
+            }
         }
 
     }
