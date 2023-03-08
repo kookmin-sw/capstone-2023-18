@@ -22,9 +22,10 @@ public class KartController : MonoBehaviour
     public Transform turningAt;
     public Transform EngineAt;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     [Space, Header("Kart Stats")]
+    public float MaxSpeed = 100f;
     public float speed = 200f;
     public float DownValue = 100f;
     public float turn = 100f;
@@ -111,8 +112,8 @@ public class KartController : MonoBehaviour
         {
             speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
         }
-        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude));
-            //+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
+        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
+            //friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude))+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
         turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
         //grounded check
@@ -131,7 +132,7 @@ public class KartController : MonoBehaviour
             Debug.DrawLine(groundCheck.position, hit.point, Color.green);
             grounded = true;
 
-            rb.centerOfMass = Vector3.zero;
+            //rb.centerOfMass = Vector3.zero;
 
             normalDir = hit.normal;
 
@@ -221,11 +222,12 @@ public class KartController : MonoBehaviour
         //turning
         if (carVelocity.z > 0.001f)
         {
-            rb.AddTorque(turningAt.transform.up * turnValue);
+            //turningAt.
+            rb.AddTorque(transform.up * turnValue);
         }
         else if(carVelocity.z < 0.001f)
         {
-            rb.AddTorque(turningAt.transform.up * -turnValue);
+            rb.AddTorque(transform.up * -turnValue);
         }
     }
 
@@ -238,7 +240,7 @@ public class KartController : MonoBehaviour
         }
         else
         {
-            rb.angularDrag = dragAmount * AngularDragCurve.Evaluate(Mathf.Abs(carVelocity.magnitude) / 100);
+            rb.angularDrag = dragAmount * AngularDragCurve.Evaluate(Mathf.Abs(carVelocity.magnitude) / 200);
         }
     }
 
