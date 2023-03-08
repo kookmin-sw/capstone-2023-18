@@ -159,7 +159,7 @@ public class KartController : MonoBehaviour
         UseItem();
 
         //test
-        TextKMH.text = (carVelocity.magnitude * 2).ToString();
+        //TextKMH.text = (carVelocity.magnitude * 2).ToString();
             //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
             //((int)carVelocity.z * 10).ToString();
     }
