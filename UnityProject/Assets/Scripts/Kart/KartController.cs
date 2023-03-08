@@ -159,7 +159,7 @@ public class KartController : MonoBehaviour
         UseItem();
 
         //test
-        TextKMH.text = (carVelocity.magnitude * 2).ToString();
+        //TextKMH.text = (carVelocity.magnitude * 2).ToString();
             //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
             //((int)carVelocity.z * 10).ToString();
     }
@@ -236,7 +236,7 @@ public class KartController : MonoBehaviour
         //Friction
         if (carVelocity.magnitude > 0)
         {
-            //Debug.Log(-carVelocity.normalized.x);
+            
             //frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             if (!input.Drift)
