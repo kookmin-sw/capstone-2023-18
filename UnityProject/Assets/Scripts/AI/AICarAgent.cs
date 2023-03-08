@@ -59,17 +59,16 @@ public class AICarAgent : Agent
     
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(agentRigidbody.velocity); //3
-        sensor.AddObservation(agentTransform.position); //3
+        sensor.AddObservation(agentRigidbody.velocity); //3 차량 velocity
+        sensor.AddObservation(agentTransform.position); //3 차량 위치
+        sensor.AddObservation(transform.InverseTransformDirection(agentRigidbody.velocity).magnitude); //1 local velocity of car
+        sensor.AddObservation(currentCheckpoint); //1 현재 체크포인트
         
-        sensor.AddObservation(currentCheckpoint); //1
-
-        if (currentCheckpoint > totalCheckpoint - 1) currentCheckpoint = 0;
+        if (currentCheckpoint <= totalCheckpoint - 1) nextCheckpoint = cm.nextcheckPoint(currentCheckpoint); //다음 체크포인트
         
-        nextCheckpoint = cm.nextcheckPoint(currentCheckpoint); //다음 체크포인트
         Vector3 diff;
         diff = nextCheckpoint.transform.position - agentTransform.position;
-        sensor.AddObservation(diff); //3
+        sensor.AddObservation(diff); //3 체크포인트와의 거리
         sensor.AddObservation(diff.magnitude); //1
         
     }
