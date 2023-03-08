@@ -10142,8 +10142,88 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
         type: 3}
+      propertyPath: speed
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
       propertyPath: TextKMH
       value: 
       objectReference: {fileID: 2030177645}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: friction
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: dragAmount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].time
+      value: 0.40185463
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[2].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[2].outSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989840992646412499, guid: 491a5ea06676a334e905e13fa3661337,
+        type: 3}
+      propertyPath: frictionCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 491a5ea06676a334e905e13fa3661337, type: 3}

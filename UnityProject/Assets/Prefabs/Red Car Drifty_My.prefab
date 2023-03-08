@@ -5742,11 +5742,11 @@ MonoBehaviour:
   CentreOfMass: {fileID: 2883374083340779453}
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
-  speed: 5000
+  speed: 4000
   DownValue: 2000
   turn: 700
   friction: 100
-  dragAmount: 40
+  dragAmount: 30
   TurnAngle: 30
   maxRayLength: 0.6128212
   slerpTime: 0.2
@@ -5789,17 +5789,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.40185463
+      value: 0
       inSlope: 0
       outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum ITEMS
@@ -110,7 +111,8 @@ public class KartController : MonoBehaviour
         {
             speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
         }
-        fricValue = friction * frictionCurve.Evaluate(carVelocity.z / carVelocity.magnitude) + friction * frictionCurve.Evaluate(carVelocity.x / carVelocity.magnitude);
+        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude));
+            //+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
         turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
         //grounded check
@@ -135,6 +137,16 @@ public class KartController : MonoBehaviour
 
             //DownForce
             rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
+
+            //Non-Slip Code
+            if (carVelocity.magnitude < 1)
+            {
+                rb.drag = 10;
+            }
+            else;
+            {
+                rb.drag = 1;
+            }
         }
         else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
         {
@@ -159,7 +171,11 @@ public class KartController : MonoBehaviour
         UseItem();
 
         //test
-        //TextKMH.text = (carVelocity.magnitude * 2).ToString();
+        if (TextKMH != null)
+        {
+            TextKMH.text = (carVelocity.magnitude * 2).ToString();
+            //(carVelocity.magnitude * 2).ToString();
+        }
             //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
             //((int)carVelocity.z * 10).ToString();
     }
@@ -239,12 +255,13 @@ public class KartController : MonoBehaviour
             
             //frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
+            /*
             if (!input.Drift)
             {
-                rb.AddForceAtPosition(-transform.forward * fricValue * frictionAngle * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
+                rb.AddForceAtPosition(-carVelocity.normalized * fricValue * frictionAngle * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
             }
-
-            rb.AddForceAtPosition(-transform.forward * fricValue * frictionAngle * 100 * Mathf.Abs(carVelocity.normalized.x), turningAt.position);
+            */
+            rb.AddForceAtPosition(-transform.forward * fricValue * frictionAngle * 100 * Mathf.Abs(carVelocity.normalized.x), fricAt.position);
             
             /*
             for (int i=0; i<2; i++)
