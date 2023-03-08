@@ -21,7 +21,7 @@ public class Sensor : MonoBehaviour
             if (other.gameObject.GetComponent<cp>().currentCnt == script.currentCheckpoint)
             {
                 script.currentCheckpoint = other.gameObject.GetComponent<cp>().nextCnt;
-                script.AddReward(1f * script.currentCheckpoint);
+                script.AddReward(5f * script.currentCheckpoint);
             }
 
             else

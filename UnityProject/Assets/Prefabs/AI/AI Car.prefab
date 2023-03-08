@@ -5888,6 +5888,7 @@ GameObject:
   - component: {fileID: 1221342163480686072}
   - component: {fileID: 6772925720110729948}
   - component: {fileID: 68769240294774777}
+  - component: {fileID: 2939560671138183618}
   m_Layer: 6
   m_Name: AI Car
   m_TagString: AI
@@ -6353,11 +6354,9 @@ MonoBehaviour:
   m_SensorName: WallSensor
   m_DetectableTags:
   - Wall
-  - Checkpoint
-  - Goal
-  m_RaysPerDirection: 12
+  m_RaysPerDirection: 11
   m_MaxRayDegrees: 120
-  m_SphereCastRadius: 0.5
+  m_SphereCastRadius: 1.36
   m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
@@ -6365,6 +6364,34 @@ MonoBehaviour:
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -5.79
+--- !u!114 &2939560671138183618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374083270441375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: WaySensor
+  m_DetectableTags:
+  - Checkpoint
+  - Goal
+  m_RaysPerDirection: 6
+  m_MaxRayDegrees: 40
+  m_SphereCastRadius: 0.5
+  m_RayLength: 100
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967176
+  m_ObservationStacks: 1
+  rayHitColor: {r: 0.04431629, g: 1, b: 0, a: 1}
+  rayMissColor: {r: 0.03406544, g: 0.26415092, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
 --- !u!1 &2883374083340779452

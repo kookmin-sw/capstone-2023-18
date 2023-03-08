@@ -51,7 +51,7 @@ public class AICarAgent : Agent
     {
         currentCheckpoint = 0;
         agentRigidbody.velocity = Vector3.zero;
-        agentTransform.localRotation = Quaternion.Euler(0,0,0);
+        agentTransform.localRotation = Quaternion.Euler(0,180,0);
         totalCheckpoint = cm.totalCheckPoint();
         agentTransform.position = startPos.transform.position;
 
@@ -101,7 +101,7 @@ public class AICarAgent : Agent
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            AddReward(-20f);
+            AddReward(-40f);
             //Debug.Log("wall");
             EndEpisode();
         }
