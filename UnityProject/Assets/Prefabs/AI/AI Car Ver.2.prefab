@@ -5800,28 +5800,32 @@ MonoBehaviour:
   SuspensionDistance: 0.2
   suspensionForce: 30000
   suspensionDamper: 200
-  groundCheck: {fileID: 2883374082971558928}
-  fricAt: {fileID: 2883374084246512272}
-  CentreOfMass: {fileID: 2883374083340779453}
-  turningAt: {fileID: 2883374083710916254}
-  EngineAt: {fileID: 2883374083708030016}
-  speed: 5000
+  groundCheck: {fileID: 2883374082971558928, guid: 491a5ea06676a334e905e13fa3661337,
+    type: 3}
+  fricAt: {fileID: 2883374084246512272, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
+  CentreOfMass: {fileID: 2883374083340779453, guid: 491a5ea06676a334e905e13fa3661337,
+    type: 3}
+  turningAt: {fileID: 2883374083710916254, guid: 491a5ea06676a334e905e13fa3661337,
+    type: 3}
+  EngineAt: {fileID: 2883374083708030016, guid: 491a5ea06676a334e905e13fa3661337,
+    type: 3}
+  speed: 4000
   DownValue: 2000
   turn: 700
   friction: 100
-  dragAmount: 40
+  dragAmount: 30
   TurnAngle: 30
   maxRayLength: 0.6128212
   slerpTime: 0.2
   grounded: 0
   TireMeshes:
-  - {fileID: 2883374083195501438}
-  - {fileID: 2883374083764203718}
-  - {fileID: 2883374083163150416}
-  - {fileID: 2883374083665382489}
+  - {fileID: 2883374083195501438, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
+  - {fileID: 2883374083764203718, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
+  - {fileID: 2883374083163150416, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
+  - {fileID: 2883374083665382489, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
   TurnTires:
-  - {fileID: 2883374084365392967}
-  - {fileID: 2883374084509140960}
+  - {fileID: 2883374084365392967, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
+  - {fileID: 2883374084509140960, guid: 491a5ea06676a334e905e13fa3661337, type: 3}
   AngularDragCurve:
     serializedVersion: 2
     m_Curve:
@@ -5852,17 +5856,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.40185463
+      value: 0
       inSlope: 0
       outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -6240,7 +6253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2

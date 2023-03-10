@@ -170,12 +170,7 @@ public class KartController : MonoBehaviour
         audioControl();
         UseItem();
 
-        //test
-        if (TextKMH != null)
-        {
-            TextKMH.text = (carVelocity.magnitude * 2).ToString();
-            //(carVelocity.magnitude * 2).ToString();
-        }
+       
             //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
             //((int)carVelocity.z * 10).ToString();
     }
