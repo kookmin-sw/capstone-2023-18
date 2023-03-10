@@ -154,11 +154,14 @@ public class KartController : MonoBehaviour
             Debug.Log("air");
             grounded = false;
             rb.drag = 1f;
+            rb.angularDrag = 1000f;
             rb.centerOfMass = CentreOfMass.localPosition;
+            /*
             if (!airDrag)
             {
                 rb.angularDrag = 0.1f;
             }
+            */
         }
 
 
