@@ -10,7 +10,7 @@ public class SkidMarks : MonoBehaviour
 
     public bool drifting;
     public float driftTime;
-    public float driftTimeAmount = 0.5f;
+    float driftTimeAmount = 0.25f;
 
     public AudioSource driftSound;
     // 드리프트 키를 누르고 일정 각도 미만으로  떨어지면 fasle

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &922863615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922863616}
+  m_Layer: 8
+  m_Name: CamFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &922863616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922863615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2883374083270441380}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2883374082431419465
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,7 +82,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374082431419477
 TrailRenderer:
@@ -5097,20 +5127,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: -3, z: 0}
   m_LookaheadTime: 0.5
   m_LookaheadSmoothing: 1
   m_LookaheadIgnoreY: 0
   m_HorizontalDamping: 0
   m_VerticalDamping: 0.2
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.65
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_SoftZoneWidth: 0
   m_SoftZoneHeight: 2
   m_BiasX: 0
-  m_BiasY: 0
+  m_BiasY: 0.0059999824
   m_CenterOnActivate: 1
 --- !u!1 &2883374082790556886
 GameObject:
@@ -5314,7 +5344,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082945823651}
-  - component: {fileID: 826793783}
   m_Layer: 8
   m_Name: body
   m_TagString: Untagged
@@ -5343,20 +5372,6 @@ Transform:
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &826793783
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374082945823655}
-  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3288958
-  m_Height: 1.0746155
-  m_Direction: 0
-  m_Center: {x: -0.016860962, y: -0.52, z: 1.0764813}
 --- !u!1 &2883374082971558935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5661,6 +5676,7 @@ Transform:
   - {fileID: 2883374082945823651}
   - {fileID: 2883374084050909446}
   - {fileID: 2883374083881375311}
+  - {fileID: 922863616}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5744,11 +5760,13 @@ MonoBehaviour:
   EngineAt: {fileID: 2883374083708030016}
   rb: {fileID: 0}
   MaxSpeed: 100
-  speed: 4000
-  DownValue: 2000
+  speed: 6500
+  DownValue: 500
   turn: 700
-  friction: 100
-  dragAmount: 45
+  friction: 1000
+  SideFriction: 200
+  dragAngularAmount: 55
+  dragAmount: 2
   TurnAngle: 30
   maxRayLength: 0.6128212
   slerpTime: 0.2
@@ -5824,6 +5842,12 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SideFrictionCurve:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -5917,18 +5941,18 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: -1
+      outSlope: -1
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -6030,32 +6054,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hasItem: 1
-  BoostPower: 9000
+  BoostPower: 15000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.25
-      inSlope: 2
-      outSlope: 2
+      value: 0.99864686
+      inSlope: -2.6806524
+      outSlope: -2.6806524
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.23591219
+      outWeight: 0.04306138
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6069,7 +6084,7 @@ MonoBehaviour:
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
-  SkidEnable: 30
+  SkidEnable: 5
   skidWidth: 0.2
   TextKMH: {fileID: 0}
   normalDir: {x: 0, y: 0, z: 0}
@@ -6083,7 +6098,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2883374083270441375}
   m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.3288958
   m_Height: 1.0746155
   m_Direction: 0
@@ -6797,7 +6812,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374083741684605
 TrailRenderer:
@@ -11872,15 +11886,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.11961023, y: -0.000000018141954, z: 0.0000000021856543, w: 0.9928209}
-  m_LocalPosition: {x: 0, y: 1, z: -4.0899963}
+  m_LocalRotation: {x: 0.26110038, y: 0.000000016609519, z: -0.000000004492593, w: 0.9653117}
+  m_LocalPosition: {x: 0, y: 0.99999976, z: -4.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2883374082666690259}
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.21, y: 0, z: 0}
 --- !u!114 &2883374084186844242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11899,10 +11913,10 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 19
   m_StandbyUpdate: 0
-  m_LookAt: {fileID: 2883374083270441380}
+  m_LookAt: {fileID: 922863616}
   m_Follow: {fileID: 2883374083270441380}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 70
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -12176,7 +12190,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374084253891453
 TrailRenderer:
@@ -17140,7 +17153,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374084391909097
 TrailRenderer:
