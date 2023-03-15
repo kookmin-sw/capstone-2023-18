@@ -49,10 +49,13 @@ public class AICarAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
+        //cp
         currentCheckpoint = 0;
-        agentRigidbody.velocity = Vector3.zero;
-        agentTransform.localRotation = Quaternion.Euler(0,180,0);
         totalCheckpoint = cm.totalCheckPoint();
+        
+        //위치정보 초기화
+        agentRigidbody.velocity = Vector3.zero;
+        agentTransform.localRotation = Quaternion.Euler(0,00,0);
         agentTransform.position = startPos.transform.position;
 
     }
@@ -78,6 +81,7 @@ public class AICarAgent : Agent
         input.Hmove = actionBuffers.ContinuousActions[0];
         input.Vmove = actionBuffers.ContinuousActions[1];
         input.Drift = actionBuffers.DiscreteActions[0] == 1 ? true : false;
+        input.Item = actionBuffers.DiscreteActions[1] == 1 ? true : false;
 
         
         if(input.Vmove < 0) AddReward(-0.1f);
@@ -93,6 +97,7 @@ public class AICarAgent : Agent
         continuousActions[0] = Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
         discreteActions[0] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
+        discreteActions[1] = Input.GetKey(KeyCode.Z) ? 1 : 0;
     }
 
 
