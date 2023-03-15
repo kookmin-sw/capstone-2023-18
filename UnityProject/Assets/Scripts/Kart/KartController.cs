@@ -61,6 +61,7 @@ public class KartController : MonoBehaviour
     public float BoostPower;
     public bool isBoost;
     public AnimationCurve BoostCurve;
+    public GameObject BoosterVFX;
     [Space]
 
 
@@ -334,6 +335,7 @@ public class KartController : MonoBehaviour
             float nowBoostTIme = BoostTime;
             float originSpeed = speed;
             speed = BoostPower;
+            BoosterVFX.SetActive(true);
             while (BoostTime > 0)
             {
                 float t = Time.fixedDeltaTime;
@@ -341,6 +343,7 @@ public class KartController : MonoBehaviour
                 yield return new WaitForSeconds(t);
 
             }
+            BoosterVFX.SetActive(false);
             speed = originSpeed;
             yield return new WaitForSeconds(0.1f);
             isBoost = false;
