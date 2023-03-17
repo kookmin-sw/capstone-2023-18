@@ -68,10 +68,11 @@ public class AICarAgent : Agent
         sensor.AddObservation(currentCheckpoint); //1 현재 체크포인트
         
         if (currentCheckpoint <= totalCheckpoint - 1) nextCheckpoint = cm.nextcheckPoint(currentCheckpoint); //다음 체크포인트
+        sensor.AddObservation(nextCheckpoint.transform.position);
         
         Vector3 diff;
         diff = nextCheckpoint.transform.position - agentTransform.position;
-        sensor.AddObservation(diff); //3 체크포인트와의 거리
+        
         sensor.AddObservation(diff.magnitude); //1
         
     }
@@ -83,11 +84,12 @@ public class AICarAgent : Agent
         input.Drift = actionBuffers.DiscreteActions[0] == 1 ? true : false;
         input.Item = actionBuffers.DiscreteActions[1] == 1 ? true : false;
 
+        if(input.Vmove > 0) AddReward(input.Vmove * 0.01f);
+        else AddReward(-0.1f);
         
-        if(input.Vmove < 0) AddReward(-0.1f);
-        float handleAd = Mathf.Abs(input.Hmove * 0.01f);
+        float handleAd = Mathf.Abs(input.Hmove * 0.001f);
         AddReward(-handleAd);
-        AddReward(-0.1f);
+        AddReward(-0.01f);
     }
     
     public override void Heuristic(in ActionBuffers actionOut)
@@ -105,7 +107,7 @@ public class AICarAgent : Agent
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            AddReward(-40f);
+            AddReward(-30f);
             //Debug.Log("wall");
             EndEpisode();
         }

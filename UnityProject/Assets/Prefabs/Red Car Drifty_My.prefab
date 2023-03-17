@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922863616}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: CamFollow
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -31,6 +31,103 @@ Transform:
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1933675277565216332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889115201797783986}
+  - component: {fileID: 230962017397388343}
+  - component: {fileID: 1248639009703628313}
+  - component: {fileID: 1432055542125366120}
+  m_Layer: 3
+  m_Name: pointerOnMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889115201797783986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933675277565216332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -50, z: 0}
+  m_LocalScale: {x: 20, y: 1, z: 20}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2883374083270441380}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &230962017397388343
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933675277565216332}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1248639009703628313
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933675277565216332}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1432055542125366120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933675277565216332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f9f7f1559f348e1833fd00c9737d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m: {fileID: 2100000, guid: 2fe18a912734246cbb52062682f58943, type: 2}
 --- !u!1 &2883374082431419465
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +142,7 @@ GameObject:
   - component: {fileID: 2883374082431419476}
   - component: {fileID: 2883374082431419467}
   - component: {fileID: 1532819247}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Skid marks  (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4972,7 +5069,7 @@ GameObject:
   - component: {fileID: 2883374082593027617}
   - component: {fileID: 2883374082593027619}
   - component: {fileID: 2883374082593027618}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5059,7 +5156,7 @@ GameObject:
   - component: {fileID: 2883374082666690270}
   - component: {fileID: 2883374082666690269}
   - component: {fileID: 2883374082666690268}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5151,7 +5248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082790556887}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5187,7 +5284,7 @@ GameObject:
   - component: {fileID: 2883374082941088766}
   - component: {fileID: 2883374082941088765}
   - component: {fileID: 2883374082941088764}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: RL rb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5344,7 +5441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082945823651}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -5381,7 +5478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082971558928}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: GroundRayPt
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -5414,7 +5511,7 @@ GameObject:
   - component: {fileID: 2883374082975332610}
   - component: {fileID: 2883374082975332620}
   - component: {fileID: 2883374082975332611}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5499,7 +5596,7 @@ GameObject:
   - component: {fileID: 2883374082981105131}
   - component: {fileID: 2883374082981105141}
   - component: {fileID: 2883374082981105140}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5582,7 +5679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083163150416}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Wmesh.RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5614,7 +5711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083195501438}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Wmesh.FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5653,7 +5750,7 @@ GameObject:
   - component: {fileID: 7989840992646412499}
   - component: {fileID: 395780279}
   - component: {fileID: 871288874}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Red Car Drifty_My
   m_TagString: Kart
   m_Icon: {fileID: 0}
@@ -5677,6 +5774,7 @@ Transform:
   - {fileID: 2883374084050909446}
   - {fileID: 2883374083881375311}
   - {fileID: 922863616}
+  - {fileID: 889115201797783986}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6208,7 +6306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083340779453}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Centre Of Mass
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -6241,7 +6339,7 @@ GameObject:
   - component: {fileID: 2883374083442014497}
   - component: {fileID: 2883374083442014499}
   - component: {fileID: 2883374083442014498}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6327,7 +6425,7 @@ GameObject:
   - component: {fileID: 2883374083528713782}
   - component: {fileID: 2883374083528713781}
   - component: {fileID: 2883374083528713780}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: FL rb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6487,7 +6585,7 @@ GameObject:
   - component: {fileID: 2883374083607669901}
   - component: {fileID: 2883374083607669900}
   - component: {fileID: 2883374083607669891}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: RR rb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6644,7 +6742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083617530299}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RED Car (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6676,7 +6774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083665382489}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Wmesh.RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6708,7 +6806,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083708030016}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: EngineAt
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -6739,7 +6837,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083710916254}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: TurningAt
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -6775,7 +6873,7 @@ GameObject:
   - component: {fileID: 2883374083741684604}
   - component: {fileID: 2883374083741684595}
   - component: {fileID: 1344655272}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Skid marks  (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11700,7 +11798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374083764203718}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Wmesh.FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11733,7 +11831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2883374083881375311}
   - component: {fileID: 2883374083881375304}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Vehicle Balence Helper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11803,7 +11901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084050909446}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11838,7 +11936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084054205132}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: mesh body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11872,7 +11970,7 @@ GameObject:
   - component: {fileID: 2883374084186844240}
   - component: {fileID: 2883374084186844242}
   - component: {fileID: 2883374084186844241}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Camera Controller CM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11886,8 +11984,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.26110038, y: -0.000000016609517, z: 0.000000004492592, w: 0.9653117}
-  m_LocalPosition: {x: 0, y: 1, z: -4.09}
+  m_LocalRotation: {x: 0.2611006, y: -2.6181303e-24, z: 7.081603e-25, w: 0.9653116}
+  m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11960,7 +12058,7 @@ GameObject:
   - component: {fileID: 2883374084187223744}
   - component: {fileID: 2883374084187223751}
   - component: {fileID: 2883374084187223750}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: FR rb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12117,7 +12215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084246512272}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Fric At
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -12153,7 +12251,7 @@ GameObject:
   - component: {fileID: 2883374084253891452}
   - component: {fileID: 2883374084253891443}
   - component: {fileID: 550998713}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: 'Skid marks '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17078,7 +17176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084365392967}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: FL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17116,7 +17214,7 @@ GameObject:
   - component: {fileID: 2883374084391909096}
   - component: {fileID: 2883374084391909103}
   - component: {fileID: 528750684}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Skid marks  (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22043,7 +22141,7 @@ GameObject:
   - component: {fileID: 2883374084417695357}
   - component: {fileID: 2883374084417695359}
   - component: {fileID: 2883374084417695358}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22126,7 +22224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084504904523}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: RL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22159,7 +22257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374084509140960}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: FR
   m_TagString: Untagged
   m_Icon: {fileID: 0}

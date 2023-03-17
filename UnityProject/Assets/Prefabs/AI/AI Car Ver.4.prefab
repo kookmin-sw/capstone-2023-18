@@ -87,8 +87,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -0.3, z: 0}
 --- !u!1 &2883374082431419465
 GameObject:
   m_ObjectHideFlags: 0
@@ -6287,7 +6287,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 1
   m_BehaviorType: 0
-  m_BehaviorName: testModel7
+  m_BehaviorName: AICar
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
