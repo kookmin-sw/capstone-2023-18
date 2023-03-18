@@ -5344,6 +5344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082945823651}
+  - component: {fileID: 124823381}
   m_Layer: 8
   m_Name: body
   m_TagString: Untagged
@@ -5372,6 +5373,20 @@ Transform:
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &124823381
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374082945823655}
+  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.3288958
+  m_Height: 1.0746155
+  m_Direction: 0
+  m_Center: {x: -0.016860962, y: -0.52, z: 1.0764813}
 --- !u!1 &2883374082971558935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,6 +5668,7 @@ GameObject:
   - component: {fileID: 7989840992646412499}
   - component: {fileID: 395780279}
   - component: {fileID: 871288874}
+  - component: {fileID: 348124099}
   m_Layer: 8
   m_Name: Red Car Drifty_My
   m_TagString: Kart
@@ -5739,6 +5755,7 @@ MonoBehaviour:
   Vmove: 0
   Drift: 0
   Item: 0
+  Return: 0
 --- !u!114 &7989840992646412499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6055,7 +6072,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hasItem: 1
-  BoostPower: 15000
+  BoostPower: 18000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
@@ -6100,7 +6117,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2883374083270441375}
   m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.3288958
   m_Height: 1.0746155
   m_Direction: 0
@@ -6201,6 +6218,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &348124099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374083270441375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e076498cf7f63f24aa3e79f83c0e9be6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2883374083340779452
 GameObject:
   m_ObjectHideFlags: 0

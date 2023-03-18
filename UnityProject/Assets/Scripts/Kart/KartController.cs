@@ -149,7 +149,7 @@ public class KartController : MonoBehaviour
             {
                 rb.drag = 10;
             }
-            else;
+            else
             {
                 rb.drag = dragAmount;
             }

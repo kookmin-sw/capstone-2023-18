@@ -8,6 +8,7 @@ public class KartInput : MonoBehaviour
     public float Vmove;
     public bool Drift;
     public bool Item;
+    public bool Return;
 
 
     // Update is called once per frame
@@ -19,8 +20,12 @@ public class KartInput : MonoBehaviour
             Hmove = Input.GetAxis("Horizontal");
             Vmove = Input.GetAxis("Vertical");
             Drift = Input.GetKey(KeyCode.LeftShift);
+            if(Input.GetKey(KeyCode.R))
+            {
+                Return = true;
+            }
 
-            if(Input.GetKeyDown(KeyCode.LeftControl))
+            if(Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
             {
                 Item = true;
             }
