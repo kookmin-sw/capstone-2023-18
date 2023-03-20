@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayUI : MonoBehaviour
 {
@@ -15,6 +16,14 @@ public class PlayUI : MonoBehaviour
     public TextMeshProUGUI BestTime;
     public TextMeshProUGUI Count;
 
+    [Space, Header("Image")]
+    public Image IconImage;
+    public Sprite[] ITEM_ICONS;
+
+    [HideInInspector]
+    KartController UserKart;
+
+
     private void Awake()
     {
         Init();
@@ -25,11 +34,14 @@ public class PlayUI : MonoBehaviour
         UI = GameObject.Find("Play_UI");
         FindTextObj();
         LoadCoponent();
+        LoadIconImages();
     }
 
     void LoadCoponent()
     {
         TimeCheck = GameObject.Find("StartingLIne").GetComponent<TimeCheck>();
+        UserKart = GameObject.FindWithTag("Kart").GetComponent<KartController>();
+        IconImage = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<Image>();
     }
 
     void FindTextObj()
@@ -39,12 +51,18 @@ public class PlayUI : MonoBehaviour
         Count = UI.transform.Find("Count").GetComponent<TextMeshProUGUI>();
     }
 
+    void LoadIconImages()
+    {
+        ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEM>().ICONS;
+    }
 
     // Update is called once per frame
     void Update()
     {
         //시간 업데이트
         ShowTime();
+        //아이템 업데이트
+        UpdateItem();
     }
 
 
@@ -63,5 +81,9 @@ public class PlayUI : MonoBehaviour
         BestTime.text = "BEST : " + TransferTime(TimeCheck.BestTime);
     }
 
-
+    //가지고 있는 아이템에 따라 UI 표시
+    void UpdateItem()
+    {
+        IconImage.sprite = ITEM_ICONS[(int)UserKart.hasItem];
+    }
 }

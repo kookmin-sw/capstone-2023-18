@@ -4,12 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-public enum ITEMS
-{
-    NONE = 0,
-    BOOST = 1
-}
 public class KartController : MonoBehaviour
 {
     [Space, Header("Suspension")]
@@ -56,7 +50,7 @@ public class KartController : MonoBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.BOOST;
+    public ITEMS hasItem = ITEMS.NONE;
 
     public float BoostPower;
     public bool isBoost;
@@ -329,6 +323,7 @@ public class KartController : MonoBehaviour
 
     IEnumerator OnBooster(float BoostTime)
     {
+        hasItem = ITEMS.NONE;
         if(!isBoost)
         {
             isBoost = true;
