@@ -11,14 +11,6 @@ public class PlayManager : MonoBehaviour
     public static bool isStart;
     public static float StartTime;
 
-    //플레이 진행도 체크
-    public static int Lap; // 몇 바퀴 진행중인지.
-    public static int MaxLap; // 몇 바퀴 맵인지.
-    public static int CP; // 현재 최대로 진행된 CheckPoint
-    public static int MaxCP; // 맵에 존재하는 최대 CheckPoint 개수.
-    public static CP[] nextCP;
-
-    public static bool isReturning;
 
     static void Init()
     {
@@ -32,12 +24,10 @@ public class PlayManager : MonoBehaviour
                 go = new GameObject { name = "@PlayManager" };
                 go.AddComponent<PlayUI>();
                 go.AddComponent<CountDown>();
-                go.AddComponent<PlayCheckPoint>();
             };
             s_Instance = go.GetComponent<PlayManager>();
         }
         isStart = false;
-        isReturning = false;
         StartTime = 3f;
     }
 
@@ -45,14 +35,6 @@ public class PlayManager : MonoBehaviour
     void Awake()
     {
         Init();
-    }
-
-    private void Update()
-    {
-        if(Lap == MaxLap)
-        {
-            Debug.Log("FINISH");
-        }
     }
 
 }
