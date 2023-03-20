@@ -27,7 +27,7 @@ public class CountDown : MonoBehaviour
         }
     }
 
-    IEnumerator StartGame()
+    public IEnumerator StartGame()
     {
         Debug.Log("Start Game");
         PlayUI UI = GameObject.Find("@PlayManager").GetComponent<PlayUI>();
