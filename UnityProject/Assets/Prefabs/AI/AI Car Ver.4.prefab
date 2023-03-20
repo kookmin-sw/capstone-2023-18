@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2791713734638954391
+--- !u!1 &922863615
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6745093406843316222}
-  - component: {fileID: 1715036408062329896}
-  - component: {fileID: 7661719871048351858}
+  - component: {fileID: 922863616}
+  m_Layer: 6
+  m_Name: CamFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &922863616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922863615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2883374083270441380}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1743974973144904183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4866149920699638388}
+  - component: {fileID: 3764221390824334782}
+  - component: {fileID: 3158885788123828210}
   m_Layer: 6
   m_Name: Sensor
   m_TagString: Untagged
@@ -18,46 +49,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6745093406843316222
+--- !u!4 &4866149920699638388
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2791713734638954391}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0005493164, y: -0.43078887, z: -0.108566284}
+  m_GameObject: {fileID: 1743974973144904183}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2883374083270441380}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1715036408062329896
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2791713734638954391}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7661719871048351858
+--- !u!114 &3764221390824334782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2791713734638954391}
+  m_GameObject: {fileID: 1743974973144904183}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e20b6ff985074499b3917dcc1ff7f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &3158885788123828210
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743974973144904183}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: -0.3, z: 0}
 --- !u!1 &2883374082431419465
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +140,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374082431419477
 TrailRenderer:
@@ -5155,20 +5185,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: -3, z: 0}
   m_LookaheadTime: 0.5
   m_LookaheadSmoothing: 1
   m_LookaheadIgnoreY: 0
   m_HorizontalDamping: 0
   m_VerticalDamping: 0.2
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.65
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_SoftZoneWidth: 0
   m_SoftZoneHeight: 2
   m_BiasX: 0
-  m_BiasY: 0
+  m_BiasY: 0.0059999824
   m_CenterOnActivate: 1
 --- !u!1 &2883374082790556886
 GameObject:
@@ -5372,7 +5402,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2883374082945823651}
-  - component: {fileID: 826793783}
   m_Layer: 6
   m_Name: body
   m_TagString: Untagged
@@ -5401,20 +5430,6 @@ Transform:
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &826793783
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374082945823655}
-  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.3288958
-  m_Height: 1.0746155
-  m_Direction: 0
-  m_Center: {x: -0.016860962, y: -0.52, z: 1.0764813}
 --- !u!1 &2883374082971558935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,12 +5711,12 @@ GameObject:
   - component: {fileID: 7989840992646412499}
   - component: {fileID: 395780279}
   - component: {fileID: 871288874}
-  - component: {fileID: 9833107359363191}
-  - component: {fileID: 6856270511749702043}
-  - component: {fileID: 2432718588667552243}
-  - component: {fileID: 6928451187445135724}
+  - component: {fileID: 1701681319580516265}
+  - component: {fileID: 5355961318763161207}
+  - component: {fileID: 7905337338500693451}
+  - component: {fileID: -2898369469765924554}
   m_Layer: 6
-  m_Name: AI Car Ver.2
+  m_Name: AI Car Ver.4
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5723,7 +5738,8 @@ Transform:
   - {fileID: 2883374082945823651}
   - {fileID: 2883374084050909446}
   - {fileID: 2883374083881375311}
-  - {fileID: 6745093406843316222}
+  - {fileID: 922863616}
+  - {fileID: 4866149920699638388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5805,11 +5821,15 @@ MonoBehaviour:
   CentreOfMass: {fileID: 2883374083340779453}
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
-  speed: 5000
-  DownValue: 2000
+  rb: {fileID: 0}
+  MaxSpeed: 100
+  speed: 6500
+  DownValue: 500
   turn: 700
-  friction: 100
-  dragAmount: 40
+  friction: 1000
+  SideFriction: 200
+  dragAngularAmount: 55
+  dragAmount: 2
   TurnAngle: 30
   maxRayLength: 0.6128212
   slerpTime: 0.2
@@ -5852,21 +5872,45 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.40185463
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.5472544
+      outSlope: 1.5472544
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.05054709
+    - serializedVersion: 3
+      time: 2.0022812
+      value: 1.4958602
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SideFrictionCurve:
+    serializedVersion: 2
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -5960,18 +6004,18 @@ MonoBehaviour:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 0
+      inSlope: -1
+      outSlope: -1
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -6073,32 +6117,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hasItem: 1
-  BoostPower: 9000
+  BoostPower: 15000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.25
-      inSlope: 2
-      outSlope: 2
+      value: 0.99864686
+      inSlope: -2.6806524
+      outSlope: -2.6806524
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.23591219
+      outWeight: 0.04306138
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6112,7 +6147,7 @@ MonoBehaviour:
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
-  SkidEnable: 30
+  SkidEnable: 5
   skidWidth: 0.2
   TextKMH: {fileID: 0}
   normalDir: {x: 0, y: 0, z: 0}
@@ -6227,7 +6262,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &9833107359363191
+--- !u!114 &1701681319580516265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6240,24 +6275,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 2
-      BranchSizes: 02000000
+      BranchSizes: 0200000002000000
     VectorActionSize: 
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 1
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: AICar
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
---- !u!114 &6856270511749702043
+--- !u!114 &5355961318763161207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6272,7 +6307,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 4000
   Hmove: 0
   Vmove: 0
   Drift: 0
@@ -6281,7 +6316,7 @@ MonoBehaviour:
   nextCheckpoint: {fileID: 0}
   startPos: {fileID: 0}
   totalCheckpoint: 0
---- !u!114 &2432718588667552243
+--- !u!114 &7905337338500693451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6295,7 +6330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &6928451187445135724
+--- !u!114 &-2898369469765924554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6307,15 +6342,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: WallSensor
-  m_DetectableTags: []
-  m_RaysPerDirection: 3
-  m_MaxRayDegrees: 70
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Wall
+  - Checkpoint
+  - Goal
+  m_RaysPerDirection: 10
+  m_MaxRayDegrees: 120
   m_SphereCastRadius: 0.5
-  m_RayLength: 20
+  m_RayLength: 100
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967048
+    m_Bits: 2147483528
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
@@ -6345,7 +6383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374083340779452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.852, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6934,7 +6972,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374083741684605
 TrailRenderer:
@@ -11885,7 +11922,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374083881375310}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 650bcb40d5371604bb118d92f8a88259, type: 3}
   m_Name: 
@@ -12009,7 +12046,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.11961024, y: 0.000000021208123, z: -0.0000000025550517, w: 0.9928209}
+  m_LocalRotation: {x: 0.2611006, y: 2.6181303e-24, z: -7.081603e-25, w: 0.9653116}
   m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12017,7 +12054,7 @@ Transform:
   - {fileID: 2883374082666690259}
   m_Father: {fileID: 2883374083270441380}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.21, y: 0, z: 0}
 --- !u!114 &2883374084186844242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12036,10 +12073,10 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 19
   m_StandbyUpdate: 0
-  m_LookAt: {fileID: 2883374083270441380}
+  m_LookAt: {fileID: 922863616}
   m_Follow: {fileID: 2883374083270441380}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 70
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -12313,7 +12350,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374084253891453
 TrailRenderer:
@@ -17277,7 +17313,6 @@ MonoBehaviour:
   kartController: {fileID: 7989840992646412499}
   drifting: 0
   driftTime: 0
-  driftTimeAmount: 0.5
   driftSound: {fileID: 0}
 --- !u!96 &2883374084391909097
 TrailRenderer:
