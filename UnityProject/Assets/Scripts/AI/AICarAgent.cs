@@ -50,7 +50,6 @@ public class AICarAgent : Agent
     public override void OnEpisodeBegin()
     {
         //cp
-        
         currentCheckpoint = 0;
         totalCheckpoint = cm.totalCheckPoint();
         
@@ -85,7 +84,7 @@ public class AICarAgent : Agent
         input.Drift = actionBuffers.DiscreteActions[0] == 1 ? true : false;
         input.Item = actionBuffers.DiscreteActions[1] == 1 ? true : false;
 
-        if(input.Vmove > 0) AddReward(input.Vmove * 0.001f);
+        if(input.Vmove > 0) AddReward(input.Vmove * 0.01f);
         else AddReward(-0.1f);
         
         float handleAd = Mathf.Abs(input.Hmove * 0.001f);
@@ -104,13 +103,13 @@ public class AICarAgent : Agent
     }
 
 
-    public void OnCollisionEnter (Collision collision)
+    public void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            AddReward(-50f);
+            AddReward(-30f);
             //Debug.Log("wall");
-            //EndEpisode();
+            EndEpisode();
         }
     }
 }
