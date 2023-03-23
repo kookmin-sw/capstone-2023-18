@@ -17,8 +17,8 @@ public class KartInput : MonoBehaviour
         if (!CompareTag("AI"))
         {
             Debug.Log("Not AI");
-            Hmove = Input.GetAxis("Horizontal");
-            Vmove = Input.GetAxis("Vertical");
+            Hmove = Input.GetAxisRaw("Horizontal");
+            Vmove = Input.GetAxisRaw("Vertical");
             Drift = Input.GetKey(KeyCode.LeftShift);
             if(Input.GetKey(KeyCode.R))
             {

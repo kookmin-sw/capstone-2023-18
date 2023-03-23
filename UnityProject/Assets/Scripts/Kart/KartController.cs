@@ -381,7 +381,7 @@ public class KartController : MonoBehaviour
             }
 
 
-            /*
+            
             Gizmos.color = Color.red;
             foreach (Transform mesh in TireMeshes)
             {
@@ -405,7 +405,7 @@ public class KartController : MonoBehaviour
             float wheelRadius = TurnTires[0].parent.GetComponent<SphereCollider>().radius;
             float wheelYPosition = TurnTires[0].parent.parent.localPosition.y + TurnTires[0].parent.localPosition.y;
             maxRayLength = (groundCheck.localPosition.y - wheelYPosition + (0.05f + wheelRadius));
-            */
+            
         }
 
     }

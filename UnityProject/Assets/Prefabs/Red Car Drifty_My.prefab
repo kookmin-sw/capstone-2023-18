@@ -29,7 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2883374083270441380}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2883374082431419465
 GameObject:
@@ -5691,7 +5691,6 @@ Transform:
   - {fileID: 2883374084186844240}
   - {fileID: 2883374082945823651}
   - {fileID: 2883374084050909446}
-  - {fileID: 2883374083881375311}
   - {fileID: 922863616}
   - {fileID: 3119848720430165796}
   m_Father: {fileID: 0}
@@ -11754,77 +11753,6 @@ Transform:
   m_Father: {fileID: 2883374084509140960}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2883374083881375310
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2883374083881375311}
-  - component: {fileID: 2883374083881375304}
-  m_Layer: 0
-  m_Name: Vehicle Balence Helper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2883374083881375311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374083881375310}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2883374083270441380}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2883374083881375304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374083881375310}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650bcb40d5371604bb118d92f8a88259, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vehicleBody: {fileID: 2883374083270441369}
-  LeanTorqueAmount: 4000
-  BalanceTorqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -0.93440956
-      outSlope: -0.93440956
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.0380805
-    - serializedVersion: 3
-      time: 1
-      value: 0.48969078
-      inSlope: -0.84803766
-      outSlope: -0.84803766
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.03684205
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  AlwaysAddTorque: 0
 --- !u!1 &2883374084050909445
 GameObject:
   m_ObjectHideFlags: 0
@@ -11917,8 +11845,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.26110038, y: -0.000000016609517, z: 0.000000004492592, w: 0.9653117}
-  m_LocalPosition: {x: 0, y: 0.9999999, z: -4.09}
+  m_LocalRotation: {x: 0.2611006, y: -0, z: -0, w: 0.9653116}
+  m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36680,7 +36608,7 @@ Transform:
   - {fileID: 3119848721409728254}
   - {fileID: 3119848720351961900}
   m_Father: {fileID: 2883374083270441380}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!198 &3119848720430165794
 ParticleSystem:
