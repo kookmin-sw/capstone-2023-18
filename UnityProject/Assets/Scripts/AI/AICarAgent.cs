@@ -29,8 +29,9 @@ public class AICarAgent : Agent
     public int totalCheckpoint;
     private Transform agentTransform;
     private Rigidbody agentRigidbody;
+    private Sensor sensor;
 
-
+    public int topCP = 0;
     public override void Initialize()
     {
         currentCheckpoint = 0;
@@ -41,6 +42,7 @@ public class AICarAgent : Agent
         input = GetComponent<KartInput>();
         agentTransform = GetComponent<Transform>();
         agentRigidbody = GetComponent<Rigidbody>();
+        sensor = GetComponentInChildren<Sensor>();
         
         
         Hmove = input.Hmove;
@@ -49,14 +51,21 @@ public class AICarAgent : Agent
     }
     public override void OnEpisodeBegin()
     {
-        //cp
+
+        if (topCP < currentCheckpoint)
+        {
+            topCP = currentCheckpoint;
+            Debug.Log(topCP);    
+        }
         
+        //cp
+        sensor.nowTime = 0f;
         currentCheckpoint = 0;
         totalCheckpoint = cm.totalCheckPoint();
         
         //위치정보 초기화
         agentRigidbody.velocity = Vector3.zero;
-        agentTransform.localRotation = Quaternion.Euler(0,00,0);
+        agentTransform.localRotation = Quaternion.Euler(0,0,0);
         agentTransform.position = startPos.transform.position;
 
     }
@@ -69,7 +78,7 @@ public class AICarAgent : Agent
         sensor.AddObservation(currentCheckpoint); //1 현재 체크포인트
         
         if (currentCheckpoint <= totalCheckpoint - 1) nextCheckpoint = cm.nextcheckPoint(currentCheckpoint); //다음 체크포인트
-        sensor.AddObservation(nextCheckpoint.transform.position);
+        sensor.AddObservation(nextCheckpoint.transform.position); //3
         
         Vector3 diff;
         diff = nextCheckpoint.transform.position - agentTransform.position;
@@ -80,37 +89,37 @@ public class AICarAgent : Agent
     
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
+        input.Vmove = 1f;
         input.Hmove = actionBuffers.ContinuousActions[0];
-        input.Vmove = actionBuffers.ContinuousActions[1];
-        input.Drift = actionBuffers.DiscreteActions[0] == 1 ? true : false;
-        input.Item = actionBuffers.DiscreteActions[1] == 1 ? true : false;
+        input.Drift = actionBuffers.ContinuousActions[1] == 1 ? true : false;
+        input.Item = actionBuffers.ContinuousActions[2] == 1 ? true : false;
 
-        if(input.Vmove > 0) AddReward(input.Vmove * 0.001f);
-        else AddReward(-0.1f);
         
-        float handleAd = Mathf.Abs(input.Hmove * 0.001f);
+        
+        
+        float handleAd = Mathf.Abs(input.Hmove);
         AddReward(-handleAd);
-        AddReward(-0.01f);
+        AddReward(-1f/MaxStep);
     }
     
     public override void Heuristic(in ActionBuffers actionOut)
     {
         ActionSegment<float> continuousActions = actionOut.ContinuousActions;
-        ActionSegment<int> discreteActions = actionOut.DiscreteActions;
         continuousActions[0] = Input.GetAxis("Horizontal");
-        continuousActions[1] = Input.GetAxis("Vertical");
-        discreteActions[0] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
-        discreteActions[1] = Input.GetKey(KeyCode.Z) ? 1 : 0;
+        continuousActions[1] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0 ;
+        continuousActions[2] = Input.GetKey(KeyCode.Z) ? 1 : 0;
+        //continuousActions[3] = Input.GetKey(KeyCode.W) ? 1f : 0f;
     }
-
-
-    public void OnCollisionEnter (Collision collision)
+    public void OnCollisionStay (Collision collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
             AddReward(-50f);
             //Debug.Log("wall");
-            //EndEpisode();
+            //AddReward(-1f * sensor.nowTime * 0.1f);
+            EndEpisode();
         }
     }
+
+    
 }

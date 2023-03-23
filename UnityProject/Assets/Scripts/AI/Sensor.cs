@@ -7,7 +7,7 @@ using UnityEngine;
 public class Sensor : MonoBehaviour
 {
     private AICarAgent script;
-    private float nowTime;
+    public float nowTime;
     
     public void Start()
     {
@@ -18,10 +18,11 @@ public class Sensor : MonoBehaviour
     {
         nowTime += Time.fixedDeltaTime;
 
-        if (nowTime > 10f)
+        
+        if (nowTime > 3f)
         {
             nowTime = 0f;
-            script.AddReward(-20f);
+            script.AddReward(-60f);
             script.EndEpisode();
         }
         
@@ -36,18 +37,17 @@ public class Sensor : MonoBehaviour
             
             if (other.gameObject.GetComponent<cp>().currentCnt == script.currentCheckpoint)
             {
-                Debug.Log(script.currentCheckpoint);
                 script.currentCheckpoint = other.gameObject.GetComponent<cp>().nextCnt;
-                script.AddReward(2f * (script.currentCheckpoint + 1));
+                script.AddReward(+20f);
             }
 
             else
             {
-                script.AddReward(-50f);
+                script.AddReward(-100f);
+                //script.AddReward(-1f * nowTime * 0.1f);
                 script.EndEpisode();
             }
             
-            script.AddReward(-1f * nowTime * 0.1f);
             
             nowTime = 0f;
         }
@@ -60,15 +60,14 @@ public class Sensor : MonoBehaviour
         {
             if (script.currentCheckpoint < script.totalCheckpoint-1)
             {
-                Debug.Log("wrong Way");
-                script.AddReward(-30f);
+                script.AddReward(-200f);
             }
             else
             {
-                Debug.Log("Goal");
                 script.SetReward(script.totalCheckpoint * 5f);
             }
             script.EndEpisode();
         }
     }
+    
 }
