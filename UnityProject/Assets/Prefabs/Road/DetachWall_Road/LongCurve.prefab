@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6906043369088434494}
   - component: {fileID: 4434209118271244481}
   - component: {fileID: 8963486733036155314}
+  - component: {fileID: 4095042543533640440}
   m_Layer: 0
   m_Name: LongCurve_Wall
   m_TagString: Untagged
@@ -1775,6 +1776,20 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!64 &4095042543533640440
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564497098957498161}
+  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2867042089724824923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,6 +1802,7 @@ GameObject:
   - component: {fileID: 1958446464943986756}
   - component: {fileID: 4380097976262716558}
   - component: {fileID: 2248817343120946119}
+  - component: {fileID: 6410500565319142453}
   m_Layer: 0
   m_Name: LongCurve
   m_TagString: Untagged
@@ -2106,3 +2122,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!64 &6410500565319142453
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867042089724824923}
+  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
