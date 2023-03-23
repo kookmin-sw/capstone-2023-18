@@ -1,0 +1,65 @@
+{
+    "AICar": {
+        "checkpoints": [
+            {
+                "steps": 10684829,
+                "file_path": "results/testModel10/AICar/AICar-10684829.onnx",
+                "reward": 202.9067804479599,
+                "creation_time": 1679127873.2687712,
+                "auxillary_file_paths": [
+                    "results/testModel10/AICar/AICar-10684829.pt"
+                ]
+            },
+            {
+                "steps": 10894137,
+                "file_path": "results/testModel10/AICar/AICar-10894137.onnx",
+                "reward": 173.4115858986264,
+                "creation_time": 1679128175.613742,
+                "auxillary_file_paths": [
+                    "results/testModel10/AICar/AICar-10894137.pt"
+                ]
+            },
+            {
+                "steps": 10947933,
+                "file_path": "results/testModel10/AICar/AICar-10947933.onnx",
+                "reward": 388.88049967148726,
+                "creation_time": 1679128334.661563,
+                "auxillary_file_paths": [
+                    "results/testModel10/AICar/AICar-10947933.pt"
+                ]
+            },
+            {
+                "steps": 10958204,
+                "file_path": "results/testModel10/AICar/AICar-10958204.onnx",
+                "reward": null,
+                "creation_time": 1679128421.923713,
+                "auxillary_file_paths": [
+                    "results/testModel10/AICar/AICar-10958204.pt"
+                ]
+            },
+            {
+                "steps": 10965360,
+                "file_path": "results/testModel10/AICar/AICar-10965360.onnx",
+                "reward": -55.53256592665904,
+                "creation_time": 1679128477.4083068,
+                "auxillary_file_paths": [
+                    "results/testModel10/AICar/AICar-10965360.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 10965360,
+            "file_path": "results/testModel10/AICar.onnx",
+            "reward": -55.53256592665904,
+            "creation_time": 1679128477.4083068,
+            "auxillary_file_paths": [
+                "results/testModel10/AICar/AICar-10965360.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.8.0.post3"
+    }
+}

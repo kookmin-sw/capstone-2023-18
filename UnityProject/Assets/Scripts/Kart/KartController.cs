@@ -4,12 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-public enum ITEMS
-{
-    NONE = 0,
-    BOOST = 1
-}
 public class KartController : MonoBehaviour
 {
     [Space, Header("Suspension")]
@@ -56,11 +50,12 @@ public class KartController : MonoBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.BOOST;
+    public ITEMS hasItem = ITEMS.NONE;
 
     public float BoostPower;
     public bool isBoost;
     public AnimationCurve BoostCurve;
+    public GameObject BoosterVFX;
     [Space]
 
 
@@ -148,7 +143,7 @@ public class KartController : MonoBehaviour
             {
                 rb.drag = 10;
             }
-            else;
+            else
             {
                 rb.drag = dragAmount;
             }
@@ -328,12 +323,14 @@ public class KartController : MonoBehaviour
 
     IEnumerator OnBooster(float BoostTime)
     {
+        hasItem = ITEMS.NONE;
         if(!isBoost)
         {
             isBoost = true;
             float nowBoostTIme = BoostTime;
             float originSpeed = speed;
             speed = BoostPower;
+            BoosterVFX.SetActive(true);
             while (BoostTime > 0)
             {
                 float t = Time.fixedDeltaTime;
@@ -341,6 +338,7 @@ public class KartController : MonoBehaviour
                 yield return new WaitForSeconds(t);
 
             }
+            BoosterVFX.SetActive(false);
             speed = originSpeed;
             yield return new WaitForSeconds(0.1f);
             isBoost = false;
@@ -383,7 +381,7 @@ public class KartController : MonoBehaviour
             }
 
 
-
+            
             Gizmos.color = Color.red;
             foreach (Transform mesh in TireMeshes)
             {
@@ -407,7 +405,7 @@ public class KartController : MonoBehaviour
             float wheelRadius = TurnTires[0].parent.GetComponent<SphereCollider>().radius;
             float wheelYPosition = TurnTires[0].parent.parent.localPosition.y + TurnTires[0].parent.localPosition.y;
             maxRayLength = (groundCheck.localPosition.y - wheelYPosition + (0.05f + wheelRadius));
-
+            
         }
 
     }
