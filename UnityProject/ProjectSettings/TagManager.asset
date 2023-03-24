@@ -11,17 +11,19 @@ TagManager:
   - Goal
   - Sensor
   - Kart
-  - DeadZone
+  - BoosterPad
+  - Guide
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - AICar
   - Map
   - Track
+  - pointer
   - 
   - 
   - 
@@ -43,7 +45,6 @@ TagManager:
   - 
   - 
   - 
-  - IgnoreObject
   - BackGround
   m_SortingLayers:
   - name: Default

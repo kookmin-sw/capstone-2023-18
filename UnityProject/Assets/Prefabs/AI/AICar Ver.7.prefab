@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9125922393684890136}
   - component: {fileID: 8531186830395426841}
+  - component: {fileID: 8358167918778838599}
   m_Layer: 6
   m_Name: Sensor
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowTime: 0
+--- !u!135 &8358167918778838599
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498911652051838401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1933675277565216332
 GameObject:
   m_ObjectHideFlags: 0
@@ -5799,9 +5813,8 @@ GameObject:
   - component: {fileID: 1981116012066203718}
   - component: {fileID: 4596228960898776754}
   - component: {fileID: 5895555951478002865}
-  - component: {fileID: 5514407368891637666}
   m_Layer: 6
-  m_Name: AICar Ver.5
+  m_Name: AICar Ver.7
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6364,7 +6377,7 @@ MonoBehaviour:
     VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 2
+      m_NumContinuousActions: 1
       BranchSizes: 0200000002000000
     VectorActionSize: 
     VectorActionDescriptions: []
@@ -6402,6 +6415,7 @@ MonoBehaviour:
   nextCheckpoint: {fileID: 0}
   startPos: {fileID: 0}
   totalCheckpoint: 0
+  topCP: 0
 --- !u!114 &4596228960898776754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6431,44 +6445,16 @@ MonoBehaviour:
   m_SensorName: TrackSensor
   m_DetectableTags:
   - Wall
-  m_RaysPerDirection: 10
-  m_MaxRayDegrees: 120
+  m_RaysPerDirection: 5
+  m_MaxRayDegrees: 60
   m_SphereCastRadius: 0.5
-  m_RayLength: 10
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 2147482880
   m_ObservationStacks: 1
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 0.9022669, g: 0.9339623, b: 0.048460312, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
---- !u!114 &5514407368891637666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374083270441375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: WaySensor
-  m_DetectableTags:
-  - Checkpoint
-  - Goal
-  m_RaysPerDirection: 5
-  m_MaxRayDegrees: 70
-  m_SphereCastRadius: 0.5
-  m_RayLength: 100
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 2147482752
-  m_ObservationStacks: 1
-  rayHitColor: {r: 0.07717218, g: 0.8962264, b: 0.029592399, a: 1}
-  rayMissColor: {r: 0.030526895, g: 0.5923983, b: 0.9245283, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
 --- !u!1 &2883374083340779452

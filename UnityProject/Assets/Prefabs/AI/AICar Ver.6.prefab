@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9125922393684890136}
   - component: {fileID: 8531186830395426841}
+  - component: {fileID: 8358167918778838599}
   m_Layer: 6
   m_Name: Sensor
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowTime: 0
+--- !u!135 &8358167918778838599
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498911652051838401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1933675277565216332
 GameObject:
   m_ObjectHideFlags: 0
@@ -5801,7 +5815,7 @@ GameObject:
   - component: {fileID: 5895555951478002865}
   - component: {fileID: 5514407368891637666}
   m_Layer: 6
-  m_Name: AICar Ver.5
+  m_Name: AICar Ver.6
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6364,7 +6378,7 @@ MonoBehaviour:
     VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 2
+      m_NumContinuousActions: 1
       BranchSizes: 0200000002000000
     VectorActionSize: 
     VectorActionDescriptions: []
@@ -6434,7 +6448,7 @@ MonoBehaviour:
   m_RaysPerDirection: 10
   m_MaxRayDegrees: 120
   m_SphereCastRadius: 0.5
-  m_RayLength: 10
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 2147482880
