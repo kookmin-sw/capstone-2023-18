@@ -91,8 +91,8 @@ public class AICarAgent : Agent
     {
         input.Vmove = 1f;
         input.Hmove = actionBuffers.ContinuousActions[0];
-        input.Drift = actionBuffers.ContinuousActions[1] == 1 ? true : false;
-        input.Item = actionBuffers.ContinuousActions[2] == 1 ? true : false;
+        input.Drift = actionBuffers.DiscreteActions[0] == 1 ? true : false;
+        input.Item = actionBuffers.DiscreteActions[1] == 1 ? true : false;
 
         
         
@@ -105,10 +105,11 @@ public class AICarAgent : Agent
     public override void Heuristic(in ActionBuffers actionOut)
     {
         ActionSegment<float> continuousActions = actionOut.ContinuousActions;
+        ActionSegment<int> discreteActions = actionOut.DiscreteActions;
         continuousActions[0] = Input.GetAxis("Horizontal");
-        continuousActions[1] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0 ;
-        continuousActions[2] = Input.GetKey(KeyCode.Z) ? 1 : 0;
-        //continuousActions[3] = Input.GetKey(KeyCode.W) ? 1f : 0f;
+        //continuousActions[1] = Input.GetAxis("Vertical");
+        discreteActions[0] = Input.GetKey(KeyCode.LeftShift) ? 1 : 0;
+        discreteActions[1] = Input.GetKey(KeyCode.Z) ? 1 : 0;
     }
     public void OnCollisionStay (Collision collision)
     {
