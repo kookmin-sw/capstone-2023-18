@@ -10,7 +10,7 @@ public class ReturnToKart : MonoBehaviour
     void Start()
     {
         input = transform.GetComponent<KartInput>();
-        playcheckpoint = GameObject.Find("@PlayManager").GetComponent<PlayCheckPoint>();
+        //playcheckpoint = GameObject.Find("@PlayManager").GetComponent<PlayCheckPoint>();
     }
 
     // Update is called once per frame
