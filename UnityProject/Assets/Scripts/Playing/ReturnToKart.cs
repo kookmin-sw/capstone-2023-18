@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class ReturnToKart : MonoBehaviour
+public class ReturnToKart : NetworkBehaviour
 {
-    KartInput input;
+    NetKartInput input;
     PlayCheckPoint playcheckpoint;
 
     void Start()
     {
-        input = transform.GetComponent<KartInput>();
-        playcheckpoint = GameObject.Find("@PlayManager").GetComponent<PlayCheckPoint>();
+        if (IsOwner)
+        {
+            input = gameObject.GetComponent<NetKartInput>();
+            playcheckpoint = GameObject.Find("@PlayManager").GetComponent<PlayCheckPoint>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(input.Return)
+        if(IsOwner && input.Return.Value)
         {
-            input.Return = false;
+            input.Return.Value = false;
             StartCoroutine(playcheckpoint.ReturnToCP());
         }
     }

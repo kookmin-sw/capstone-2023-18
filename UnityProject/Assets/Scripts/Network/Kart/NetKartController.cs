@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-public class KartController : MonoBehaviour
+
+public class NetKartController : NetworkBehaviour
 {
     [Space, Header("Suspension")]
     public float SuspensionDistance = 0.2f;
@@ -60,7 +60,7 @@ public class KartController : MonoBehaviour
 
 
 
-    private float speedValue, SideFricValue,  fricValue, turnValue, curveVelocity, brakeInput;
+    private float speedValue, SideFricValue, fricValue, turnValue, curveVelocity, brakeInput;
     [HideInInspector]
     public Vector3 carVelocity;
     [HideInInspector]
@@ -74,20 +74,18 @@ public class KartController : MonoBehaviour
     public float SkidEnable = 20f;
     public float skidWidth = 0.12f;
     private float frictionAngle;
-    public Text TextKMH;
 
 
     [HideInInspector]
     public Vector3 normalDir;
 
-    public KartInput input;
+    public NetKartInput input;
 
     private void Awake()
     {
-        input = GetComponent<KartInput>();
-
+        input = GetComponent<NetKartInput>();
         rb = GetComponent<Rigidbody>();
-
+        rb.useGravity = false;
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
@@ -95,96 +93,86 @@ public class KartController : MonoBehaviour
 
     void FixedUpdate()
     {
-        carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
-
-        curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
-
-        //inputs
-        float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
-        float speedInput = speed *  input.Vmove * Time.fixedDeltaTime * 1000;
-
-        //helping veriables
-
-        speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-        if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
+        if (IsServer)
         {
-            speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-        }
-        SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
+            carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
+
+            curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
+
+            rb.AddForce(Vector3.up * (-30) * rb.mass);
+
+            //inputs
+            float turnInput = turn * input.Hmove.Value * Time.fixedDeltaTime * 1000;
+            float speedInput = speed * input.Vmove.Value * Time.fixedDeltaTime * 1000;
+
+            //helping veriables
+
+            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
+            {
+                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            }
+            SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
+            fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
             //friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude))+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-        turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
+            turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
-        //grounded check
-        if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
-        {
-            accelarationLogic();
-            turningLogic();
-            frictionLogic();
-            brakeLogic();
-            AddAngularDrag();
-            OnDrift();
-            //for drift behaviour
-            //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
-
-            //draws green ground checking ray ....ingnore
-            Debug.DrawLine(groundCheck.position, hit.point, Color.green);
-            grounded = true;
-
-            //rb.centerOfMass = Vector3.zero;
-
-            normalDir = hit.normal;
-
-            //DownForce
-            rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
-
-            //Non-Slip Code
-            if (carVelocity.magnitude < 1)
+            //grounded check
+            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                rb.drag = 10;
+                Debug.Log("Grounded");
+                accelarationLogic();
+                turningLogic();
+                frictionLogic();
+                brakeLogic();
+                AddAngularDrag();
+                OnDrift();
+                //for drift behaviour
+                //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
+
+                //draws green ground checking ray ....ingnore
+                Debug.DrawLine(groundCheck.position, hit.point, Color.green);
+                grounded = true;
+
+                //rb.centerOfMass = Vector3.zero;
+
+                normalDir = hit.normal;
+
+                //DownForce
+                rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
+
+                //Non-Slip Code
+                if (carVelocity.magnitude < 1)
+                {
+                    rb.drag = 2;
+                }
+                else
+                {
+                    rb.drag = dragAmount;
+                }
             }
-            else
+            else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                rb.drag = dragAmount;
+                Debug.Log("air");
+                grounded = false;
+                rb.drag = 1f;
+                rb.angularDrag = 10f;
+                //rb.centerOfMass = CentreOfMass.localPosition;
+
             }
+
         }
-        else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
-        {
-            Debug.Log("air");
-            grounded = false;
-            rb.drag = 1f;
-            rb.angularDrag = 10f;
-            rb.centerOfMass = CentreOfMass.localPosition;
-            /*
-            if (!airDrag)
-            {
-                rb.angularDrag = 0.1f;
-            }
-            */
-        }
-
-
-
     }
 
     void Update()
     {
-        tireVisuals();
-        audioControl();
-        UseItem();
-
-        //test
-        if (TextKMH != null)
+        if (IsOwner)
         {
-            TextKMH.text = (carVelocity.magnitude * 2).ToString();
-            //
-            //(carVelocity.magnitude * 2).ToString();
+            tireVisuals();
+            audioControl();
+            UseItem();
         }
-            //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
-            //((int)carVelocity.z * 10).ToString();
     }
-
-
     public void audioControl()
     {
         engineSound.pitch = 2 * engineCurve.Evaluate(curveVelocity);
@@ -203,18 +191,18 @@ public class KartController : MonoBehaviour
         foreach (Transform FM in TurnTires)
         {
             FM.localRotation = Quaternion.Slerp(FM.localRotation, Quaternion.Euler(FM.localRotation.eulerAngles.x,
-                               TurnAngle * input.Hmove, FM.localRotation.eulerAngles.z), slerpTime);
+                               TurnAngle * input.Hmove.Value, FM.localRotation.eulerAngles.z), slerpTime);
         }
     }
 
     public void accelarationLogic()
     {
         //speed control
-        if (input.Vmove > 0.1f)
+        if (input.Vmove.Value > 0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
-        if (input.Vmove < -0.1f)
+        if (input.Vmove.Value < -0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
@@ -228,7 +216,7 @@ public class KartController : MonoBehaviour
             //turningAt.
             rb.AddTorque(transform.up * turnValue);
         }
-        else if(carVelocity.z < 0.001f)
+        else if (carVelocity.z < 0.001f)
         {
             rb.AddTorque(transform.up * -turnValue);
         }
@@ -236,7 +224,7 @@ public class KartController : MonoBehaviour
 
     public void OnDrift()
     {
-        if(input.Drift)
+        if (input.Drift.Value)
         {
             //rb.angularDrag = 3f * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
             rb.angularDrag = 4f * driftCurve.Evaluate(Mathf.Abs(Mathf.Abs(carVelocity.x) / carVelocity.magnitude));
@@ -251,7 +239,7 @@ public class KartController : MonoBehaviour
 
     public void AddAngularDrag()
     {
-            //rb.angularDrag = dragAmount * AngularDragCurve.Evaluate(Mathf.Abs(carVelocity.magnitude) / 100);
+        //rb.angularDrag = dragAmount * AngularDragCurve.Evaluate(Mathf.Abs(carVelocity.magnitude) / 100);
     }
 
     public void frictionLogic()
@@ -259,7 +247,7 @@ public class KartController : MonoBehaviour
         //Friction
         if (Mathf.Abs(carVelocity.magnitude) > 0)
         {
-            
+
             //frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             frictionAngle = (-Vector3.Angle(transform.up, Vector3.up) / 90f) + 1;
             /*
@@ -274,7 +262,7 @@ public class KartController : MonoBehaviour
             }
             */
             rb.AddForceAtPosition(-carVelocity.normalized * fricValue * frictionAngle * 100 * Mathf.Abs(carVelocity.normalized.x), fricAt.position);
-            
+
             /*
             for (int i=0; i<2; i++)
             {
@@ -324,7 +312,7 @@ public class KartController : MonoBehaviour
     IEnumerator OnBooster(float BoostTime)
     {
         hasItem = ITEMS.NONE;
-        if(!isBoost)
+        if (!isBoost)
         {
             isBoost = true;
             float nowBoostTIme = BoostTime;
@@ -347,10 +335,10 @@ public class KartController : MonoBehaviour
 
     void UseItem()
     {
-        if(input.Item)
+        if (input.Item.Value)
         {
-            input.Item = false;
-            switch(hasItem)
+            input.Item.Value = false;
+            switch (hasItem)
             {
                 case ITEMS.NONE:
                     break;
@@ -381,7 +369,7 @@ public class KartController : MonoBehaviour
             }
 
 
-            
+
             Gizmos.color = Color.red;
             foreach (Transform mesh in TireMeshes)
             {
@@ -405,11 +393,8 @@ public class KartController : MonoBehaviour
             float wheelRadius = TurnTires[0].parent.GetComponent<SphereCollider>().radius;
             float wheelYPosition = TurnTires[0].parent.parent.localPosition.y + TurnTires[0].parent.localPosition.y;
             maxRayLength = (groundCheck.localPosition.y - wheelYPosition + (0.05f + wheelRadius));
-            
+
         }
 #endif
     }
-
-
-
 }

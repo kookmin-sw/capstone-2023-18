@@ -29,8 +29,6 @@ public class PlayCheckPoint : MonoBehaviour
             CP[i].CheckPointNum = i;
         }
 
-        //Player Ã£±â.
-        Player = GameObject.FindWithTag("Kart").transform;
         
     }
     

@@ -1,22 +1,24 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class SkidMarks : MonoBehaviour
+public class NetSkidMakrs : NetworkBehaviour
 {
     private TrailRenderer skidMark;
     private ParticleSystem smoke;
-    public KartController kartController;
+    public NetKartController kartController;
 
     public bool drifting;
     public float driftTime;
     float driftTimeAmount = 0.25f;
 
     public AudioSource driftSound;
-    // ë“œë¦¬í”„íŠ¸ í‚¤ë¥¼ ëˆ„ë¥´ê³  ì¼ì • ê°ë„ ë¯¸ë§Œìœ¼ë¡œ  ë–¨ì–´ì§€ë©´ fasle
-    // ëˆ„ë¥´ê³  ìˆëŠ” ë™ì•ˆì—ëŠ” true
+    // µå¸®ÇÁÆ® Å°¸¦ ´©¸£°í ÀÏÁ¤ °¢µµ ¹Ì¸¸À¸·Î  ¶³¾îÁö¸é fasle
+    // ´©¸£°í ÀÖ´Â µ¿¾È¿¡´Â true
     private void Awake()
     {
+
             smoke = GetComponent<ParticleSystem>();
             skidMark = GetComponent<TrailRenderer>();
             driftSound = GetComponent<AudioSource>();
@@ -41,8 +43,11 @@ public class SkidMarks : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (IsOwner)
+        {
             checkingDrift();
             Skid();
+        }
     }
 
     void Skid()
@@ -75,14 +80,14 @@ public class SkidMarks : MonoBehaviour
     {
         Vector3 velocity = kartController.carVelocity;
 
-        if (kartController.input.Drift)
+        if (kartController.input.Drift.Value)
         {
             driftTime = driftTimeAmount;
             drifting = true;
         }
-        else if(driftTime > 0)
+        else if (driftTime > 0)
         {
-            if(Mathf.Abs(velocity.x) > kartController.SkidEnable)
+            if (Mathf.Abs(velocity.x) > kartController.SkidEnable)
             {
                 drifting = true;
             }
@@ -92,7 +97,7 @@ public class SkidMarks : MonoBehaviour
                 drifting = false;
             }
         }
-        else if(driftTime <= 0)
+        else if (driftTime <= 0)
         {
             drifting = false;
         }
