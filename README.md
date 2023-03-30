@@ -8,7 +8,7 @@
 | 김성현 | 20181586 | archun39@kookmin.ac.kr | 인공지능 플레이어 |
 | 안현웅 | 20171645 | asd212164@kookmin.ac.kr | 3D오브젝트 및 UI |
 
-**팀페이지 주소** : [https://kookmin-sw.github.io/](https://kookmin-sw.github.io/)capstone-2023-18 (미구현)
+**팀페이지 주소** : [https://kookmin-sw.github.io/](https://kookmin-sw.github.io/capstone-2023-18)
 
 ### 1. 프로젝트 소개
 
