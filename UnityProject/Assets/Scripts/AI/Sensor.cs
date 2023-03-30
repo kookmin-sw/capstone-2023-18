@@ -13,61 +13,35 @@ public class Sensor : MonoBehaviour
     {
         script = GetComponentInParent<AICarAgent>();
     }
-
-    private void FixedUpdate()
+    
+    public void OnTriggerStay (Collider collider)
     {
-        nowTime += Time.fixedDeltaTime;
-
-        
-        if (nowTime > 3f)
+        if (collider.gameObject.CompareTag("Wall"))
         {
-            nowTime = 0f;
-            script.AddReward(-60f);
+            script.AddReward(-1f);
             script.EndEpisode();
+
         }
-        
     }
 
-    // Start is called before the first frame update
-    public void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.CompareTag("Checkpoint"))
-        {
-            
-            if (other.gameObject.GetComponent<cp>().currentCnt == script.currentCheckpoint)
-            {
-                script.currentCheckpoint = other.gameObject.GetComponent<cp>().nextCnt;
-                script.AddReward(+20f);
-            }
+    public void OnTriggerEnter(Collider collider){
+        if(collider.gameObject.CompareTag("Goal")){
+            script.AddReward(1f);
+            script.EndEpisode();
+        }
 
-            else
-            {
-                script.AddReward(-100f);
-                //script.AddReward(-1f * nowTime * 0.1f);
-                script.EndEpisode();
-            }
-            
-            
-            nowTime = 0f;
-        }
-        else if (other.CompareTag("Guide"))
-        {
-            script.AddReward(-200f);
+        if(collider.gameObject.CompareTag("Guide")){
+            script.AddReward(-2f);
             script.EndEpisode();
         }
-        else if (other.CompareTag("Goal"))
-        {
-            if (script.currentCheckpoint < script.totalCheckpoint-1)
-            {
-                script.AddReward(-200f);
-            }
-            else
-            {
-                script.SetReward(script.totalCheckpoint * 5f);
-            }
-            script.EndEpisode();
+
+        if(collider.gameObject.CompareTag("Checkpoint")){
+            Transform tmp = collider.gameObject.transform;
+            script.SetResetPos(tmp);
         }
     }
+    
+    
+    
     
 }
