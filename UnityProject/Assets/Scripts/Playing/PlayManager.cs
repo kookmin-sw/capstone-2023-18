@@ -20,6 +20,9 @@ public class PlayManager : MonoBehaviour
 
     public static bool isReturning;
 
+    //전체 카트 관리
+    public static List<GameObject> Karts;
+
     static void Init()
     {
         if (s_Instance == null)
@@ -36,6 +39,8 @@ public class PlayManager : MonoBehaviour
             };
             s_Instance = go.GetComponent<PlayManager>();
         }
+        Karts = new List<GameObject>();
+
         isStart = false;
         isReturning = false;
         StartTime = 3f;
