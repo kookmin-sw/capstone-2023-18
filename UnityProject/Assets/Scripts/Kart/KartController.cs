@@ -150,7 +150,7 @@ public class KartController : MonoBehaviour
         }
         else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
         {
-            Debug.Log("air");
+           //Debug.Log("air");
             grounded = false;
             rb.drag = 1f;
             rb.angularDrag = 10f;
@@ -265,11 +265,11 @@ public class KartController : MonoBehaviour
             /*
             if (!input.Drift)
             {
-                //µå¸®ÇÁÆ® ¾È ÇÒ ¶§ -> µÞ ¹ÙÄû ¸¶Âû·Â Àû¿ë
+                //ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ -> ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                //Àü¹æ ¸¶Âû·Â
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 rb.AddForceAtPosition(-carVelocity.normalized * fricValue * ((-Vector3.Angle(EngineAt.transform.up, Vector3.up) / 90f) + 1) * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
-                //Ãø¸é ¸¶Âû·Â
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 rb.AddForceAtPosition(-carVelocity.normalized * SideFricValue * ((-Vector3.Angle(EngineAt.transform.up, Vector3.up) / 90f) + 1) * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
             }
             */
