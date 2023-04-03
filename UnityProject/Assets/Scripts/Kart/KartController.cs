@@ -364,7 +364,7 @@ public class KartController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-
+#if UNITY_EDITOR
         if (!Application.isPlaying)
         {
             Gizmos.color = Color.yellow;
@@ -407,7 +407,7 @@ public class KartController : MonoBehaviour
             maxRayLength = (groundCheck.localPosition.y - wheelYPosition + (0.05f + wheelRadius));
             
         }
-
+#endif
     }
 
 

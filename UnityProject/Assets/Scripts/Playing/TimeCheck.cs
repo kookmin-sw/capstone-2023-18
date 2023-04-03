@@ -10,11 +10,16 @@ public class TimeCheck : MonoBehaviour
     public List<float> LapTime;
     public bool isStart;
 
-    public int Lap;
-    // Start is called before the first frame update
     void Start()
     {
-        Lap = 0;
+        init();
+    }
+
+    void init()
+    {
+        PlayManager.Lap = 0;
+        PlayManager.MaxLap = 3;
+
         nowTime = 0;
         LastTime = 0;
         BestTime = 0;
@@ -31,7 +36,7 @@ public class TimeCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Kart") && Lap > 0)
+        if(other.CompareTag("Kart") && PlayManager.CP == (PlayManager.MaxCP - 1))
         {
             float TotalTime = nowTime;
             float NowLap = TotalTime - LastTime;
@@ -47,16 +52,7 @@ public class TimeCheck : MonoBehaviour
             {
                 BestTime = NowLap < BestTime ? NowLap : BestTime;
             }
+            PlayManager.Lap += 1;
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Kart"))
-        {
-            Lap += 1;
-        }
-    }
-
-
 }
