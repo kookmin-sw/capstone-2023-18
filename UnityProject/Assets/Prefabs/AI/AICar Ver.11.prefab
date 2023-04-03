@@ -5755,7 +5755,7 @@ GameObject:
   - component: {fileID: 4596228960898776754}
   - component: {fileID: 5895555951478002865}
   m_Layer: 6
-  m_Name: AICar Ver.10
+  m_Name: AICar Ver.11
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6319,11 +6319,11 @@ MonoBehaviour:
     VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 0200000003000000
-    VectorActionSize: 0200000003000000
+      m_NumContinuousActions: 2
+      BranchSizes: 
+    VectorActionSize: 02000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 0
+    VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 1
@@ -6349,14 +6349,9 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
-  Hmove: 0
-  Vmove: 0
-  Drift: 0
-  Item: 0
+  cp: {fileID: 0}
   checkpoint: {fileID: 0}
-  startPos: {fileID: 0}
   startLine: {fileID: 0}
-  isReset: 0
 --- !u!114 &4596228960898776754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6369,7 +6364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 10
+  DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
 --- !u!114 &5895555951478002865
 MonoBehaviour:
@@ -6386,7 +6381,7 @@ MonoBehaviour:
   m_SensorName: TrackSensor
   m_DetectableTags:
   - Wall
-  m_RaysPerDirection: 8
+  m_RaysPerDirection: 4
   m_MaxRayDegrees: 120
   m_SphereCastRadius: 0.5
   m_RayLength: 70
@@ -12085,7 +12080,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.2611006, y: -0.000000020282897, z: 0.000000005486183, w: 0.9653116}
+  m_LocalRotation: {x: 0.2611006, y: -3e-45, z: 1e-45, w: 0.9653116}
   m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
