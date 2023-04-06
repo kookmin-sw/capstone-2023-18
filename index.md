@@ -24,7 +24,8 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 
 **[중간 보고서](https://docs.google.com/document/d/1kCWk2_CrjqCVaZIaDynuhKjEEUW9UQDfQphZpbfuIc0/edit?usp=sharing)**
 
-
+### 중간 발표 영상
+**[![Video Label](http://img.youtube.com/vi/f81jLIVbqJ0/0.jpg)](https://www.youtube.com/watch?v=f81jLIVbqJ0)**
 # 팀 소개
 
 ![teamLogo](/PageAssets/img/dripple-logo-color.png)
