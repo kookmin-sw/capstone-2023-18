@@ -34,6 +34,7 @@ public class PlayCheckPoint : MonoBehaviour
     
     public IEnumerator ReturnToCP()
     {
+        /* 수정중
         PlayManager.isReturning = true;
         // 체크포인트로 돌아간 이후 카트의 움직임 제한.
         Rigidbody rb = Player.GetComponent<Rigidbody>();
@@ -50,6 +51,8 @@ public class PlayCheckPoint : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         rb.constraints = RigidbodyConstraints.None;
         PlayManager.isReturning = false;
+        */
+        yield return null;
     }
 
 }

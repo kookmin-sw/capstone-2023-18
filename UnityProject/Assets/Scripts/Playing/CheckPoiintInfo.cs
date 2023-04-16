@@ -12,9 +12,8 @@ public class CheckPoiintInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Transform _front = transform.GetChild(0).transform;
-        forward = _front.forward ;
-        centerPos = _front.position;
+        forward = transform.forward ;
+        centerPos = transform.position;
     }
 
 }

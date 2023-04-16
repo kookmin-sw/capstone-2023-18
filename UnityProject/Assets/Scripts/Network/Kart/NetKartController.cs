@@ -50,7 +50,7 @@ public class NetKartController : NetworkBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.NONE;
+    public NetPlayerInfo npi;
 
     public float BoostPower;
     public bool isBoost;
@@ -80,15 +80,27 @@ public class NetKartController : NetworkBehaviour
     public Vector3 normalDir;
 
     public NetKartInput input;
+    public NetPlayManager npm;
 
     private void Awake()
     {
         input = GetComponent<NetKartInput>();
+        npi = GetComponent<NetPlayerInfo>();
+        GameObject.Find("@PlayManager").TryGetComponent(out npm);
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
+
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if(IsServer)
+        {
+            StartCoroutine(WaitStart());
+        }
     }
 
     void FixedUpdate()
@@ -161,18 +173,31 @@ public class NetKartController : NetworkBehaviour
 
             }
 
+            npi.KMH.Value = (int)(carVelocity.magnitude * 2);
+
         }
     }
 
     void Update()
     {
-        if (IsOwner)
+        if (IsServer)
         {
             tireVisuals();
             audioControl();
             UseItem();
         }
     }
+
+    IEnumerator WaitStart()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        while (npm.isStart.Value == false)
+        {
+            yield return null;
+        }
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
     public void audioControl()
     {
         engineSound.pitch = 2 * engineCurve.Evaluate(curveVelocity);
@@ -311,7 +336,8 @@ public class NetKartController : NetworkBehaviour
 
     IEnumerator OnBooster(float BoostTime)
     {
-        hasItem = ITEMS.NONE;
+        npi.Item.Value = (int)ITEMS.NONE;
+
         if (!isBoost)
         {
             isBoost = true;
@@ -335,19 +361,21 @@ public class NetKartController : NetworkBehaviour
 
     void UseItem()
     {
-        if (input.Item.Value)
+        if (input.Item.Value && IsServer)
         {
             input.Item.Value = false;
-            switch (hasItem)
+            switch (npi.Item.Value)
             {
-                case ITEMS.NONE:
+                case (int)ITEMS.NONE:
                     break;
-                case ITEMS.BOOST:
+                case (int)ITEMS.BOOST:
                     StartCoroutine(OnBooster(2f));
                     break;
             }
         }
     }
+
+
 
 
     private void OnDrawGizmos()

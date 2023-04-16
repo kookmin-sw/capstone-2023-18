@@ -5750,6 +5750,7 @@ GameObject:
   - component: {fileID: 5737343338485447160}
   - component: {fileID: 2145794254181773728}
   - component: {fileID: 1179850042489468603}
+  - component: {fileID: 3220012048211510564}
   - component: {fileID: -1900067986317953795}
   - component: {fileID: 6333748758747585469}
   - component: {fileID: 1749512723173521475}
@@ -6243,7 +6244,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hasItem: 0
+  hasItem: {fileID: 0}
   BoostPower: 18000
   isBoost: 0
   BoostCurve:
@@ -6279,6 +6280,7 @@ MonoBehaviour:
   skidWidth: 0.2
   normalDir: {x: 0, y: 0, z: 0}
   input: {fileID: 0}
+  npm: {fileID: 0}
 --- !u!114 &2145794254181773728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6305,6 +6307,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cam: {fileID: 2883374084186844247}
   spawnPos: {fileID: 0}
+--- !u!114 &3220012048211510564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374083270441375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08875413551161b48a75f90d088fceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Lap:
+    m_InternalValue: 0
+  BestTime:
+    m_InternalValue: 0
+  CheckPointDistance:
+    m_InternalValue: 0
+  RpNum:
+    m_InternalValue: -1
+  RpForward:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  RpPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  CpNum:
+    m_InternalValue: -1
+  npm: {fileID: 0}
+  Item:
+    m_InternalValue: 0
 --- !u!114 &-1900067986317953795
 MonoBehaviour:
   m_ObjectHideFlags: 0
