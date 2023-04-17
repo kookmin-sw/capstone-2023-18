@@ -113,27 +113,16 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         }
     }
 
-    public int Compare(NetPlayerInfo x, NetPlayerInfo y)
-    {
-        int distanceComparison = y.CheckPointDistance.Value.CompareTo(x.CheckPointDistance.Value);
-        if (distanceComparison != 0) return -distanceComparison;
-
-        int rpNumComparison = y.RpNum.Value.CompareTo(x.RpNum.Value);
-        if (rpNumComparison != 0) return -rpNumComparison;
-
-        return -y.Lap.Value.CompareTo(x.Lap.Value);
-    }
-
     public int CompareTo(NetPlayerInfo other)
     {
         if (other == null) return 1;
 
-        int distanceComparison = CheckPointDistance.Value.CompareTo(other.CheckPointDistance.Value);
-        if (distanceComparison != 0) return -distanceComparison;
+        int lapComparison = Lap.Value.CompareTo(other.Lap.Value);
+        if (lapComparison != 0) return -lapComparison;
 
         int rpNumComparison = RpNum.Value.CompareTo(other.RpNum.Value);
         if (rpNumComparison != 0) return -rpNumComparison;
 
-        return -Lap.Value.CompareTo(other.Lap.Value);
+        return CheckPointDistance.Value.CompareTo(other.CheckPointDistance.Value);
     }
 }

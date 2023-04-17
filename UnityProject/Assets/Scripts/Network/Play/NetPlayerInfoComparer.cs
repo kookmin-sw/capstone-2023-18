@@ -6,12 +6,13 @@ public class NetPlayerInfoComparer : IComparer<NetPlayerInfo>
 {
     public int Compare(NetPlayerInfo x, NetPlayerInfo y)
     {
-        int distanceComparison = y.CheckPointDistance.Value.CompareTo(x.CheckPointDistance.Value);
-        if (distanceComparison != 0) return -distanceComparison;
+        int lapComparison = y.Lap.Value.CompareTo(x.Lap.Value);
+        if (lapComparison != 0) return -lapComparison;
 
         int rpNumComparison = y.RpNum.Value.CompareTo(x.RpNum.Value);
         if (rpNumComparison != 0) return -rpNumComparison;
 
-        return -y.Lap.Value.CompareTo(x.Lap.Value);
+        return -y.CheckPointDistance.Value.CompareTo(x.CheckPointDistance.Value);
+
     }
 }
