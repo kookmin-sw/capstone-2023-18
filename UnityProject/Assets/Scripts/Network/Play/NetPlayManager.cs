@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class NetPlayManager : NetworkBehaviour
 {
@@ -62,7 +63,7 @@ public class NetPlayManager : NetworkBehaviour
         StartCoroutine(StartCountDown());
     }
 
-    IEnumerator StartCountDown()
+    public IEnumerator StartCountDown()
     {
         NetPlayUI ui = GetComponent<NetPlayUI>();
         for(int i=3; i>0; i--)
@@ -78,7 +79,7 @@ public class NetPlayManager : NetworkBehaviour
     void setMapInfo()
     {
         //맵으로 부터 정보를 받아와서 등록한다.
-        MaxLap = 3;
+        MaxLap = 1;
         MaxCP = GameObject.FindGameObjectsWithTag("Checkpoint").Count();
         StartingPoints = GameObject.FindGameObjectsWithTag("StartPoint");
     }
@@ -131,4 +132,19 @@ public class NetPlayManager : NetworkBehaviour
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void CloseGameServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        OnGameClose();
+    }
+    //게임 종료
+
+    private async void OnGameClose()
+    {
+        using (new Load("Closing the game..."))
+        {
+            await MatchmakingService.UnLockLobby();
+            NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        }
+    }
 }

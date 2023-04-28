@@ -21,8 +21,7 @@ public class NetPlayUI : NetworkBehaviour
     public Text BestTime;
     public Text Count;
     public Text[] RankIds;
-    public Text NowLap;
-    public Text MaxLap;
+    public Text Lap;
     public Text KMH;
 
     [Space, Header("Image")]
@@ -44,6 +43,11 @@ public class NetPlayUI : NetworkBehaviour
         FindTextObj();
         LoadCoponent();
         LoadIconImages();
+    }
+
+    private void FixedUpdate()
+    {
+        MatchmakingService.showRoomName();
     }
 
     void LoadCoponent()
@@ -70,9 +74,7 @@ public class NetPlayUI : NetworkBehaviour
         {
             RankIds[i] = Ranks[i].Find("name_Text").GetComponent<Text>();
         }
-
-        NowLap = UI.transform.Find("LAP/NowLap").GetComponent<Text>();
-        MaxLap = UI.transform.Find("LAP/MaxLap").GetComponent<Text>();
+        Lap = UI.transform.Find("Lap").GetComponent<Text>();
     }
 
     void LoadIconImages()
@@ -147,8 +149,7 @@ public class NetPlayUI : NetworkBehaviour
     {
         if (npm.isStart.Value == true)
         {
-            NowLap.text = Player.Lap.Value.ToString();
-            MaxLap.text = npm.MaxLap.ToString();
+            Lap.text = $"LAP : {Player.Lap.Value} / {npm.MaxLap}";
         }
     }
 

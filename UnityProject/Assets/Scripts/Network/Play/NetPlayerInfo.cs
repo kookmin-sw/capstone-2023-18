@@ -108,6 +108,11 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
                 {
                     BestTime.Value = LastTime < BestTime.Value ? LastTime : BestTime.Value;
                 }
+
+                if(Lap.Value == npm.MaxLap)
+                {
+                    npm.CloseGameServerRpc();
+                }
             }
 
         }
