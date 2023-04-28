@@ -119,10 +119,10 @@ public class NetKartController : NetworkBehaviour
 
             //helping veriables
 
-            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
             if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
             {
-                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
             }
             SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
             fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));

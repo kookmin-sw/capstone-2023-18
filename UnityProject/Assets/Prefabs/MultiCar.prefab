@@ -5950,12 +5950,12 @@ MonoBehaviour:
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
   rb: {fileID: 0}
-  MaxSpeed: 100
-  speed: 6500
-  DownValue: 1500
+  MaxSpeed: 1000
+  speed: 25000
+  DownValue: 2000
   turn: 700
-  friction: 1000
-  SideFriction: 200
+  friction: 2000
+  SideFriction: 400
   dragAngularAmount: 55
   dragAmount: 2
   TurnAngle: 30
@@ -6046,19 +6046,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001411438
-      value: 0.99999994
-      inSlope: 0.027947132
-      outSlope: 0.027947132
+      time: 0
+      value: 0.35
+      inSlope: -0.45352557
+      outSlope: -0.45352557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.060768392
+      inWeight: 0.33333334
+      outWeight: 0.079783976
     - serializedVersion: 3
       time: 1
-      value: 0.2646323
-      inSlope: 0.004572676
-      outSlope: 0.004572676
+      value: 0.15
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.16238843
@@ -6244,8 +6244,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hasItem: {fileID: 0}
-  BoostPower: 18000
+  npi: {fileID: 0}
+  BoostPower: 40000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
@@ -6306,7 +6306,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cam: {fileID: 2883374084186844247}
-  spawnPos: {fileID: 0}
 --- !u!114 &3220012048211510564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6322,6 +6321,8 @@ MonoBehaviour:
   Lap:
     m_InternalValue: 0
   BestTime:
+    m_InternalValue: 0
+  KMH:
     m_InternalValue: 0
   CheckPointDistance:
     m_InternalValue: 0
