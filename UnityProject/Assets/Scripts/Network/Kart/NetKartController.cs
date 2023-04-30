@@ -97,7 +97,7 @@ public class NetKartController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if(IsServer)
+        if(IsOwner)
         {
             StartCoroutine(WaitStart());
         }
@@ -105,7 +105,7 @@ public class NetKartController : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (IsServer)
+        if (IsOwner) //움직임 계산 클라이언트 단에서 처리
         {
             carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
 
@@ -114,8 +114,8 @@ public class NetKartController : NetworkBehaviour
             rb.AddForce(Vector3.up * (-30) * rb.mass);
 
             //inputs
-            float turnInput = turn * input.Hmove.Value * Time.fixedDeltaTime * 1000;
-            float speedInput = speed * input.Vmove.Value * Time.fixedDeltaTime * 1000;
+            float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
+            float speedInput = speed * input.Vmove * Time.fixedDeltaTime * 1000;
 
             //helping veriables
 
@@ -180,7 +180,7 @@ public class NetKartController : NetworkBehaviour
 
     void Update()
     {
-        if (IsServer)
+        if (IsOwner)
         {
             tireVisuals();
             audioControl();
@@ -216,18 +216,18 @@ public class NetKartController : NetworkBehaviour
         foreach (Transform FM in TurnTires)
         {
             FM.localRotation = Quaternion.Slerp(FM.localRotation, Quaternion.Euler(FM.localRotation.eulerAngles.x,
-                               TurnAngle * input.Hmove.Value, FM.localRotation.eulerAngles.z), slerpTime);
+                               TurnAngle * input.Hmove, FM.localRotation.eulerAngles.z), slerpTime);
         }
     }
 
     public void accelarationLogic()
     {
         //speed control
-        if (input.Vmove.Value > 0.1f)
+        if (input.Vmove > 0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
-        if (input.Vmove.Value < -0.1f)
+        if (input.Vmove < -0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
@@ -249,7 +249,7 @@ public class NetKartController : NetworkBehaviour
 
     public void OnDrift()
     {
-        if (input.Drift.Value)
+        if (input.Drift)
         {
             //rb.angularDrag = 3f * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
             rb.angularDrag = 4f * driftCurve.Evaluate(Mathf.Abs(Mathf.Abs(carVelocity.x) / carVelocity.magnitude));
@@ -361,9 +361,9 @@ public class NetKartController : NetworkBehaviour
 
     void UseItem()
     {
-        if (input.Item.Value && IsServer)
+        if (input.Item && IsServer)
         {
-            input.Item.Value = false;
+            input.Item = false;
             switch (npi.Item.Value)
             {
                 case (int)ITEMS.NONE:

@@ -80,7 +80,7 @@ public class NetSkidMakrs : NetworkBehaviour
     {
         Vector3 velocity = kartController.carVelocity;
 
-        if (kartController.input.Drift.Value)
+        if (kartController.input.Drift)
         {
             driftTime = driftTimeAmount;
             drifting = true;

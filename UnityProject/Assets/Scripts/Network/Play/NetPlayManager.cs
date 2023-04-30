@@ -127,10 +127,21 @@ public class NetPlayManager : NetworkBehaviour
             Players.Add(uid, userinfo);
             rank.Add(uid);
             Debug.Log(user.name);
-            user.transform.position = StartingPoints[UserCount].transform.position;
+            AddPlayerClientRpc(uid, StartingPoints[UserCount].transform.position);
             UserCount += 1;
         }
     }
+
+    [ClientRpc (Delivery = RpcDelivery.Reliable)]
+    public void AddPlayerClientRpc(ulong _uid, Vector3 _pos, ClientRpcParams rpcParams = default)
+    {
+        if (NetworkManager.Singleton.LocalClientId == _uid)
+        {
+            Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} 위치배정");
+            NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(_uid).GetComponent<Transform>().position = _pos;
+        }
+    }
+
 
     [ServerRpc(RequireOwnership = false)]
     public void CloseGameServerRpc(ServerRpcParams serverRpcParams = default)
