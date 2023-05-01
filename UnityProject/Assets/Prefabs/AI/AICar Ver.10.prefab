@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2883374082431419466
 Transform:
   m_ObjectHideFlags: 0
@@ -5841,7 +5841,6 @@ MonoBehaviour:
   Vmove: 0
   Drift: 0
   Item: 0
-  Return: 0
 --- !u!114 &7989840992646412499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6320,9 +6319,9 @@ MonoBehaviour:
     VectorObservationSize: 11
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 1
-      BranchSizes: 02000000
-    VectorActionSize: 
+      m_NumContinuousActions: 0
+      BranchSizes: 0200000003000000
+    VectorActionSize: 0200000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -6354,8 +6353,10 @@ MonoBehaviour:
   Vmove: 0
   Drift: 0
   Item: 0
-  checkpoint: {x: 0, y: 0, z: 0}
+  checkpoint: {fileID: 0}
   startPos: {fileID: 0}
+  startLine: {fileID: 0}
+  isReset: 0
 --- !u!114 &4596228960898776754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6368,7 +6369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 10
   TakeActionsBetweenDecisions: 1
 --- !u!114 &5895555951478002865
 MonoBehaviour:
@@ -12084,7 +12085,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.2611006, y: -0, z: -0, w: 0.9653116}
+  m_LocalRotation: {x: 0.2611006, y: -0.000000020282897, z: 0.000000005486183, w: 0.9653116}
   m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17320,7 +17321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2883374084391909102
 Transform:
   m_ObjectHideFlags: 0
