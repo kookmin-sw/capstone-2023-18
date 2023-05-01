@@ -105,10 +105,10 @@ public class KartController : MonoBehaviour
 
         //helping veriables
 
-        speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+        speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
         if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
         {
-            speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
         }
         SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
         fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
@@ -141,7 +141,7 @@ public class KartController : MonoBehaviour
             //Non-Slip Code
             if (carVelocity.magnitude < 1)
             {
-                rb.drag = 10;
+                rb.drag = 2;
             }
             else
             {
@@ -154,7 +154,7 @@ public class KartController : MonoBehaviour
             grounded = false;
             rb.drag = 1f;
             rb.angularDrag = 10f;
-            rb.centerOfMass = CentreOfMass.localPosition;
+            //rb.centerOfMass = CentreOfMass.localPosition;
             /*
             if (!airDrag)
             {
@@ -172,16 +172,7 @@ public class KartController : MonoBehaviour
         tireVisuals();
         audioControl();
         UseItem();
-
-        //test
-        if (TextKMH != null)
-        {
-            TextKMH.text = (carVelocity.magnitude * 2).ToString();
-            //
-            //(carVelocity.magnitude * 2).ToString();
-        }
-            //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
-            //((int)carVelocity.z * 10).ToString();
+        
     }
 
 
