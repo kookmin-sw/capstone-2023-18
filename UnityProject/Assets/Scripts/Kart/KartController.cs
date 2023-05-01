@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class KartController : MonoBehaviour
@@ -82,18 +81,6 @@ public class KartController : MonoBehaviour
     public Vector3 normalDir;
 
     public KartInput input;
-    
-    [Header("Get Hit")]
-    public bool isSpin = false;
-    Vector3 spinForward = Vector3.forward;
-    Vector3 spinUp = Vector3.up;
-    Vector3 spinOffset = Vector3.zero;
-    public float spinRate = 15f;
-    public float spinHeight = 1.0f;
-
-    public UnityEvent spinOutEvent;
-    //rotation dir
-    public enum SpinAxis { Yaw, Pitch, Roll}
 
     private void Awake()
     {
@@ -422,63 +409,7 @@ public class KartController : MonoBehaviour
         }
 #endif
     }
-    
-    //spinCount : how many time get spin
-    public void SpinOut(SpinAxis spinType, int spinCount)
-    {
-        if (!isSpin)
-        {
-            CancelDrift();
-            //CancelDriftBoost(true);  -> 마카의 드리프트 부스터 캔슬
-            //EmptyBoostReserve();
-            StartCoroutine(SpinCycle(spinType, Mathf.Max(0, spinCount)));
-            spinOutEvent.Invoke(); //-> ?
-        }
-    } 
-    
-    IEnumerator SpinCycle(SpinAxis spinType, float spinAmount) {
-        // Spin start
-        isSpin = true;
-        float spinDir = Mathf.Sign(0.5f - Random.value);
-        float curSpin = 0.0f;
-        float maxSpin = spinAmount * Mathf.PI * 2.0f;
 
-        // Actual spin cycle
-        while (Mathf.Abs(curSpin) < maxSpin) {
-            curSpin += spinDir * spinRate * Mathf.Clamp((maxSpin - Mathf.Abs(curSpin)), 0.1f, 1.0f) * Time.fixedDeltaTime;
-            switch (spinType) {
-                case SpinAxis.Yaw:
-                    spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
-                    spinUp = Vector3.up;
-                    break;
-                case SpinAxis.Roll:
-                    spinUp = new Vector3(Mathf.Sin(curSpin), Mathf.Cos(curSpin), 0.0f);
-                    break;
-                case SpinAxis.Pitch:
-                    spinForward = new Vector3(0.0f, Mathf.Sin(curSpin), Mathf.Cos(curSpin));
-                    spinUp = new Vector3(0.0f, Mathf.Cos(curSpin), -Mathf.Sin(curSpin));
-                    break;
-            }
 
-            if (spinType != SpinAxis.Yaw) {
-                spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / Mathf.Max(maxSpin, 0.001f)) * Mathf.PI);
-            }
-            yield return new WaitForFixedUpdate();
-        }
 
-        // Spin end
-        isSpin = false;
-        spinForward = Vector3.forward;
-        spinOffset = Vector3.zero;
-        spinUp = Vector3.up;
-        //boostPadUsed = false;
-    }
-
-    
-    void CancelDrift()
-    { //init drift
-        
-
-    }
-    
 }
