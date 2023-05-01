@@ -151,7 +151,7 @@ public class NetKartController : NetworkBehaviour
                 normalDir = hit.normal;
 
                 //DownForce
-                rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
+                rb.AddForce(-EngineAt.transform.up * DownValue * carVelocity.magnitude);
 
                 //Non-Slip Code
                 if (carVelocity.magnitude < 1)
