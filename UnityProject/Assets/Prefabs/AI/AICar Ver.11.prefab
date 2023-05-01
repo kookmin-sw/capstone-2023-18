@@ -5748,12 +5748,12 @@ GameObject:
   - component: {fileID: 2883374083270441369}
   - component: {fileID: 7989840992646412498}
   - component: {fileID: 7989840992646412499}
-  - component: {fileID: 395780279}
   - component: {fileID: 871288874}
   - component: {fileID: 872996554232434256}
   - component: {fileID: 1981116012066203718}
   - component: {fileID: 4596228960898776754}
   - component: {fileID: 5895555951478002865}
+  - component: {fileID: 260482797}
   m_Layer: 6
   m_Name: AICar Ver.11
   m_TagString: AI
@@ -5794,8 +5794,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1323853, y: 0.6601629, z: 2.582016}
-  m_Center: {x: -0.0005493164, y: 0, z: -0.10857391}
+  m_Size: {x: 1.1323853, y: 0.6601629, z: 2.1704254}
+  m_Center: {x: -0.0005493164, y: 0, z: -0.3143692}
 --- !u!114 &2883374083270441370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5841,6 +5841,7 @@ MonoBehaviour:
   Vmove: 0
   Drift: 0
   Item: 0
+  Return: 0
 --- !u!114 &7989840992646412499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6193,20 +6194,6 @@ MonoBehaviour:
   TextKMH: {fileID: 0}
   normalDir: {x: 0, y: 0, z: 0}
   input: {fileID: 0}
---- !u!136 &395780279
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883374083270441375}
-  m_Material: {fileID: 13400000, guid: ecced3aacfe9ee449930c039f383b7e6, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.3288958
-  m_Height: 1.0746155
-  m_Direction: 0
-  m_Center: {x: -0.016860962, y: -0.52, z: 1.0764813}
 --- !u!82 &871288874
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6316,8 +6303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 11
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 18
+    NumStackedVectorObservations: 4
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 
@@ -6348,9 +6335,12 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 10000
   cp: {fileID: 0}
-  checkpoint: {fileID: 0}
+  nextcp: {fileID: 0}
+  cpNum: 0
+  cm: {fileID: 0}
+  onWall: 0
   startLine: {fileID: 0}
 --- !u!114 &4596228960898776754
 MonoBehaviour:
@@ -6381,18 +6371,36 @@ MonoBehaviour:
   m_SensorName: TrackSensor
   m_DetectableTags:
   - Wall
-  m_RaysPerDirection: 4
+  - Checkpoint
+  - Goal
+  m_RaysPerDirection: 6
   m_MaxRayDegrees: 120
   m_SphereCastRadius: 0.5
-  m_RayLength: 70
+  m_RayLength: 30
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 2147482880
-  m_ObservationStacks: 1
+  m_ObservationStacks: 4
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 0.9022669, g: 0.9339623, b: 0.048460312, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
+--- !u!114 &260482797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374083270441375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: testSAC1
+  DemonstrationDirectory: Demos
 --- !u!1 &2883374083340779452
 GameObject:
   m_ObjectHideFlags: 0
@@ -12080,7 +12088,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374084186844247}
-  m_LocalRotation: {x: 0.2611006, y: -3e-45, z: 1e-45, w: 0.9653116}
+  m_LocalRotation: {x: 0.2611006, y: -1e-45, z: -0, w: 0.9653116}
   m_LocalPosition: {x: 0, y: 1.0000001, z: -4.0899963}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-     private static CheckpointManager instance;
+    public static CheckpointManager instance;
 
-     [SerializeField] private GameObject[] List;
+    [SerializeField] private GameObject[] List;
+
     public static CheckpointManager Instance
     {
         get
@@ -32,15 +33,7 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        for (int i = 0; i < List.Length; i++)
-        {
-            List[i].GetComponent<cp>().currentCnt = i;
-            List[i].GetComponent<cp>().nextCnt = i + 1;
-        }
-    }
-
+    
     public int totalCheckPoint()
     {
         return List.Length;
