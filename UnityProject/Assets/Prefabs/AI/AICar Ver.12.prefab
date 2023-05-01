@@ -5862,12 +5862,12 @@ MonoBehaviour:
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
   rb: {fileID: 0}
-  MaxSpeed: 100
-  speed: 6500
-  DownValue: 500
+  MaxSpeed: 1000
+  speed: 21750
+  DownValue: 2000
   turn: 700
-  friction: 1000
-  SideFriction: 200
+  friction: 2000
+  SideFriction: 400
   dragAngularAmount: 55
   dragAmount: 2
   TurnAngle: 30
@@ -5958,19 +5958,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001411438
-      value: 0.99999994
-      inSlope: 0.027947132
-      outSlope: 0.027947132
+      time: 0
+      value: 0.35
+      inSlope: -0.45352557
+      outSlope: -0.45352557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.060768392
+      inWeight: 0.33333334
+      outWeight: 0.079783976
     - serializedVersion: 3
       time: 1
-      value: 0.2646323
-      inSlope: 0.004572676
-      outSlope: 0.004572676
+      value: 0.15
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.16238843
@@ -5984,18 +5984,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
-      inSlope: 0.027947132
-      outSlope: 0.027947132
+      value: 0.3
+      inSlope: -0.45352557
+      outSlope: -0.45352557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.060768392
+      inWeight: 0.33333334
+      outWeight: 0.079783976
     - serializedVersion: 3
       time: 1
       value: 0.15
-      inSlope: 0.004572676
-      outSlope: 0.004572676
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.16238843
@@ -6157,7 +6157,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   hasItem: 1
-  BoostPower: 15000
+  BoostPower: 40000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
@@ -6188,7 +6188,7 @@ MonoBehaviour:
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
-  SkidEnable: 5
+  SkidEnable: 15
   skidWidth: 0.2
   TextKMH: {fileID: 0}
   normalDir: {x: 0, y: 0, z: 0}
