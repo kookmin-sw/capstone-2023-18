@@ -17,15 +17,19 @@ public class Sensor : MonoBehaviour
     
 
     public void OnTriggerEnter(Collider collider){
+        if(collider.gameObject.CompareTag("Wall")){
+            script.AddReward(-0.1f);  
+            script.GoResetPos();
+        }
         
         if(collider.gameObject.CompareTag("Goal")){
-            script.AddReward(1f);
+            script.AddReward(20f);
             script.EndEpisode();
         }
 
         if(collider.gameObject.CompareTag("Guide")){
-            script.AddReward(-1f);
-            script.EndEpisode();
+            script.AddReward(-0.5f);
+            script.GoResetPos();
         }
 
         if(collider.gameObject.CompareTag("Checkpoint")){
@@ -39,9 +43,15 @@ public class Sensor : MonoBehaviour
                 Transform tmp = collider.gameObject.transform;
                 tmp = tmp.GetChild(0).gameObject.transform;
                 script.cp = collider.gameObject;
-                script.AddReward(0.5f);
                 script.SetResetPos(tmp);
-                
+                if(script.cpNum == script.cm.totalcp()){
+                    script.cpNum = 0;
+                }
+                else{
+                    script.cpNum++;
+                }
+                script.nextcp = script.cm.nextCheckpoint(script.cpNum);
+                script.AddReward(5 + (script.cpNum * 0.5f));
             }
         }
     }
@@ -50,9 +60,11 @@ public class Sensor : MonoBehaviour
             script.AddReward(2f/script.MaxStep);
 
         }
+    }
+
+    public void OnTriggerExit(Collider collider){
         if(collider.gameObject.CompareTag("Wall")){
-            script.AddReward(-1f);
-            script.EndEpisode();
+            
         }
     }
     

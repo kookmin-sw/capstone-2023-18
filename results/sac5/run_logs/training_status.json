@@ -1,0 +1,56 @@
+{
+    "AI Car": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results/sac5/AI Car/AI Car-0.onnx",
+                "reward": null,
+                "creation_time": 1681354549.4969437,
+                "auxillary_file_paths": [
+                    "results/sac5/AI Car/AI Car-0.pt"
+                ]
+            },
+            {
+                "steps": 51,
+                "file_path": "results/sac5/AI Car/AI Car-51.onnx",
+                "reward": -0.1679999828338623,
+                "creation_time": 1681354832.1659572,
+                "auxillary_file_paths": [
+                    "results/sac5/AI Car/AI Car-51.pt"
+                ]
+            },
+            {
+                "steps": 73856,
+                "file_path": "results/sac5/AI Car/AI Car-73856.onnx",
+                "reward": null,
+                "creation_time": 1681355457.4765983,
+                "auxillary_file_paths": [
+                    "results/sac5/AI Car/AI Car-73856.pt"
+                ]
+            },
+            {
+                "steps": 111743,
+                "file_path": "results/sac5/AI Car/AI Car-111743.onnx",
+                "reward": null,
+                "creation_time": 1681355822.4003208,
+                "auxillary_file_paths": [
+                    "results/sac5/AI Car/AI Car-111743.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 111743,
+            "file_path": "results/sac5/AI Car.onnx",
+            "reward": null,
+            "creation_time": 1681355822.4003208,
+            "auxillary_file_paths": [
+                "results/sac5/AI Car/AI Car-111743.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.8.1+cu102"
+    }
+}
