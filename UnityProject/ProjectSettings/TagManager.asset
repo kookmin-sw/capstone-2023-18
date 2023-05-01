@@ -4,12 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ignoreSensor
-  - AI
-  - Checkpoint
-  - Wall
-  - Goal
-  - Sensor
+  - Walls
   - Kart
   - BoosterPad
   - Guide
@@ -17,11 +12,14 @@ TagManager:
   - EndPoint
   - StartPoint
   - Way
+  - Item
+  - AI
+  - ignoreSensor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - AICar
@@ -33,6 +31,10 @@ TagManager:
   - AITrack
   - 
   - 
+  - Karts
+  - Items
+  - Walls
+  - Kart Box Collider
   - 
   - 
   - 
@@ -50,7 +52,9 @@ TagManager:
   - 
   - 
   - 
-  - BackGround
+  - 
+  - 
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
