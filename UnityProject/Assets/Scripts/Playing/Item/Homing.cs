@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PowerslideKartPhysics;
 using UnityEngine;
 
 public class Homing : MonoBehaviour
@@ -29,9 +30,12 @@ public class Homing : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        KartController.SpinAxis spinType = KartController.SpinAxis.Yaw;
+        int spinCount = 2;
         if (collision.transform.CompareTag("Player"))
         {
-
+            collision.gameObject.GetComponent<KartController>().SpinOut(spinType,spinCount);
+            
             //makeSpin(collision);
             Destroy(gameObject);
         }
