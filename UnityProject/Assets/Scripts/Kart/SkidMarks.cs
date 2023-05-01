@@ -17,15 +17,15 @@ public class SkidMarks : MonoBehaviour
     // 누르고 있는 동안에는 true
     private void Awake()
     {
-        smoke = GetComponent<ParticleSystem>();
-        skidMark = GetComponent<TrailRenderer>();
-        driftSound = GetComponent<AudioSource>();
-        skidMark.emitting = false;
-        transform.localPosition = new Vector3(0, -transform.parent.parent.GetComponent<SphereCollider>().radius + 0.03f, 0);
-        if (kartController != null)
-        {
-            skidMark.startWidth = kartController.skidWidth;
-        }
+            smoke = GetComponent<ParticleSystem>();
+            skidMark = GetComponent<TrailRenderer>();
+            driftSound = GetComponent<AudioSource>();
+            skidMark.emitting = false;
+            transform.localPosition = new Vector3(0, -transform.parent.parent.GetComponent<SphereCollider>().radius + 0.03f, 0);
+            if (kartController != null)
+            {
+                skidMark.startWidth = kartController.skidWidth;
+            }
     }
 
     private void OnEnable()
@@ -41,8 +41,8 @@ public class SkidMarks : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        checkingDrift();
-        Skid();
+            checkingDrift();
+            Skid();
     }
 
     void Skid()

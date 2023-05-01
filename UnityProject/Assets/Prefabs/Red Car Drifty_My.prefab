@@ -5766,6 +5766,7 @@ GameObject:
   - component: {fileID: 395780279}
   - component: {fileID: 871288874}
   - component: {fileID: 348124099}
+  - component: {fileID: 1376873624747762335}
   m_Layer: 8
   m_Name: Red Car Drifty_My
   m_TagString: Kart
@@ -6327,6 +6328,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e076498cf7f63f24aa3e79f83c0e9be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1376873624747762335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883374083270441375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &2883374083340779452
 GameObject:
   m_ObjectHideFlags: 0

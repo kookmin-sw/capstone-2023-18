@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayUI : MonoBehaviour
+public class PlayUI : NetworkBehaviour
 {
     [HideInInspector, Header("Component")]
     public GameObject UI;
@@ -21,7 +22,7 @@ public class PlayUI : MonoBehaviour
     public Sprite[] ITEM_ICONS;
 
     [HideInInspector]
-    KartController UserKart;
+    public KartController UserKart;
 
 
     private void Awake()
@@ -40,7 +41,6 @@ public class PlayUI : MonoBehaviour
     void LoadCoponent()
     {
         TimeCheck = GameObject.Find("StartingLIne").GetComponent<TimeCheck>();
-        UserKart = GameObject.FindWithTag("Kart").GetComponent<KartController>();
         IconImage = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<Image>();
     }
 
@@ -59,10 +59,13 @@ public class PlayUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //시간 업데이트
-        ShowTime();
-        //아이템 업데이트
-        UpdateItem();
+        if (UserKart != null)
+        {
+            //시간 업데이트
+            ShowTime();
+            //아이템 업데이트
+            UpdateItem();
+        }
     }
 
 

@@ -14,7 +14,6 @@ public class GravityCustom : MonoBehaviour
 
     void FixedUpdate()
     {
-        
         rb.AddForce(Vector3.up * (gravity) * rb.mass);
     }
 }

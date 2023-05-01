@@ -9,65 +9,66 @@ public class Sensor : MonoBehaviour
     private AICarAgent script;
     public float nowTime;
     
-    public void Start()
+
+    public void Awake()
     {
         script = GetComponentInParent<AICarAgent>();
     }
+    
 
-    private void FixedUpdate()
-    {
-        nowTime += Time.fixedDeltaTime;
-
-        
-        if (nowTime > 3f)
-        {
-            nowTime = 0f;
-            script.AddReward(-60f);
-            script.EndEpisode();
+    public void OnTriggerEnter(Collider collider){
+        if(collider.gameObject.CompareTag("Wall")){
+            script.AddReward(-0.1f);  
+            script.GoResetPos();
         }
         
-    }
+        if(collider.gameObject.CompareTag("Goal")){
+            script.AddReward(20f);
+            script.EndEpisode();
+        }
 
-    // Start is called before the first frame update
-    public void OnTriggerEnter(Collider other)
-    {
-        
-        if (other.CompareTag("Checkpoint"))
-        {
+        if(collider.gameObject.CompareTag("Guide")){
+            script.AddReward(-0.5f);
+            script.GoResetPos();
+        }
+
+        if(collider.gameObject.CompareTag("Checkpoint")){
             
-            if (other.gameObject.GetComponent<cp>().currentCnt == script.currentCheckpoint)
-            {
-                script.currentCheckpoint = other.gameObject.GetComponent<cp>().nextCnt;
-                script.AddReward(+20f);
-            }
-
-            else
-            {
-                script.AddReward(-100f);
-                //script.AddReward(-1f * nowTime * 0.1f);
+            if(script.cp == collider.gameObject){
+                script.AddReward(-1f);
                 script.EndEpisode();
             }
-            
-            
-            nowTime = 0f;
-        }
-        else if (other.CompareTag("Guide"))
-        {
-            script.AddReward(-200f);
-            script.EndEpisode();
-        }
-        else if (other.CompareTag("Goal"))
-        {
-            if (script.currentCheckpoint < script.totalCheckpoint-1)
-            {
-                script.AddReward(-200f);
+            else{
+                
+                Transform tmp = collider.gameObject.transform;
+                tmp = tmp.GetChild(0).gameObject.transform;
+                script.cp = collider.gameObject;
+                script.SetResetPos(tmp);
+                if(script.cpNum == script.cm.totalcp()){
+                    script.cpNum = 0;
+                }
+                else{
+                    script.cpNum++;
+                }
+                script.nextcp = script.cm.nextCheckpoint(script.cpNum);
+                script.AddReward(5 + (script.cpNum * 0.5f));
             }
-            else
-            {
-                script.SetReward(script.totalCheckpoint * 5f);
-            }
-            script.EndEpisode();
         }
     }
+    public void OnTriggerStay(Collider collider){
+        if(collider.gameObject.CompareTag("Way")){
+            script.AddReward(2f/script.MaxStep);
+
+        }
+    }
+
+    public void OnTriggerExit(Collider collider){
+        if(collider.gameObject.CompareTag("Wall")){
+            
+        }
+    }
+    
+   
+    
     
 }

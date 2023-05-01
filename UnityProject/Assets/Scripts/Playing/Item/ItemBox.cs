@@ -13,22 +13,22 @@ public class ItemBox : MonoBehaviour
     {
         if(other.CompareTag("Kart") && gameObject.layer != 30)
         {
-            StartCoroutine(RemakeBox(other.transform.GetComponent<KartController>()));
+            StartCoroutine(RemakeBox(other.transform.GetComponent<NetKartController>()));
         }
     }
 
-    ITEMS SelectItem()
+    int SelectItem()
     {
         //아이템을 획득한 유저의 상황에 맞추어 아이템을 설정함.
         //현재는 부스터밖에 없으므로 부스터만.
-        return ITEMS.BOOST;
+        return (int)ITEMS.BOOST;
     }
 
-    IEnumerator RemakeBox(KartController user)
+    IEnumerator RemakeBox(NetKartController user)
     {
         //아이템 획득 시, 박스 disable
         //n초 후 재생성
-        user.hasItem = SelectItem();
+        user.npi.Item.Value = SelectItem();
         gameObject.layer = 30;
         yield return new WaitForSeconds(2f);
         gameObject.layer = 0;

@@ -5,7 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/MatchMaking/Auth.unity
+    guid: 94a92128edd147d47b2b050600ad113d
+  - enabled: 1
+    path: Assets/Scenes/MatchMaking/Lobby.unity
+    guid: 7a950d3ce6f8df745b35d73ab671cda0
+  - enabled: 1
+    path: Assets/Scenes/Kookmin_Multi.unity
+    guid: c7e71f7ed92727444b6d70481cea321f
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: e8bbd4b4c946b6149a8bbeba26113c16,
+      type: 2}

@@ -14,7 +14,7 @@ public class CountDown : MonoBehaviour
     void Start()
     {
 
-        StartCoroutine(StartGame());
+        //StartCoroutine(StartGame());
     }
 
     void FindKart()
