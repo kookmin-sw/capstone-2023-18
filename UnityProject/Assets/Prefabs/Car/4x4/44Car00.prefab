@@ -32822,7 +32822,7 @@ GameObject:
   - component: {fileID: 1788742113035525297}
   - component: {fileID: 6486597275927946356}
   m_Layer: 8
-  m_Name: MultiCar4
+  m_Name: 44Car00
   m_TagString: Kart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44110,7 +44110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7656484560755025202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.975, z: 0.009002686}
+  m_LocalPosition: {x: 0, y: -0.975, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44145,7 +44145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7656484560768950004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.84599996, z: 0.009}
+  m_LocalPosition: {x: 0, y: -0.84599996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -49615,7 +49615,6 @@ GameObject:
   - component: {fileID: 8972883915646829937}
   - component: {fileID: 8972883915643962707}
   - component: {fileID: 8972883915645061011}
-  - component: {fileID: 5366593208957098008}
   m_Layer: 2
   m_Name: Wheel_RL
   m_TagString: Untagged
@@ -49689,20 +49688,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5366593208957098008
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972883915647064401}
-  m_Material: {fileID: 13400000, guid: a46ba4e273ba0684f90f4acc0fdf44d5, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.05
-  m_Height: 0.6
-  m_Direction: 0
-  m_Center: {x: 0.06628841, y: 0.00000017881393, z: 0.00000025331974}
 --- !u!1 &8972883915647064403
 GameObject:
   m_ObjectHideFlags: 0
@@ -49714,7 +49699,6 @@ GameObject:
   - component: {fileID: 8972883915646829939}
   - component: {fileID: 8972883915643962709}
   - component: {fileID: 8972883915645061013}
-  - component: {fileID: 6936556071300326739}
   m_Layer: 2
   m_Name: Wheel_FR
   m_TagString: Untagged
@@ -49788,20 +49772,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6936556071300326739
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972883915647064403}
-  m_Material: {fileID: 13400000, guid: a46ba4e273ba0684f90f4acc0fdf44d5, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.05
-  m_Height: 0.6
-  m_Direction: 0
-  m_Center: {x: -0.06628841, y: 0.00000014901161, z: 0.00000010430813}
 --- !u!1 &8972883915647064405
 GameObject:
   m_ObjectHideFlags: 0
@@ -49897,7 +49867,6 @@ GameObject:
   - component: {fileID: 8972883915646829951}
   - component: {fileID: 8972883915643962705}
   - component: {fileID: 8972883915645061009}
-  - component: {fileID: 1322656137010166405}
   m_Layer: 2
   m_Name: Wheel_RR
   m_TagString: Untagged
@@ -49971,17 +49940,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1322656137010166405
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8972883915647064415}
-  m_Material: {fileID: 13400000, guid: a46ba4e273ba0684f90f4acc0fdf44d5, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.05
-  m_Height: 0.6
-  m_Direction: 0
-  m_Center: {x: -0.06628841, y: 0.00000022351742, z: 0.00000013411045}
