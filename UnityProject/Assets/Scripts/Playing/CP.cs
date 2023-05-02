@@ -8,6 +8,7 @@ public class CP : MonoBehaviour
     public CP[] NextCheckPoint;
     PlayCheckPoint playcheckpoint;
     public bool CorrectNext;
+    /*
 
     private void Start()
     {
@@ -45,4 +46,5 @@ public class CP : MonoBehaviour
             }
         }
     }
+    */
 }

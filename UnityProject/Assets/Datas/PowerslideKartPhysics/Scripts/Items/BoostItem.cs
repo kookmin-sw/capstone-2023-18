@@ -15,12 +15,10 @@ namespace PowerslideKartPhysics
         public override void Activate(ItemCastProperties props) {
             base.Activate(props);
             if (props.castKart != null) {
-                /***
                 if (props.castKart.canBoost) {
                     props.castKart.AddBoost(boostAmount, boostForce);
                     props.castKart.boostStartEvent.Invoke();
                 }
-                ***/
             }
         }
     }

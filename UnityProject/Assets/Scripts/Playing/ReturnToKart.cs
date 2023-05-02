@@ -20,9 +20,9 @@ public class ReturnToKart : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsOwner && input.Return.Value)
+        if(IsOwner && input.Return)
         {
-            input.Return.Value = false;
+            input.Return = false;
             StartCoroutine(playcheckpoint.ReturnToCP());
         }
     }

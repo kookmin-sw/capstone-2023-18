@@ -5750,8 +5750,8 @@ GameObject:
   - component: {fileID: 5737343338485447160}
   - component: {fileID: 2145794254181773728}
   - component: {fileID: 1179850042489468603}
-  - component: {fileID: -1900067986317953795}
-  - component: {fileID: 6333748758747585469}
+  - component: {fileID: 3220012048211510564}
+  - component: {fileID: 6525823809905787014}
   - component: {fileID: 1749512723173521475}
   m_Layer: 8
   m_Name: MultiCar
@@ -5918,16 +5918,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222ca28fd0a96684f90adf459330744f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hmove:
-    m_InternalValue: 0
-  Vmove:
-    m_InternalValue: 0
-  Drift:
-    m_InternalValue: 0
-  Item:
-    m_InternalValue: 0
-  Return:
-    m_InternalValue: 0
+  Hmove: 0
+  Vmove: 0
+  Drift: 0
+  Item: 0
+  Return: 0
 --- !u!114 &5737343338485447160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5949,12 +5944,12 @@ MonoBehaviour:
   turningAt: {fileID: 2883374083710916254}
   EngineAt: {fileID: 2883374083708030016}
   rb: {fileID: 0}
-  MaxSpeed: 100
-  speed: 6500
-  DownValue: 1500
+  MaxSpeed: 1000
+  speed: 22000
+  DownValue: 2000
   turn: 700
-  friction: 1000
-  SideFriction: 200
+  friction: 2000
+  SideFriction: 400
   dragAngularAmount: 55
   dragAmount: 2
   TurnAngle: 30
@@ -6045,19 +6040,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001411438
-      value: 0.99999994
-      inSlope: 0.027947132
-      outSlope: 0.027947132
+      time: 0
+      value: 0.35
+      inSlope: -0.45352557
+      outSlope: -0.45352557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.060768392
+      inWeight: 0.33333334
+      outWeight: 0.079783976
     - serializedVersion: 3
       time: 1
-      value: 0.2646323
-      inSlope: 0.004572676
-      outSlope: 0.004572676
+      value: 0.15
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.16238843
@@ -6071,18 +6066,18 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
-      inSlope: 0.027947132
-      outSlope: 0.027947132
+      value: 0.3
+      inSlope: -0.45352557
+      outSlope: -0.45352557
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0.060768392
+      inWeight: 0.33333334
+      outWeight: 0.079783976
     - serializedVersion: 3
       time: 1
       value: 0.15
-      inSlope: 0.004572676
-      outSlope: 0.004572676
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.16238843
@@ -6243,8 +6238,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  hasItem: 0
-  BoostPower: 18000
+  npi: {fileID: 0}
+  BoostPower: 40000
   isBoost: 0
   BoostCurve:
     serializedVersion: 2
@@ -6279,6 +6274,7 @@ MonoBehaviour:
   skidWidth: 0.2
   normalDir: {x: 0, y: 0, z: 0}
   input: {fileID: 0}
+  npm: {fileID: 0}
 --- !u!114 &2145794254181773728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6304,8 +6300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cam: {fileID: 2883374084186844247}
-  spawnPos: {fileID: 0}
---- !u!114 &-1900067986317953795
+--- !u!114 &3220012048211510564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6314,10 +6309,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 2883374083270441375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Script: {fileID: 11500000, guid: 08875413551161b48a75f90d088fceac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6333748758747585469
+  Lap:
+    m_InternalValue: 0
+  BestTime:
+    m_InternalValue: 0
+  KMH:
+    m_InternalValue: 0
+  CheckPointDistance:
+    m_InternalValue: 0
+  RpNum:
+    m_InternalValue: -1
+  RpForward:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  RpPosition:
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  CpNum:
+    m_InternalValue: -1
+  npm: {fileID: 0}
+  Item:
+    m_InternalValue: 0
+--- !u!114 &6525823809905787014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6326,23 +6340,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 2883374083270441375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: cca18b1aff5bb3e498b69d39cea4db5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.0001
-  RotAngleThreshold: 0.001
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
+  interpolationBackTime: 0.01
+  extrapolationMode: 1
+  useExtrapolationTimeLimit: 1
+  extrapolationTimeLimit: 5
+  useExtrapolationDistanceLimit: 0
+  extrapolationDistanceLimit: 20
+  sendPositionThreshold: 0
+  sendRotationThreshold: 0
+  sendScaleThreshold: 0
+  sendVelocityThreshold: 0
+  sendAngularVelocityThreshold: 0
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  snapPositionThreshold: 0
+  snapRotationThreshold: 0
+  snapScaleThreshold: 0
+  positionLerpSpeed: 1
+  rotationLerpSpeed: 1
+  scaleLerpSpeed: 1
+  timeCorrectionSpeed: 0.1
+  snapTimeThreshold: 3
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 0
+  isRotationCompressed: 0
+  isScaleCompressed: 0
+  isVelocityCompressed: 0
+  isAngularVelocityCompressed: 0
+  automaticallyResetTime: 1
+  isSmoothingAuthorityChanges: 0
+  transformSource: 0
+  whenToUpdateTransform: 1
+  sendRate: 30
+  networkChannel: 
+  childObjectToSync: {fileID: 0}
+  setVelocityInsteadOfPositionOnNonOwners: 1
+  maxPositionDifferenceForVelocitySyncing: 5
+  useLocalTransformOnly: 0
+  ownerChangeIndicator: 1
+  receivedStatesCounter: 0
 --- !u!114 &1749512723173521475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6819,7 +6862,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2883374083617530298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.454, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

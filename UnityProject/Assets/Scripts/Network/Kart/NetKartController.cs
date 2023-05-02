@@ -50,7 +50,7 @@ public class NetKartController : NetworkBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.NONE;
+    public NetPlayerInfo npi;
 
     public float BoostPower;
     public bool isBoost;
@@ -80,20 +80,32 @@ public class NetKartController : NetworkBehaviour
     public Vector3 normalDir;
 
     public NetKartInput input;
+    public NetPlayManager npm;
 
     private void Awake()
     {
         input = GetComponent<NetKartInput>();
+        npi = GetComponent<NetPlayerInfo>();
+        GameObject.Find("@PlayManager").TryGetComponent(out npm);
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
+
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if(IsOwner)
+        {
+            StartCoroutine(WaitStart());
+        }
     }
 
     void FixedUpdate()
     {
-        if (IsServer)
+        if (IsOwner) //움직임 계산 클라이언트 단에서 처리
         {
             carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
 
@@ -102,15 +114,15 @@ public class NetKartController : NetworkBehaviour
             rb.AddForce(Vector3.up * (-30) * rb.mass);
 
             //inputs
-            float turnInput = turn * input.Hmove.Value * Time.fixedDeltaTime * 1000;
-            float speedInput = speed * input.Vmove.Value * Time.fixedDeltaTime * 1000;
+            float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
+            float speedInput = speed * input.Vmove * Time.fixedDeltaTime * 1000;
 
             //helping veriables
 
-            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
             if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
             {
-                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
+                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
             }
             SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
             fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
@@ -161,6 +173,8 @@ public class NetKartController : NetworkBehaviour
 
             }
 
+            npi.KMH.Value = (int)(carVelocity.magnitude * 2);
+
         }
     }
 
@@ -173,6 +187,17 @@ public class NetKartController : NetworkBehaviour
             UseItem();
         }
     }
+
+    IEnumerator WaitStart()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        while (npm.isStart.Value == false)
+        {
+            yield return null;
+        }
+        rb.constraints = RigidbodyConstraints.None;
+    }
+
     public void audioControl()
     {
         engineSound.pitch = 2 * engineCurve.Evaluate(curveVelocity);
@@ -191,18 +216,18 @@ public class NetKartController : NetworkBehaviour
         foreach (Transform FM in TurnTires)
         {
             FM.localRotation = Quaternion.Slerp(FM.localRotation, Quaternion.Euler(FM.localRotation.eulerAngles.x,
-                               TurnAngle * input.Hmove.Value, FM.localRotation.eulerAngles.z), slerpTime);
+                               TurnAngle * input.Hmove, FM.localRotation.eulerAngles.z), slerpTime);
         }
     }
 
     public void accelarationLogic()
     {
         //speed control
-        if (input.Vmove.Value > 0.1f)
+        if (input.Vmove > 0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
-        if (input.Vmove.Value < -0.1f)
+        if (input.Vmove < -0.1f)
         {
             rb.AddForceAtPosition(transform.forward * speedValue, EngineAt.position);
         }
@@ -224,7 +249,7 @@ public class NetKartController : NetworkBehaviour
 
     public void OnDrift()
     {
-        if (input.Drift.Value)
+        if (input.Drift)
         {
             //rb.angularDrag = 3f * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
             rb.angularDrag = 4f * driftCurve.Evaluate(Mathf.Abs(Mathf.Abs(carVelocity.x) / carVelocity.magnitude));
@@ -311,7 +336,8 @@ public class NetKartController : NetworkBehaviour
 
     IEnumerator OnBooster(float BoostTime)
     {
-        hasItem = ITEMS.NONE;
+        npi.Item.Value = (int)ITEMS.NONE;
+
         if (!isBoost)
         {
             isBoost = true;
@@ -335,19 +361,21 @@ public class NetKartController : NetworkBehaviour
 
     void UseItem()
     {
-        if (input.Item.Value)
+        if (input.Item && IsServer)
         {
-            input.Item.Value = false;
-            switch (hasItem)
+            input.Item = false;
+            switch (npi.Item.Value)
             {
-                case ITEMS.NONE:
+                case (int)ITEMS.NONE:
                     break;
-                case ITEMS.BOOST:
+                case (int)ITEMS.BOOST:
                     StartCoroutine(OnBooster(2f));
                     break;
             }
         }
     }
+
+
 
 
     private void OnDrawGizmos()

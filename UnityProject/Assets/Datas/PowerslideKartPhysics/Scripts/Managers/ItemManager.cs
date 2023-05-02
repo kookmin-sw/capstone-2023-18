@@ -8,7 +8,6 @@ namespace PowerslideKartPhysics
     // This class manages items to be used by karts, deriving items from child objects
     public class ItemManager : MonoBehaviour
     {
-        [SerializeField]
         Item[] items = new Item[0];
 
         private void Awake() {
