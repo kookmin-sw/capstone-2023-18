@@ -1,20 +1,22 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Kart))]
+    
     // Class for using items, attached to kart
     public class ItemCaster : MonoBehaviour
     {
-        Kart kart;
+        KartController kart;
         Transform kartTr;
         Rigidbody kartRb;
         Collider kartCol;
+        
         public Item item;
         public int ammo = 0;
         public float minCastInterval = 0.1f;
@@ -22,12 +24,13 @@ namespace PowerslideKartPhysics
         public UnityEvent castEvent;
 
         private void Awake() {
-            kart = GetComponent<Kart>();
+            kart = GetComponent<KartController>();
+            
             if (kart != null) {
                 kartTr = kart.transform;
                 kartRb = kart.GetComponent<Rigidbody>();
-                if (kart.rotator != null) {
-                    kartCol = kart.rotator.GetComponent<Collider>();
+                if (kart.CentreOfMass != null) {
+                    kartCol = kart.CentreOfMass.GetComponent<Collider>();
                 }
             }
         }
@@ -39,7 +42,7 @@ namespace PowerslideKartPhysics
         // Cast currently equipped item
         public void Cast() {
             if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval) {
-                if (kart.active && !kart.spinningOut) {
+                if (kart.active && !kart.isSpin) {
                     ammo = Mathf.Max(0, ammo - 1);
                     timeSinceCast = 0.0f;
                     ItemCastProperties props = new ItemCastProperties();
@@ -52,12 +55,12 @@ namespace PowerslideKartPhysics
                     props.castGravity = kart.currentGravityDir;
                     props.castPoint = kartTr.position;
 
-                    if (kart.rotator != null) {
-                        props.castRotation = kart.rotator.rotation;
+                    if (kart.CentreOfMass != null) {
+                        props.castRotation = kart.CentreOfMass.rotation;
                     }
 
                     props.castCollider = kartCol;
-                    props.castDirection = kart.forwardDir;
+                    props.castDirection = kart.CentreOfMass.forward;
                     item.Activate(props);
                     castEvent.Invoke();
                 }
@@ -86,7 +89,7 @@ namespace PowerslideKartPhysics
     // Struct for passing item cast data
     public struct ItemCastProperties
     {
-        public Kart castKart;
+        public KartController castKart;
         public Kart[] allKarts;
         public Vector3 castKartVelocity;
         public Vector3 castPoint;
