@@ -11,14 +11,14 @@ namespace PowerslideKartPhysics
         public float boostAmount = 1.0f;
         public float boostForce = 1.0f;
 
+        public KartController kart;
+
+        
         // Award boost to kart upon activation
         public override void Activate(ItemCastProperties props) {
             base.Activate(props);
             if (props.castKart != null) {
-                if (props.castKart.canBoost) {
-                    props.castKart.AddBoost(boostAmount, boostForce);
-                    props.castKart.boostStartEvent.Invoke();
-                }
+                StartCoroutine(props.castKart.OnBooster(2f));
             }
         }
     }

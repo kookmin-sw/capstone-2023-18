@@ -59,8 +59,8 @@ namespace PowerslideKartPhysics
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
-        Kart[] allKarts;
-        Kart targetKart;
+        KartController[] allKarts;
+        KartController targetKart;
         public bool fetchKartsDuringSpawn = false;
 
         [Header("Homing")]
@@ -111,7 +111,7 @@ namespace PowerslideKartPhysics
             }
 
             if (fetchKartsDuringSpawn) {
-                allKarts = FindObjectsOfType<Kart>();
+                allKarts = FindObjectsOfType<KartController>();
             }
             else {
                 allKarts = props.allKarts;
@@ -123,7 +123,7 @@ namespace PowerslideKartPhysics
         }
 
         // Sets the target kart to the given kart
-        public virtual void SetHomingTarget(Kart target) {
+        public virtual void SetHomingTarget(KartController target) {
             targetKart = target;
         }
 

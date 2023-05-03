@@ -85,6 +85,7 @@ public class KartController : MonoBehaviour
 
     [Header("Get Hit")] 
     public bool active = true;
+    public bool isProtected = false;
     public Vector3 currentGravityDir = Vector3.up;
     [System.NonSerialized]
     public bool isSpin = false;
@@ -352,7 +353,7 @@ public class KartController : MonoBehaviour
         */
     }
 
-    IEnumerator OnBooster(float BoostTime)
+    public IEnumerator OnBooster(float BoostTime)
     {
         hasItem = ITEMS.NONE;
         if(!isBoost)
@@ -376,6 +377,25 @@ public class KartController : MonoBehaviour
         }
     }
 
+    public IEnumerator OnProtected(float ProtectTime)
+    {
+        Debug.Log(isProtected);
+        if (!isProtected)
+        {
+            isProtected = true;
+            Debug.Log(isProtected);
+            float currentProtectTime = ProtectTime;
+            while (currentProtectTime > 0)
+            {
+                currentProtectTime -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+            }
+
+            isProtected = false;
+            Debug.Log(isProtected);
+        }
+    }
+
     void UseItem()
     {
         if(input.Item)
@@ -386,7 +406,7 @@ public class KartController : MonoBehaviour
                 case ITEMS.NONE:
                     break;
                 case ITEMS.BOOST:
-                    StartCoroutine(OnBooster(2f));
+                   
                     break;
             }
         }

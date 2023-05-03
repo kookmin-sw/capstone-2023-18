@@ -9,10 +9,10 @@ namespace PowerslideKartPhysics
     {
         public string itemName = "Item";
         protected ItemCastProperties castProps;
-        protected Kart[] allKarts = new Kart[0];
+        protected KartController[] allKarts = new KartController[0];
 
         protected virtual void Awake() {
-            allKarts = FindObjectsOfType<Kart>();
+            allKarts = FindObjectsOfType<KartController>();
         }
 
         // Called upon activation
