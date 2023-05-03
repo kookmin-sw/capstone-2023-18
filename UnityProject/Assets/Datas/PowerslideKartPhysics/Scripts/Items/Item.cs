@@ -1,19 +1,21 @@
 ﻿// Copyright (c) 2022 Justin Couch / JustInvoke
 using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 
 namespace PowerslideKartPhysics
 {
     // Class for different items to be used
-    public abstract class Item : MonoBehaviour
+    public abstract class Item : NetworkBehaviour
     {
+        
         public string itemName = "Item";
         protected ItemCastProperties castProps;
-        protected KartController[] allKarts = new KartController[0];
+        protected NetKartController[] allKarts = new NetKartController[0];
 
         protected virtual void Awake() {
-            allKarts = FindObjectsOfType<KartController>();
-            Debug.Log(allKarts.Length);
+            allKarts = FindObjectsOfType<NetKartController>();
+            Debug.Log("allKarts : " + allKarts.Length);
         }
 
         // Called upon activation

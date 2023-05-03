@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Unity.Netcode;
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
     // Class for objects that give items to karts when touched
-    public class ItemGiver : MonoBehaviour
+    public class ItemGiver : NetworkBehaviour
     {
         ItemManager manager;
         Collider trig;
@@ -36,10 +36,11 @@ namespace PowerslideKartPhysics
         private void OnTriggerEnter(Collider other) {
             if (manager != null) {
                 // Give item to caster
+                Debug.Log("1");
                 ItemCaster caster = other.transform.GetTopmostParentComponent<ItemCaster>();
                 if (caster != null) {
                     offTime = 0.0f;
-
+                    Debug.Log("2");
                     // Give specific item if named, otherwise random item
                     caster.GiveItem(
                         string.IsNullOrEmpty(itemName) ? manager.GetRandomItem() : manager.GetItem(itemName),

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using PowerslideKartPhysics;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,6 +12,11 @@ public class NetKartInput : NetworkBehaviour
     public bool Drift;
     public bool Item;
     public bool Return;
+    public ItemCaster caster;
+    private void Awake()
+    {
+        caster = GetComponent<ItemCaster>();
+    }
 
     void Update()
     {
@@ -25,13 +32,20 @@ public class NetKartInput : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
             {
-                Item = true;
+                NetPressItem();
             }
             else if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 Item = false;
             }
         }
-
+        
+        
     }
-}
+    
+    protected void NetPressItem() {
+        if (caster != null) {
+            caster.Cast();
+        }
+    }
+}   

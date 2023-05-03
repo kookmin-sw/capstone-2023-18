@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
     
     // Class for using items, attached to kart
-    public class ItemCaster : MonoBehaviour
+    public class ItemCaster : NetworkBehaviour
     {
-        KartController kart;
+        NetKartController kart;
         Transform kartTr;
         Rigidbody kartRb;
         Collider kartCol;
@@ -24,7 +25,7 @@ namespace PowerslideKartPhysics
         public UnityEvent castEvent;
 
         private void Awake() {
-            kart = GetComponent<KartController>();
+            kart = GetComponent<NetKartController>();
             
             if (kart != null) {
                 kartTr = kart.transform;
@@ -63,10 +64,18 @@ namespace PowerslideKartPhysics
 
                     props.castCollider = kartCol;
                     props.castDirection = kart.CentreOfMass.forward;
-                    item.Activate(props);
+                    //item.Activate(props);
+                    useItemClientRpc(NetworkManager.Singleton.LocalClientId,props);
                     castEvent.Invoke();
                 }
             }
+        }
+        
+        [ClientRpc]
+        private void useItemClientRpc(ulong clientid, ItemCastProperties props)
+        {
+            if (!IsLocalPlayer) return;
+            item.Activate(props);
         }
 
         // Equip the specified single-use item
@@ -89,10 +98,11 @@ namespace PowerslideKartPhysics
     }
 
     // Struct for passing item cast data
-    public struct ItemCastProperties
+    public struct ItemCastProperties : INetworkSerializable, System.IEquatable<ItemCastProperties>
     {
-        public KartController castKart;
-        public KartController[] allKarts;
+        
+        public NetKartController castKart;
+        public NetKartController[] allKarts;
         public Vector3 castKartVelocity;
         public Vector3 castPoint;
         public Quaternion castRotation;
@@ -100,5 +110,22 @@ namespace PowerslideKartPhysics
         public float castSpeed;
         public Vector3 castGravity;
         public Collider castCollider;
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            if (serializer.IsReader)
+            {
+                var reader = serializer.GetFastBufferReader();
+                reader.
+                reader.ReadValueSafe(out castSpeed);
+                reader.ReadValueSafe(out );
+            }
+            else
+            {
+                var writer = serializer.GetFastBufferWriter();
+                writer.WriteValueSafe(PowerAmplifier);
+                writer.WriteValueSafe(Duration);
+            }
+        }
     }
 }

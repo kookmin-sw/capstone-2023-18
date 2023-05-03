@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody))]
     // Class for spawned projectile items
-    public class SpawnedProjectileItem : MonoBehaviour
+    public class SpawnedProjectileItem : NetworkBehaviour
     {
         Transform tr;
         Rigidbody rb;
@@ -17,8 +18,11 @@ namespace PowerslideKartPhysics
         ItemCastProperties castProps;
 
         bool grounded = false;
-        [Header("Movement")]
-        public LayerMask groundMask = 1;
+        [Header("Movement")] 
+        public float DownValue = 10f;
+
+        [HideInInspector] public Vector3 itemVelocity;
+        public LayerMask groundMask = 0;
         public float groundCheckDistance = 1.0f;
         Vector3 groundNormal = Vector3.up;
         Vector3 groundPoint = Vector3.zero;
@@ -60,8 +64,8 @@ namespace PowerslideKartPhysics
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
-        KartController[] allKarts;
-        KartController targetKart;
+        NetKartController[] allKarts;
+        NetKartController targetKart;
         public bool fetchKartsDuringSpawn = false;
 
         [Header("Homing")]
@@ -115,7 +119,7 @@ namespace PowerslideKartPhysics
             }
 
             if (fetchKartsDuringSpawn) {
-                allKarts = FindObjectsOfType<KartController>();
+                allKarts = FindObjectsOfType<NetKartController>();
             }
             else {
                 allKarts = props.allKarts;
@@ -127,7 +131,7 @@ namespace PowerslideKartPhysics
         }
 
         // Sets the target kart to the given kart
-        public virtual void SetHomingTarget(KartController target) {
+        public virtual void SetHomingTarget(NetKartController target) {
             targetKart = target;
         }
 
@@ -165,6 +169,10 @@ namespace PowerslideKartPhysics
         }
 
         protected virtual void FixedUpdate() {
+            
+            //downForce
+
+
             if (rb == null || col == null) { return; }
             
             tr.LookAt(moveDir.normalized);
