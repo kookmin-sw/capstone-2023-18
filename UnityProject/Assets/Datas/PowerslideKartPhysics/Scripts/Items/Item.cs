@@ -13,6 +13,7 @@ namespace PowerslideKartPhysics
 
         protected virtual void Awake() {
             allKarts = FindObjectsOfType<KartController>();
+            Debug.Log(allKarts.Length);
         }
 
         // Called upon activation

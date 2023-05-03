@@ -18,11 +18,14 @@ namespace PowerslideKartPhysics
                 // Spawn projectile upon activation
                 spawnedItem = Instantiate(itemPrefab, castProps.castPoint + castProps.castRotation * spawnOffset, castProps.castRotation);
                 SpawnedProjectileItem projectile = spawnedItem.GetComponent<SpawnedProjectileItem>();
-                if (projectile != null) {
+                if (projectile != null)
+                {
                     projectile.Initialize(castProps);
                 }
             }
         }
+
+      
 
         // Destroy spawned item upon deactivation
         public override void Deactivate() {

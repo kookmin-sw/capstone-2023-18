@@ -33,6 +33,8 @@ namespace PowerslideKartPhysics
                     kartCol = kart.CentreOfMass.GetComponent<Collider>();
                 }
             }
+            
+            
         }
 
         private void Update() {

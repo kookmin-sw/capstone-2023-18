@@ -23,13 +23,14 @@ namespace PowerslideKartPhysics
         Vector3 groundNormal = Vector3.up;
         Vector3 groundPoint = Vector3.zero;
 
+        
         public float launchHeight = 0.0f;
         public float startSpeed = 0.0f;
         public float targetSpeed = 0.0f;
         public bool inheritKartSpeed = true;
         public bool maintainKartSpeed = true;
         public float accel = 10f;
-        Vector3 moveDir = Vector3.forward;
+        public Vector3 moveDir = Vector3.forward;
         public bool moveInAir = false;
         public float gravityAdd = -10f;
         public Vector3 gravityDir = Vector3.up;
@@ -90,10 +91,13 @@ namespace PowerslideKartPhysics
 
         // Initialze spawned item with the given launch properties
         public virtual void Initialize(ItemCastProperties props) {
+            
             castProps = props;
             casterCol = props.castCollider;
             moveDir = (props.castDirection + props.castRotation * Vector3.up * launchHeight).normalized;
-
+            
+            
+            
             // Match casting kart speed
             if (inheritKartSpeed) {
                 rb.velocity = props.castKartVelocity + moveDir * (props.castSpeed + startSpeed);
@@ -162,8 +166,12 @@ namespace PowerslideKartPhysics
 
         protected virtual void FixedUpdate() {
             if (rb == null || col == null) { return; }
-
+            
+            tr.LookAt(moveDir.normalized);
+            
+            
             lifeTime += Time.fixedDeltaTime;
+
             rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
 
             // Ignore collision with casting kart
