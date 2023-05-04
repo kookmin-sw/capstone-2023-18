@@ -11,17 +11,18 @@ namespace PowerslideKartPhysics
         
         public string itemName = "Item";
         protected ItemCastProperties castProps;
-        protected NetKartController[] allKarts = new NetKartController[0];
+        //protected NetKartController[] allKarts = new NetKartController[0];
 
         protected virtual void Awake() {
-            allKarts = FindObjectsOfType<NetKartController>();
-            Debug.Log("allKarts : " + allKarts.Length);
+            //allKarts = FindObjectsOfType<NetKartController>();
         }
 
         // Called upon activation
-        public virtual void Activate(ItemCastProperties props) {
-            props.allKarts = allKarts;
+        public virtual void Activate(ItemCastProperties props, ulong userid, ulong objectid) {
+            //props.allKarts = allKarts;
             castProps = props;
+            
+            
         }
 
         // Called upon deactivation

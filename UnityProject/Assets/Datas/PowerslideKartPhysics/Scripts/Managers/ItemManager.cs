@@ -1,17 +1,48 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace PowerslideKartPhysics
 {
     // This class manages items to be used by karts, deriving items from child objects
-    public class ItemManager : MonoBehaviour
+    public class ItemManager : NetworkBehaviour
     {
+        public static ItemManager instance;
         Item[] items = new Item[0];
+        public NetKartController[] allKarts = new NetKartController[0];
 
         private void Awake() {
+            Init();
             items = GetComponentsInChildren<Item>();
+            allKarts = FindObjectsOfType<NetKartController>();
+            Debug.Log(allKarts.Length);
+        }
+
+        public void GetAllKarts()
+        {
+            allKarts = FindObjectsOfType<NetKartController>();
+            Debug.Log(allKarts.Length);
+        }
+
+        void Init()
+        {
+            if (instance == null)
+            {
+                GameObject im = GameObject.Find("NetItemsManager");
+                if (im == null)
+                {
+                    im = new GameObject { name = "NetItemsManager" };
+                }
+
+                if (im.GetComponent<ItemManager>() == null)
+                {
+                    im.AddComponent<ItemManager>();
+                }
+                DontDestroyOnLoad(im);
+                instance = im.GetComponent<ItemManager>();
+            }
         }
 
         // Return a random item from the list of items
@@ -39,5 +70,6 @@ namespace PowerslideKartPhysics
             }
             return null;
         }
+
     }
 }

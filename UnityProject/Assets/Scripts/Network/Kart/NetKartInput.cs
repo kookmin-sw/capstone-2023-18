@@ -12,6 +12,7 @@ public class NetKartInput : NetworkBehaviour
     public bool Drift;
     public bool Item;
     public bool Return;
+    public bool isReverse = false;
     public ItemCaster caster;
     private void Awake()
     {
@@ -22,7 +23,11 @@ public class NetKartInput : NetworkBehaviour
     {
         if (IsOwner)
         {
-            Hmove = Input.GetAxisRaw("Horizontal");
+            if (isReverse)
+            {
+                Hmove = Input.GetAxisRaw("Horizontal") * -1f;
+            }
+            else Hmove = Input.GetAxisRaw("Horizontal");
             Vmove = Input.GetAxisRaw("Vertical");
             Drift = Input.GetKey(KeyCode.LeftShift);
             if (Input.GetKey(KeyCode.R))
@@ -32,7 +37,10 @@ public class NetKartInput : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
             {
-                NetPressItem();
+                if (caster != null) {
+                    Debug.Log(NetworkObjectId);
+                    caster.CastServerRpc(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
+                }
             }
             else if (Input.GetKeyUp(KeyCode.LeftControl))
             {
@@ -41,11 +49,5 @@ public class NetKartInput : NetworkBehaviour
         }
         
         
-    }
-    
-    protected void NetPressItem() {
-        if (caster != null) {
-            caster.Cast();
-        }
     }
 }   

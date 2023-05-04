@@ -16,7 +16,9 @@ namespace PowerslideKartPhysics
         Rigidbody rb;
         Collider col;
         ItemCastProperties castProps;
-
+        private NetKartController itemowner;
+        private ItemManager im;
+        
         bool grounded = false;
         [Header("Movement")] 
         public float DownValue = 10f;
@@ -86,7 +88,10 @@ namespace PowerslideKartPhysics
         public UnityEvent collideEvent;
         public UnityEvent destroyEvent;
 
-        protected virtual void Awake() {
+        protected virtual void Awake()
+        {
+            im = FindObjectOfType<ItemManager>();
+            
             tr = transform;
             rb = GetComponent<Rigidbody>();
             col = GetComponent<Collider>();
@@ -94,14 +99,16 @@ namespace PowerslideKartPhysics
         }
 
         // Initialze spawned item with the given launch properties
-        public virtual void Initialize(ItemCastProperties props) {
-            
+        public virtual void Initialize(ItemCastProperties props , ulong userid)
+        {
+
+            itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+                .GetComponent<NetKartController>();
+            if (itemowner == null) return;
             castProps = props;
-            casterCol = props.castCollider;
+            casterCol = GetComponent<Collider>();
             moveDir = (props.castDirection + props.castRotation * Vector3.up * launchHeight).normalized;
-            
-            
-            
+
             // Match casting kart speed
             if (inheritKartSpeed) {
                 rb.velocity = props.castKartVelocity + moveDir * (props.castSpeed + startSpeed);
@@ -121,8 +128,9 @@ namespace PowerslideKartPhysics
             if (fetchKartsDuringSpawn) {
                 allKarts = FindObjectsOfType<NetKartController>();
             }
-            else {
-                allKarts = props.allKarts;
+            else
+            {
+                allKarts = im.allKarts;
             }
 
             if (homingAccuracy > 0) {
@@ -141,7 +149,7 @@ namespace PowerslideKartPhysics
                 float closeDist = -1.0f;
                 float closeAngle = -1.0f;
                 for (int i = 0; i < allKarts.Length; i++) {
-                    if (allKarts[i] != castProps.castKart) {
+                    if (allKarts[i] != itemowner) {
                         float curDist = (allKarts[i].transform.position - tr.position).sqrMagnitude;
                         float curAngle = Vector3.Dot((allKarts[i].transform.position - castProps.castPoint).normalized, moveDir);
                         bool lineOfSight = !useLineOfSight || !Physics.Linecast(tr.position, allKarts[i].transform.position, lineOfSightMask, QueryTriggerInteraction.Ignore);
@@ -259,12 +267,13 @@ namespace PowerslideKartPhysics
                     if (curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                         // Spin out kart upon collision
                         curCol.otherCollider.transform.GetTopmostParentComponent<Kart>().SpinOut(kartSpin, kartSpinCount);
-                        Destroy(gameObject);
+                        
+                        if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                     }
                 }
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
                     // Destroy upon wall collision
-                    Destroy(gameObject);
+                    if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                 }
                 else {
                     // Bounce collision logic
@@ -275,7 +284,7 @@ namespace PowerslideKartPhysics
 
                         bounces++;
                         if (bounces > maxBounces) {
-                            Destroy(gameObject);
+                            if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                         }
                         else {
                             collideEvent.Invoke();

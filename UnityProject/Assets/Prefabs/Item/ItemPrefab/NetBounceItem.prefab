@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a5e951832ab61e74e972ba775ddc9418, type: 2}
+  - {fileID: 2100000, guid: 080943ca4d704fc4bb29cf74e9091649, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 8608377128635603763}
   - component: {fileID: 2540433896333183303}
   - component: {fileID: 4567911620038884197}
-  - component: {fileID: 7461567561692948512}
-  - component: {fileID: 2573869444520457364}
-  - component: {fileID: 5994663090536485992}
+  - component: {fileID: 2055333445279178931}
+  - component: {fileID: 5700678015909686716}
+  - component: {fileID: 2780611460448877766}
   m_Layer: 0
-  m_Name: NetStaticItem
+  m_Name: NetBounceItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5462182083005470935}
-  m_Material: {fileID: 13400000, guid: 1167117dcc5d5564baf6967ea959c379, type: 2}
+  m_Material: {fileID: 13400000, guid: 9603ca4e35dff8a418303affec7b8fc2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -153,28 +153,28 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckDistance: 1.5
   launchHeight: 0
-  startSpeed: 0
-  targetSpeed: 0
+  startSpeed: 20
+  targetSpeed: 40
   inheritKartSpeed: 1
   maintainKartSpeed: 1
-  accel: 0
+  accel: 10
   moveDir: {x: 0, y: 0, z: 1}
-  moveInAir: 1
+  moveInAir: 0
   gravityAdd: -10
   gravityDir: {x: 0, y: 1, z: 0}
   inheritKartGravity: 1
   gravityIsGroundNormal: 1
   resetGravityDirInAir: 1
-  forwardFriction: 20
-  sideFriction: 20
+  forwardFriction: 0
+  sideFriction: 10
   maxFallSpeed: 30
   fallSpeedDecel: 10
   wallBounceReflect: 1
   itemBounceReflect: 1
-  bounceReflectForce: 0.5
+  bounceReflectForce: 1
   maxBounces: 3
-  destroyOnWallHit: 1
-  destroyOnItemHit: 1
+  destroyOnWallHit: 0
+  destroyOnItemHit: 0
   wallCollisionProps:
     wallDetectionType: 0
     wallDotLimit: 0.5
@@ -194,7 +194,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   findTargetWhileActive: 0
-  kartSpin: 0
+  kartSpin: 2
   kartSpinCount: 2
   collideEvent:
     m_PersistentCalls:
@@ -218,7 +218,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &7461567561692948512
+--- !u!114 &2055333445279178931
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,7 +234,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &2573869444520457364
+--- !u!114 &5700678015909686716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,7 +260,7 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
---- !u!114 &5994663090536485992
+--- !u!114 &2780611460448877766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

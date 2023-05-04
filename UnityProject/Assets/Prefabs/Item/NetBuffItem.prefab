@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 080943ca4d704fc4bb29cf74e9091649, type: 2}
+  - {fileID: 2100000, guid: a5e951832ab61e74e972ba775ddc9418, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,11 +93,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8133265226682561602}
   - component: {fileID: 8608377128635603763}
-  - component: {fileID: 2540433896333183303}
   - component: {fileID: 4567911620038884197}
-  - component: {fileID: 2055333445279178931}
+  - component: {fileID: 4818233231105861423}
+  - component: {fileID: 7461567561692948512}
+  - component: {fileID: 2573869444520457364}
+  - component: {fileID: 5994663090536485992}
   m_Layer: 0
-  m_Name: NetBounceItem
+  m_Name: NetBuffItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,78 +128,12 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5462182083005470935}
-  m_Material: {fileID: 13400000, guid: 9603ca4e35dff8a418303affec7b8fc2, type: 2}
+  m_Material: {fileID: 13400000, guid: 1167117dcc5d5564baf6967ea959c379, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2540433896333183303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5462182083005470935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf7067d71622fd4cb5d64f7a5902910, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
-  groundCheckDistance: 1.5
-  launchHeight: 0
-  startSpeed: 20
-  targetSpeed: 40
-  inheritKartSpeed: 1
-  maintainKartSpeed: 1
-  accel: 10
-  moveDir: {x: 0, y: 0, z: 1}
-  moveInAir: 0
-  gravityAdd: -10
-  gravityDir: {x: 0, y: 1, z: 0}
-  inheritKartGravity: 1
-  gravityIsGroundNormal: 1
-  resetGravityDirInAir: 1
-  forwardFriction: 0
-  sideFriction: 10
-  maxFallSpeed: 30
-  fallSpeedDecel: 10
-  wallBounceReflect: 1
-  itemBounceReflect: 1
-  bounceReflectForce: 1
-  maxBounces: 3
-  destroyOnWallHit: 0
-  destroyOnItemHit: 0
-  wallCollisionProps:
-    wallDetectionType: 0
-    wallDotLimit: 0.5
-    wallMask:
-      serializedVersion: 2
-      m_Bits: 1024
-    wallTag: Walls
-  casterIgnoreTime: 0.5
-  canHitCaster: 1
-  fetchKartsDuringSpawn: 0
-  homingAccuracy: 0
-  prioritizeKartsInFront: 0
-  minHomingAngle: 0
-  maxHomingDist: 0
-  useLineOfSight: 0
-  lineOfSightMask:
-    serializedVersion: 2
-    m_Bits: 0
-  findTargetWhileActive: 0
-  kartSpin: 2
-  kartSpinCount: 2
-  collideEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  destroyEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!54 &4567911620038884197
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -214,7 +150,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!114 &2055333445279178931
+--- !u!114 &4818233231105861423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462182083005470935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713897f68e9d74b8aa19ff68a1b6e50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Item
+  protectionTime: 1
+--- !u!114 &7461567561692948512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,3 +180,41 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &2573869444520457364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462182083005470935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  InLocalSpace: 0
+  Interpolate: 1
+--- !u!114 &5994663090536485992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462182083005470935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -44,9 +44,7 @@ public class KartInput : MonoBehaviour
 
     }
     protected void PressItem() {
-        if (caster != null) {
-            caster.Cast();
-        }
+        
     }
     
    

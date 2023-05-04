@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using PowerslideKartPhysics;
 using UnityEngine;
-
-public class SpawnedProjectileItemDir : MonoBehaviour
+using Unity.Netcode;
+public class SpawnedProjectileItemDir : NetworkBehaviour
 {
     // Start is called before the first frame update
     private Transform tr;
