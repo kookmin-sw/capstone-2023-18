@@ -40,6 +40,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     public NetworkVariable<int> Item = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
+
     private void Awake()
     {
         LapTimes = new NetworkList<float>();

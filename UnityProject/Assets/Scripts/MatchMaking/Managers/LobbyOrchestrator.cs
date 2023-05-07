@@ -17,7 +17,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     [SerializeField] public RoomScreen _roomScreen;
     [SerializeField] public int _countTeam; // Team 카운트 0이하 -> Red팀, 0초과 -> Blue팀 배정, 
 
-    private static GameObject Instance;
+    public static GameObject Instance { get; set; }
 
     private void Start() {
         DontDestroyOnLoad(gameObject);
@@ -104,7 +104,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     #region Room
 
 
-    private readonly Dictionary<ulong, LobbyPlayerInfo> _playersInLobby = new();
+    public readonly Dictionary<ulong, LobbyPlayerInfo> _playersInLobby = new();
     public static event Action<Dictionary<ulong, LobbyPlayerInfo>> LobbyPlayersUpdated;
     private float _nextLobbyUpdate;
 
@@ -115,15 +115,34 @@ public class LobbyOrchestrator : NetworkBehaviour {
             if (_countTeam <= 0)
             {
                 Debug.Log("Server Created Room");
-                newPlayer = new LobbyPlayerInfo(false, true, PlayerPosition.None);
+                newPlayer = new LobbyPlayerInfo();
+                if(NetworkManager.Singleton.IsHost)
+                {
+                    newPlayer.isHost = true;
+                }
+                else
+                {
+                    newPlayer.isHost = false;
+                }
+                newPlayer.isRedTeam = true;
                 _countTeam += 1;
             }
             else
             {
-                newPlayer = new LobbyPlayerInfo(false, false, PlayerPosition.None);
+                newPlayer = new LobbyPlayerInfo();
+                if (NetworkManager.Singleton.IsHost)
+                {
+                    newPlayer.isHost = true;
+                }
+                else
+                {
+                    newPlayer.isHost = false;
+                }
+                newPlayer.isRedTeam = false;
                 _countTeam -= 1;
             }
             
+
             _playersInLobby.Add(NetworkManager.Singleton.LocalClientId, newPlayer);
             UpdateInterface();
         }
@@ -144,13 +163,15 @@ public class LobbyOrchestrator : NetworkBehaviour {
             if (_countTeam <= 0)
             {
                 Debug.Log("chec1");
-                newPlayer = new LobbyPlayerInfo(false, true, PlayerPosition.None);
+                newPlayer = new LobbyPlayerInfo();
+                newPlayer.isRedTeam = true;
                 _countTeam += 1;
             }
             else
             {
                 Debug.Log("chec2");
-                newPlayer = new LobbyPlayerInfo(false, false, PlayerPosition.None);
+                newPlayer = new LobbyPlayerInfo();
+                newPlayer.isRedTeam = false;
                 _countTeam -= 1;
             }
             _playersInLobby.Add(playerId, newPlayer);
@@ -162,7 +183,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         UpdateInterface();
     }
 
-    private void PropagateToClients() {
+    public void PropagateToClients() {
         foreach (var player in _playersInLobby) UpdatePlayerClientRpc(player.Key, player.Value);
     }
 
@@ -219,8 +240,70 @@ public class LobbyOrchestrator : NetworkBehaviour {
         PropagateToClients();
         UpdateInterface();
     }
+    public void ChangeTeamButton()
+    {
+        ChangeTeamServerRpc();
+    }
 
-    private void UpdateInterface() {
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeTeamServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        var clientId = serverRpcParams.Receive.SenderClientId;
+        if (_playersInLobby.ContainsKey(clientId))
+        {
+            Debug.Log("Receieve Change Team!");
+            if(_playersInLobby[clientId].isRedTeam)
+            {
+                Debug.Log("Change Blue");
+                _playersInLobby[clientId].isRedTeam = false;
+                _countTeam -= 1;
+            }
+            else
+            {
+                Debug.Log("Change Red");
+                _playersInLobby[clientId].isRedTeam = true;
+                _countTeam += 1;
+            }
+            
+        }
+
+        PropagateToClients();
+
+        UpdateInterface();
+    }
+
+    public void SetKartIndex(int _idx)
+    {
+        SetKartServerRpc(NetworkManager.Singleton.LocalClientId, _idx);
+        Debug.Log(NetworkManager.Singleton.LocalClientId);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetKartServerRpc(ulong _uid, int _idx)
+    {
+        Debug.Log("Set Kart" + _idx);
+        _playersInLobby[_uid].KartIndex = _idx;
+        PropagateToClients();
+        UpdateInterface();
+    }
+
+    public void SetCharacterIndex(int _idx)
+    {
+        SetCharacterServerRpc(NetworkManager.Singleton.LocalClientId, _idx);
+    }
+
+
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetCharacterServerRpc(ulong _uid, int _idx)
+    {
+        Debug.Log("Set Kart" + _idx);
+        _playersInLobby[_uid].CharacterIndex = _idx;
+        PropagateToClients();
+        UpdateInterface();
+    }
+
+    public void UpdateInterface() {
         LobbyPlayersUpdated?.Invoke(_playersInLobby);
     }
 
@@ -242,7 +325,8 @@ public class LobbyOrchestrator : NetworkBehaviour {
         RoomScreen.StartPressed -= OnGameStart;
         
         // We only care about this during lobby
-        if (NetworkManager.Singleton != null) {
+        if (NetworkManager.Singleton != null)
+        {
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
         }
       

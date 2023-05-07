@@ -15,19 +15,29 @@ public class LobbyPlayerInfo : INetworkSerializable
 {
     public bool isReady;//Ready 여부
     public bool isRedTeam;//RedTeam 여부
+    public bool isHost;
     public PlayerPosition position;
+    public int KartIndex;
+    public int CharacterIndex;
+
 
     public LobbyPlayerInfo()
     {
         isReady = false;
         isRedTeam = false;
+        isHost = false;
         position = PlayerPosition.None;
+        KartIndex = 0;
+        CharacterIndex = 0;
     }
-    public LobbyPlayerInfo(bool _isReady, bool _isRedTeam, PlayerPosition _position)
+    public LobbyPlayerInfo(bool _isReady, bool _isRedTeam, bool _isHost, PlayerPosition _position, int _KartIndex, int _CharacterIndex)
     {
         isReady = _isReady;
         isRedTeam = _isRedTeam;
+        isHost = _isHost;
         position = _position;
+        KartIndex = _KartIndex;
+        CharacterIndex = _CharacterIndex;
     }
     
 
@@ -36,7 +46,10 @@ public class LobbyPlayerInfo : INetworkSerializable
     {
         serializer.SerializeValue(ref isReady);
         serializer.SerializeValue(ref isRedTeam);
+        serializer.SerializeValue(ref isHost);
         serializer.SerializeValue(ref position);
+        serializer.SerializeValue(ref KartIndex);
+        serializer.SerializeValue(ref CharacterIndex);
     }
     // ~INetworkSerializable
 }

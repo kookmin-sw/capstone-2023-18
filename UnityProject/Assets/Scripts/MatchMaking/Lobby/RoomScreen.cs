@@ -50,18 +50,24 @@ public class RoomScreen : MonoBehaviour {
         int redCount = 0, blueCount = 0;
         foreach (var player in players)
         {
-            Debug.Log("User TEST" + player.Key + " " + player.Value.isRedTeam);
+            Debug.Log("User TEST" + player.Key + " " + player.Value.KartIndex + " " + player.Value.CharacterIndex);
             var currentPanel = _playerPanels.FirstOrDefault(p => p.PlayerId == player.Key);
             if (player.Value.isRedTeam)
             {
                 _redPlayers[redCount].gameObject.SetActive(true);
                 _redPlayers[redCount].Init(player.Key);
+                _redPlayers[redCount].SetItem(player.Value.KartIndex, player.Value.CharacterIndex);
+                _redPlayers[redCount].SetHost(player.Value.isHost);
+                _redPlayers[redCount].SetYour(player.Key == NetworkManager.Singleton.LocalClientId);
                 _redPlayers[redCount++].SetReady(player.Value.isReady);
             }
             else
             {
                 _bluePlayers[blueCount].gameObject.SetActive(true);
                 _bluePlayers[blueCount].Init(player.Key);
+                _bluePlayers[blueCount].SetItem(player.Value.KartIndex, player.Value.CharacterIndex);
+                _bluePlayers[blueCount].SetHost(player.Value.isHost);
+                _bluePlayers[blueCount].SetYour(player.Key == NetworkManager.Singleton.LocalClientId);
                 _bluePlayers[blueCount++].SetReady(player.Value.isReady);
             }
 
