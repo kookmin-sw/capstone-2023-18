@@ -12,26 +12,63 @@ namespace PowerslideKartPhysics
     {
         public float buffTime = 1f;
         
-        public override void Activate(ItemCastProperties props, ulong userid, ulong objectid)
+        [ServerRpc(RequireOwnership = false)]
+        public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid)
         {
-            base.Activate(props, userid, objectid);
-            useItem(itemName, userid);
+            base.ActivateServerRpc(props, userid, objectid);
+            useItem(itemName, userid, objectid);
         }
 
-        private void useItem(string itemName, ulong userid)
+        private void useItem(string itemName, ulong userid, ulong objectid)
         {
             switch (itemName)
             {
                 case "ReverseBuffother" :
-                    UseReverseBuffotherClientRpc(userid);
+                    UseReverseBuffotherClientRpc(userid,objectid);
                     break;
                 case "ReverseBuffTeam" :
+                    UseReverseBuffTeamClientRpc(userid,getMyTeam(objectid));
+                    break;
+                case "SlowItem" : 
+                    UseSlowTeamClientRpc(getMyTeam(objectid),userid);
                     break;
             }
         }
 
+        private int getMyTeam(ulong id)
+        {
+            int myteamNum = 0;
+            
+            NetworkObject itemuser = GetNetworkObject(id);
+            myteamNum = itemuser.GetComponent<NetPlayerInfo>().teamNumber;
+            Debug.Log(id + " : " + myteamNum);
+            return myteamNum;
+        }
+        
         [ClientRpc]
-        private void UseReverseBuffotherClientRpc(ulong userid)
+        private void UseReverseBuffTeamClientRpc(ulong userid, int teamNum)
+        {
+            List<playerData> data = ItemManager.instance.PlayerDatas;
+            for (int i = 0; i < data.Count; i++)
+            {
+                playerData tmp = data[i];
+                //use to not my team
+                if (tmp.teamNumber != teamNum)
+                {
+                    NetworkObject target = GetNetworkObject(tmp.networkobjectId);
+                    target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.reverse,buffTime,userid);
+                    if (tmp.clientId == NetworkManager.Singleton.LocalClientId)
+                    {
+                        NetKartInput playerInput = target.GetComponent<NetKartInput>();
+                        StartCoroutine(ReverseBuffTimer(buffTime,playerInput));
+                    }
+                }
+            }
+
+        }
+        
+        [ClientRpc]
+        private void UseReverseBuffotherClientRpc(ulong userid, ulong objectid)
         {
             if (NetworkManager.Singleton.LocalClientId != userid)
             {
@@ -54,7 +91,44 @@ namespace PowerslideKartPhysics
 
             playerInput.isReverse = false;
         }
-        
+
+        [ClientRpc]
+        private void UseSlowTeamClientRpc(int teamNum,ulong userid)
+        {
+            List<playerData> data = ItemManager.instance.PlayerDatas;
+            for (int i = 0; i < data.Count; i++)
+            {
+                playerData tmp = data[i];
+                //use to not my team
+                if (tmp.teamNumber != teamNum)
+                {
+                    NetworkObject target = GetNetworkObject(tmp.networkobjectId);
+                    Debug.Log(tmp.networkobjectId);
+                    target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.slow,buffTime,userid);
+                    if (tmp.clientId == NetworkManager.Singleton.LocalClientId)
+                    {
+                        
+                        StartCoroutine(SlowBuffTimer(buffTime, target.GetComponent<NetKartController>()));
+                    }
+                }
+            }
+        }
+
+        IEnumerator SlowBuffTimer(float bufftime, NetKartController playerController)
+        {
+            float currSpeed = playerController.MaxSpeed;
+            
+            float currentTime = bufftime;
+            while (currentTime > 0)
+            {
+                
+                playerController.MaxSpeed = currSpeed / 2;
+                currentTime -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+            }
+
+            playerController.MaxSpeed = currSpeed;
+        }
     }
 }
 

@@ -38,8 +38,8 @@ public class NetKartInput : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
             {
                 if (caster != null) {
-                    Debug.Log(NetworkObjectId);
-                    caster.CastServerRpc(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
+                    
+                    caster.Cast(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
                 }
             }
             else if (Input.GetKeyUp(KeyCode.LeftControl))

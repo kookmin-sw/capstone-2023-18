@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class NetPlayManager : NetworkBehaviour
 {
     //���� ���� ��ġ
+    public static NetPlayManager instance;
+
     public GameObject[] StartingPoints;
 
     // ��ü������ �˾ƾ� �ϴ°�
@@ -30,6 +32,7 @@ public class NetPlayManager : NetworkBehaviour
 
     public void Awake()
     {
+        Init();
         rank = new NetworkList<ulong>();
     }
 
@@ -38,7 +41,24 @@ public class NetPlayManager : NetworkBehaviour
 
         setMapInfo();
     }
+    void Init()
+    {
+        if (instance == null)
+        {
+            GameObject gm = GameObject.Find("@PlayManager");
+            if (gm == null)
+            {
+                gm = new GameObject { name = "@PlayManager" };
+            }
 
+            if (gm.GetComponent<NetPlayManager>() == null)
+            {
+                gm.AddComponent<NetPlayManager>();
+            }
+            DontDestroyOnLoad(gm);
+            instance = gm.GetComponent<NetPlayManager>();
+        }
+    }
     private void Update()
     {
         if(IsServer)
@@ -57,6 +77,7 @@ public class NetPlayManager : NetworkBehaviour
         }
 
     }
+    
 
     //�׽�Ʈ �ڵ� �ӽ÷� �����ϱ� ����.
     void StartGameButton()
@@ -104,9 +125,11 @@ public class NetPlayManager : NetworkBehaviour
                    .ToArray();
 
         int i = 0;
+        
         foreach (ulong key in _rank)
         {
             rank[i] = _rank[i];
+            Players[key].myRank.Value = i;
             i++;
         }
 
@@ -160,4 +183,7 @@ public class NetPlayManager : NetworkBehaviour
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }
+
+
+    
 }

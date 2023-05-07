@@ -36,8 +36,6 @@ namespace PowerslideKartPhysics
                 }
                 ***/
             }
-            
-            
         }
 
         private void Update() {
@@ -45,8 +43,8 @@ namespace PowerslideKartPhysics
         }
 
         // Cast currently equipped item
-        [ServerRpc]
-        public void CastServerRpc(ulong userid, ulong objectid) {
+        
+        public void Cast(ulong userid, ulong objectid) {
             if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval) {
                 if (kart.active && !kart.isSpin) {
                     ammo = Mathf.Max(0, ammo - 1);
@@ -68,7 +66,7 @@ namespace PowerslideKartPhysics
                     //props.castCollider = kartCol;
                     props.castDirection = kart.CentreOfMass.forward;
                     
-                    item.Activate(props, userid, objectid);
+                    item.ActivateServerRpc(props, userid, objectid);
                     castEvent.Invoke();
                 }
             }

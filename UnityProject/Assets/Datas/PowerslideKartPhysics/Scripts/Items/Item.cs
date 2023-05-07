@@ -17,8 +17,9 @@ namespace PowerslideKartPhysics
             //allKarts = FindObjectsOfType<NetKartController>();
         }
 
+        [ServerRpc]
         // Called upon activation
-        public virtual void Activate(ItemCastProperties props, ulong userid, ulong objectid) {
+        public virtual void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid) {
             //props.allKarts = allKarts;
             castProps = props;
             

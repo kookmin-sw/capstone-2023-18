@@ -15,10 +15,10 @@ namespace PowerslideKartPhysics
 
         
 
-        
+        [ServerRpc(RequireOwnership = false)]
         // Award boost to kart upon activation
-        public override void Activate(ItemCastProperties props, ulong userid, ulong objectid) {
-            base.Activate(props, userid, objectid);
+        public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid) {
+            base.ActivateServerRpc(props, userid, objectid);
             UseBoosterClientRpc(userid,objectid,isRush);
         }
 
@@ -26,6 +26,7 @@ namespace PowerslideKartPhysics
         private void UseBoosterClientRpc(ulong userid,ulong objectid, bool isrush)
         {
             NetworkObject player = GetNetworkObject(objectid);
+            ItemEffect itemEffect = player.GetComponentInChildren<ItemEffect>();
 
             if (player == null) return;    
           
@@ -40,12 +41,16 @@ namespace PowerslideKartPhysics
                 }
             }
 
-            if (isrush && IsClient)
+            if (IsClient)
             {
-                ItemEffect itemEffect = player.GetComponentInChildren<ItemEffect>();
-                if(itemEffect != null )itemEffect.EffectOn(ItemEffect.effectType.rush, boostTime,userid);
-            }
+                itemEffect.EffectOn(ItemEffect.effectType.boost, boostTime, userid);
+                if (isrush)
+                {
+                    if(itemEffect != null )itemEffect.EffectOn(ItemEffect.effectType.rush, boostTime,userid);
+                }
                 //TODO : 피격무시 bool 처리 해주기
+            }
+            
             
         }
     }

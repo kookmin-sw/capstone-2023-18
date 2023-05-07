@@ -16,12 +16,20 @@ namespace PowerslideKartPhysics
         GameObject spawnedItem;
         public Vector3 spawnOffset;
         
-        public override void Activate(ItemCastProperties props, ulong userid, ulong objectid) {
-            base.Activate(props,userid,objectid);
-            Debug.Log("userid : " + userid + " // " + ItemManager.instance.allKarts.Length);
+        [ServerRpc(RequireOwnership = false)]
+        public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid) {
+            base.ActivateServerRpc(props,userid,objectid);
             if (itemPrefab != null) {
                 // Spawn projectile upon activation
-                spawnedItem = Instantiate(itemPrefab, castProps.castPoint + castProps.castRotation * spawnOffset, castProps.castRotation);
+
+                if (itemName == "Podu")
+                {
+                    //1등의 정보를 받아와야
+
+                    Vector3 no1pos = new Vector3(0, 0, 0); 
+                    spawnedItem = Instantiate(itemPrefab, no1pos, castProps.castRotation);
+                }
+                else spawnedItem = Instantiate(itemPrefab, castProps.castPoint + castProps.castRotation * spawnOffset, castProps.castRotation);
                 spawnedItem.GetComponent<NetworkObject>().Spawn();
                 SpawnedProjectileItem projectile = spawnedItem.GetComponent<SpawnedProjectileItem>();
                 if (projectile != null)
@@ -31,9 +39,8 @@ namespace PowerslideKartPhysics
                 
             }
         }
-
-      
-
+        
+     
         // Destroy spawned item upon deactivation
         public override void Deactivate() {
             base.Deactivate();

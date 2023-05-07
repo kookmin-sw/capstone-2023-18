@@ -61,6 +61,7 @@ namespace PowerslideKartPhysics
         WallCollision wallDetector;
         public WallDetectProps wallCollisionProps = WallDetectProps.Default;
 
+        private float despawnTime = 10f;
         float lifeTime = 0.0f;
         [Header("Caster")]
         public float casterIgnoreTime = 0.5f;
@@ -179,7 +180,7 @@ namespace PowerslideKartPhysics
         protected virtual void FixedUpdate() {
             
             //downForce
-
+          
 
             if (rb == null || col == null) { return; }
             

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class NetKartController : NetworkBehaviour
 {
+
     [Space, Header("Suspension")]
     public float SuspensionDistance = 0.2f;
     public float suspensionForce = 30000f;
@@ -85,6 +86,8 @@ public class NetKartController : NetworkBehaviour
     
     [Header("About Item")] 
     public bool active = true;
+
+    
     public bool isProtected = false;
     public Vector3 currentGravityDir = Vector3.up;
     [System.NonSerialized]
@@ -361,7 +364,6 @@ public class NetKartController : NetworkBehaviour
             float nowBoostTIme = BoostTime;
             float originSpeed = speed;
             speed = BoostPower;
-            BoosterVFX.SetActive(true);
             while (BoostTime > 0)
             {
                 float t = Time.fixedDeltaTime;
@@ -369,7 +371,6 @@ public class NetKartController : NetworkBehaviour
                 yield return new WaitForSeconds(t);
 
             }
-            BoosterVFX.SetActive(false);
             speed = originSpeed;
             yield return new WaitForSeconds(0.1f);
             isBoost = false;
