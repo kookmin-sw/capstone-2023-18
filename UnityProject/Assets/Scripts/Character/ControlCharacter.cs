@@ -13,11 +13,12 @@ public class ControlCharacter : NetworkBehaviour
     public Vector3 _Rotate = new Vector3(0, 0, 0);
     public NetworkVariable<Vector3> _rootRotate = new NetworkVariable<Vector3>(new Vector3(0, 0, 0), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    public float duration = 0.5f;
+    public float duration;
     public float startTime;
 
     void Start()
     {
+        duration = 0.2f;
         _input = gameObject.GetComponent<NetKartInput>();
         startTime = Time.time;
     }
