@@ -18,6 +18,7 @@ namespace PowerslideKartPhysics
         Item[] items = new Item[0];
         public NetKartController[] allKarts = new NetKartController[0];
         public List<playerData> PlayerDatas = new List<playerData>();
+        public NetworkObject No1Player;
 
 
         private void Awake() {
@@ -25,6 +26,17 @@ namespace PowerslideKartPhysics
             items = GetComponentsInChildren<Item>();
             allKarts = FindObjectsOfType<NetKartController>();
             
+        }
+
+        private void Update()
+        {
+            if (IsServer)
+            {
+                No1Player =
+                    NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(NetPlayManager.instance.rank[0]);
+                
+            }
+             
         }
 
         public void GetAllKarts()
@@ -38,7 +50,7 @@ namespace PowerslideKartPhysics
                 playerData tmp;
                 tmp.clientId = allKarts[i].GetComponent<NetworkObject>().OwnerClientId;
                 tmp.networkobjectId = allKarts[i].GetComponent<NetworkObject>().NetworkObjectId;
-                tmp.teamNumber = allKarts[i].GetComponent<NetPlayerInfo>().teamNumber;
+                tmp.teamNumber = allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value;
                 PlayerDatas.Add(tmp);
             }
             Debug.Log("playerdata.count :  " + PlayerDatas.Count);

@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3905438026575296383}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8133265226682561602}
-  - component: {fileID: 8608377128635603763}
+  - component: {fileID: 409109059568630977}
   - component: {fileID: 2540433896333183303}
   - component: {fileID: 4567911620038884197}
   - component: {fileID: 7461567561692948512}
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5462182083005470935}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.4955082, y: 7.472204, z: -3.0452726}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,8 +121,8 @@ Transform:
   - {fileID: 3477353475349423904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8608377128635603763
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!135 &409109059568630977
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   itemBounceReflect: 1
   bounceReflectForce: 0.5
   maxBounces: 3
-  destroyOnWallHit: 1
+  destroyOnWallHit: 0
   destroyOnItemHit: 1
   wallCollisionProps:
     wallDetectionType: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
     wallMask:
       serializedVersion: 2
       m_Bits: 1024
-    wallTag: Walls
+    wallTag: Wall
   casterIgnoreTime: 0.5
   canHitCaster: 1
   fetchKartsDuringSpawn: 0
@@ -293,12 +293,12 @@ PrefabInstance:
     - target: {fileID: 3161298468613301832, guid: e221a8cc6b3c4412c8e6bb8d5423abcc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.97
       objectReference: {fileID: 0}
     - target: {fileID: 3161298468613301832, guid: e221a8cc6b3c4412c8e6bb8d5423abcc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3161298468613301832, guid: e221a8cc6b3c4412c8e6bb8d5423abcc,
         type: 3}
@@ -339,11 +339,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PoduItem_prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795331777207300919, guid: e221a8cc6b3c4412c8e6bb8d5423abcc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e221a8cc6b3c4412c8e6bb8d5423abcc, type: 3}

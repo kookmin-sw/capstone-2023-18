@@ -38,6 +38,7 @@ namespace PowerslideKartPhysics
                 // Give item to caster
 
                 //해당 클라이더만
+                if (!other.CompareTag("Kart")) return;
                 ItemCaster caster = other.transform.GetTopmostParentComponent<ItemCaster>();
                 if (caster != null) {
                     offTime = 0.0f;

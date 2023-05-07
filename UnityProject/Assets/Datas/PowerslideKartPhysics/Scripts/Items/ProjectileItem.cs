@@ -25,8 +25,8 @@ namespace PowerslideKartPhysics
                 if (itemName == "Podu")
                 {
                     //1등의 정보를 받아와야
-
-                    Vector3 no1pos = new Vector3(0, 0, 0); 
+                    Debug.Log(spawnOffset);
+                    Vector3 no1pos = ItemManager.instance.No1Player.transform.position+ castProps.castRotation * spawnOffset ;
                     spawnedItem = Instantiate(itemPrefab, no1pos, castProps.castRotation);
                 }
                 else spawnedItem = Instantiate(itemPrefab, castProps.castPoint + castProps.castRotation * spawnOffset, castProps.castRotation);

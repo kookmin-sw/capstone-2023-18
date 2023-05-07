@@ -9,6 +9,7 @@ public class SpawnedProjectileItemDir : NetworkBehaviour
     private Transform tr;
     private Vector3 dir;
     private SpawnedProjectileItem item;
+    public bool Gostraight = true;
     void Start()
     {
         tr = GetComponent<Transform>();
@@ -18,6 +19,7 @@ public class SpawnedProjectileItemDir : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        tr.forward = item.moveDir;
+        if (!Gostraight) tr.right = item.moveDir;
+        else tr.forward = item.moveDir;
     }
 }

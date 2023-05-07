@@ -16,6 +16,7 @@ namespace PowerslideKartPhysics
         public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid)
         {
             base.ActivateServerRpc(props, userid, objectid);
+            Debug.Log(itemName);
             useItem(itemName, userid, objectid);
         }
 
@@ -40,14 +41,14 @@ namespace PowerslideKartPhysics
             int myteamNum = 0;
             
             NetworkObject itemuser = GetNetworkObject(id);
-            myteamNum = itemuser.GetComponent<NetPlayerInfo>().teamNumber;
-            Debug.Log(id + " : " + myteamNum);
+            myteamNum = itemuser.GetComponent<NetPlayerInfo>().teamNumber.Value;
             return myteamNum;
         }
         
         [ClientRpc]
         private void UseReverseBuffTeamClientRpc(ulong userid, int teamNum)
         {
+            Debug.Log("check" + teamNum);
             List<playerData> data = ItemManager.instance.PlayerDatas;
             for (int i = 0; i < data.Count; i++)
             {
@@ -95,6 +96,7 @@ namespace PowerslideKartPhysics
         [ClientRpc]
         private void UseSlowTeamClientRpc(int teamNum,ulong userid)
         {
+            Debug.Log("check");   
             List<playerData> data = ItemManager.instance.PlayerDatas;
             for (int i = 0; i < data.Count; i++)
             {
@@ -103,7 +105,7 @@ namespace PowerslideKartPhysics
                 if (tmp.teamNumber != teamNum)
                 {
                     NetworkObject target = GetNetworkObject(tmp.networkobjectId);
-                    Debug.Log(tmp.networkobjectId);
+                    Debug.Log("targetId : " + tmp.networkobjectId);
                     target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.slow,buffTime,userid);
                     if (tmp.clientId == NetworkManager.Singleton.LocalClientId)
                     {
