@@ -34,21 +34,17 @@ public class NetPlayManager : NetworkBehaviour
     public NetworkList<ulong> rank;
 
 
-    public void Awake()
+    private void Awake()
     {
         rank = new NetworkList<ulong>();
-        LO = LobbyOrchestrator.Instance.GetComponent<LobbyOrchestrator>();
-        setMapInfo();
-        //Init();
     }
     public override void OnNetworkSpawn()
     {
+        setMapInfo();
+        LO = LobbyOrchestrator.Instance.GetComponent<LobbyOrchestrator>();
         SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
     }
-    private void Start()
-    {
-        setMapInfo();
-    }
+
     void Init()
     {
         if (instance == null)
@@ -100,7 +96,7 @@ public class NetPlayManager : NetworkBehaviour
         NetPlayUI ui = GetComponent<NetPlayUI>();
         for (int i = 3; i > 0; i--)
         {
-            ui.Count.text = i.ToString();
+            //ui.Count.text = i.ToString();
             ui.CountdownClientRPC(i);
             yield return new WaitForSeconds(1);
         }

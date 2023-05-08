@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Autodesk.Fbx;
-using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 using Unity.Netcode;
 public class ItemEffect : NetworkBehaviour

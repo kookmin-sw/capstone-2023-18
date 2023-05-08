@@ -47,7 +47,7 @@ public class NetPlayUI : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        MatchmakingService.showRoomName();
+        //MatchmakingService.showRoomName();
     }
 
     void LoadCoponent()
@@ -60,6 +60,7 @@ public class NetPlayUI : NetworkBehaviour
         TotalTime = UI.transform.Find("TotalTime").GetComponent<Text>();
         BestTime = UI.transform.Find("BestTime").GetComponent<Text>();
         Count = UI.transform.Find("Count").GetComponent<Text>();
+        Debug.Log("FIND COUNT" + Count.name);
         KMH = UI.transform.Find("KMH").GetComponent<Text>();
 
         Ranks = new Transform[8];

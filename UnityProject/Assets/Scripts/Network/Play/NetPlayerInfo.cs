@@ -94,13 +94,13 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Checkpoint"))
+        if (other.CompareTag("Checkpoint") && IsOwner)
         {
             CP cpinfo = other.GetComponent<CP>();
             CpNum.Value = cpinfo.CheckPointNum;
         }
 
-        if (other.CompareTag("EndPoint") && IsServer)
+        if (other.CompareTag("EndPoint") && IsOwner)
         {
             if (CpNum.Value == (npm.MaxCP - 1))
             {
