@@ -274,7 +274,7 @@ namespace PowerslideKartPhysics
                 }
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
                     // Destroy upon wall collision
-                    //if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
+                    if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                 }
                 else {
                     // Bounce collision logic

@@ -203,7 +203,7 @@ namespace PowerslideKartPhysics
 
     public enum itemName
     {
-        position, HomingItem, GuardOneItem, LimitSkillItem, SquidItem, BirdStrikeItem, FishItem, BoostItem, ShildItem, SlowItem,ThunderItem,
+        position, HomingItem, GuardOneItem, LimitSkillItem, SquidItem, BirdStrikeItem, FishItem, BoostItem, ShildItem, SlowItem,ThunderItem,BombItem,BufferItem_ReverseTeam,RushItem
     }
     public struct playerData : INetworkSerializable, System.IEquatable<playerData>
     {

@@ -10158,7 +10158,7 @@ PrefabInstance:
     - target: {fileID: 8422828214211510376, guid: ebfbb2977a145144189d3ae82d5c80b3,
         type: 3}
       propertyPath: NetworkConfig.NetworkPrefabs.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8422828214211510376, guid: ebfbb2977a145144189d3ae82d5c80b3,
         type: 3}
@@ -10201,6 +10201,12 @@ PrefabInstance:
       propertyPath: NetworkConfig.NetworkPrefabs.Array.data[6].Prefab
       value: 
       objectReference: {fileID: 5462182083005470935, guid: cffa1fc9687504c4a8e913ab2d450ab0,
+        type: 3}
+    - target: {fileID: 8422828214211510376, guid: ebfbb2977a145144189d3ae82d5c80b3,
+        type: 3}
+      propertyPath: NetworkConfig.NetworkPrefabs.Array.data[7].Prefab
+      value: 
+      objectReference: {fileID: 5462182083005470935, guid: 768c14f88894d4fe69f9903803b86aa1,
         type: 3}
     - target: {fileID: 8422828214211510376, guid: ebfbb2977a145144189d3ae82d5c80b3,
         type: 3}
@@ -17064,6 +17070,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821797360, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821797362, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: boostTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4662957067624900905, guid: 9516ddf5142c440e28236f33fd8ef9ca,
         type: 3}
       propertyPath: m_RootOrder
@@ -20237,7 +20251,7 @@ PrefabInstance:
     - target: {fileID: 8975905378036480512, guid: e48125d9fc9204af2a0ddcec5ddff68f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8975905378036480571, guid: e48125d9fc9204af2a0ddcec5ddff68f,
         type: 3}
