@@ -3,52 +3,77 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using System.Linq;
+using PowerslideKartPhysics;
 using UnityEngine.SceneManagement;
 
 public class NetPlayManager : NetworkBehaviour
 {
-    //½ÃÀÛ ¼¼ÆÃ À§Ä¡
+    public GameObject[] KartPrefab;
+    public LobbyOrchestrator LO;
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
     public GameObject[] StartingPoints;
 
-    // ÀüÃ¼ÀûÀ¸·Î ¾Ë¾Æ¾ß ÇÏ´Â°Í
-    public NetworkVariable<bool> isStart; //ÇöÀç °ÔÀÓÀÌ ½ÃÀÛÇß´ÂÁö
-    public NetworkVariable<float> PlayTime; // ÇöÀç ÁÖÇà ½Ã°£.
+    // ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¾ï¿½ ï¿½Ï´Â°ï¿½
+    public NetworkVariable<bool> isStart; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½
+    public NetworkVariable<float> PlayTime; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½.
     public int UserCount = 0;
 
-    //ÇÃ·¹ÀÌ ÁøÇàµµ Ã¼Å©
-    //°¢ ÇÃ·¹ÀÌ¾î º°·Î Ã¼Å© ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
-    public int MaxLap; // ¸î ¹ÙÄû ¸ÊÀÎÁö
-    public int MaxCP; // ÇØ´ç ¸Ê¿¡ CP°¡ ¸î °³ ÀÖ´ÂÁö.
+    //ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½àµµ Ã¼Å©
+    //ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+    public int MaxLap; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int MaxCP; // ï¿½Ø´ï¿½ ï¿½Ê¿ï¿½ CPï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½.
 
-    //ÇÃ·¹ÀÌ¾îº° ÁøÇàµµ
+    //ï¿½Ã·ï¿½ï¿½Ì¾îº° ï¿½ï¿½ï¿½àµµ
     private SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
 
-    //¼øÀ§
+    //ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    public static NetPlayManager instance;
+
+    //ï¿½ï¿½ï¿½ï¿½
     public NetworkList<ulong> rank;
 
 
-    public void Awake()
+    private void Awake()
     {
         rank = new NetworkList<ulong>();
     }
-
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-
         setMapInfo();
+        LO = LobbyOrchestrator.Instance.GetComponent<LobbyOrchestrator>();
+        SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
     }
 
+    void Init()
+    {
+        if (instance == null)
+        {
+            GameObject gm = GameObject.Find("@PlayManager");
+            if (gm == null)
+            {
+                gm = new GameObject { name = "@PlayManager" };
+            }
+
+            if (gm.GetComponent<NetPlayManager>() == null)
+            {
+                gm.AddComponent<NetPlayManager>();
+            }
+            DontDestroyOnLoad(gm);
+            instance = gm.GetComponent<NetPlayManager>();
+        }
+    }
     private void Update()
     {
-        if(IsServer)
+        if (IsServer)
         {
-            //Å×½ºÆ® ÄÚµå
-            if(Input.GetKeyDown(KeyCode.F5) && isStart.Value == false)
+            //ï¿½×½ï¿½Æ® ï¿½Úµï¿½
+            if (Input.GetKeyDown(KeyCode.F5) && isStart.Value == false)
             {
                 StartGameButton();
             }
 
-            if(isStart.Value)
+            if (isStart.Value)
             {
                 PlayTime.Value += Time.deltaTime;
                 GetRank();
@@ -57,18 +82,21 @@ public class NetPlayManager : NetworkBehaviour
 
     }
 
-    //Å×½ºÆ® ÄÚµå ÀÓ½Ã·Î ½ÃÀÛÇÏ±â À§ÇÔ.
+
+    //ï¿½×½ï¿½Æ® ï¿½Úµï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½.
     void StartGameButton()
     {
         StartCoroutine(StartCountDown());
+        ItemManager.instance.GetAllKarts();
     }
 
     public IEnumerator StartCountDown()
     {
+        ItemManager.instance.GetAllKarts();
         NetPlayUI ui = GetComponent<NetPlayUI>();
-        for(int i=3; i>0; i--)
+        for (int i = 3; i > 0; i--)
         {
-            ui.Count.text = i.ToString();
+            //ui.Count.text = i.ToString();
             ui.CountdownClientRPC(i);
             yield return new WaitForSeconds(1);
         }
@@ -78,18 +106,18 @@ public class NetPlayManager : NetworkBehaviour
 
     void setMapInfo()
     {
-        //¸ÊÀ¸·Î ºÎÅÍ Á¤º¸¸¦ ¹Þ¾Æ¿Í¼­ µî·ÏÇÑ´Ù.
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
         MaxLap = 1;
         MaxCP = GameObject.FindGameObjectsWithTag("Checkpoint").Count();
         StartingPoints = GameObject.FindGameObjectsWithTag("StartPoint");
     }
 
-    //·©Å· °è»ê
+    //ï¿½ï¿½Å· ï¿½ï¿½ï¿½
     void GetRank()
     {
-        //1. LAP ¿ì¼± Á¤·Ä
-        //2. CHECK POINT ¼ö ¿ì¼± Á¤·Ä
-        //3. CHECK POINT µ¿ÀÏ ½Ã °Å¸® ºñ·Ê °è»ê
+        //1. LAP ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
+        //2. CHECK POINT ï¿½ï¿½ ï¿½ì¼± ï¿½ï¿½ï¿½ï¿½
+        //3. CHECK POINT ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
         /*
         var _rank = from pair in Players
@@ -102,19 +130,21 @@ public class NetPlayManager : NetworkBehaviour
                    .ToArray();
 
         int i = 0;
+
         foreach (ulong key in _rank)
         {
             rank[i] = _rank[i];
+            Players[key].myRank.Value = i;
             i++;
         }
 
     }
 
 
-    //°¢ ÇÃ·¹ÀÌ¾î ÁÖÇà È®ÀÎ.
+    //ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½.
 
-    //Player ÀÔÀå½Ã ¼­¹ö°¡ °®°í ÀÖ´Â Player µ¥ÀÌÅÍ¿¡ Ãß°¡.
-    [ServerRpc (RequireOwnership = false)]
+    //Player ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ Player ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ß°ï¿½.
+    [ServerRpc(RequireOwnership = false)]
     public void AddPlayerServerRpc(ServerRpcParams serverRpcParams = default)
     {
         ulong uid = serverRpcParams.Receive.SenderClientId;
@@ -132,12 +162,12 @@ public class NetPlayManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc (Delivery = RpcDelivery.Reliable)]
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void AddPlayerClientRpc(ulong _uid, Vector3 _pos, ClientRpcParams rpcParams = default)
     {
         if (NetworkManager.Singleton.LocalClientId == _uid)
         {
-            Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} À§Ä¡¹èÁ¤");
+            Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½");
             NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(_uid).GetComponent<Transform>().position = _pos;
         }
     }
@@ -148,7 +178,7 @@ public class NetPlayManager : NetworkBehaviour
     {
         OnGameClose();
     }
-    //°ÔÀÓ Á¾·á
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private async void OnGameClose()
     {
@@ -157,5 +187,13 @@ public class NetPlayManager : NetworkBehaviour
             await MatchmakingService.UnLockLobby();
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnPlayerServerRpc(ulong playerId)
+    {
+        Debug.Log("whyrano");
+        var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«Æ®
+        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
     }
 }

@@ -6,21 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class CheckRoading : NetworkBehaviour
 {
-    public GameObject KartPrefab;
+
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
+        //DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(gameObject);
         NetworkManager.Singleton.SceneManager.OnSceneEvent -= SceneManager_OnSceneEvent;
         NetworkManager.Singleton.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void SpawnPlayerServerRpc(ulong playerId)
-    {
-        var spawn = Instantiate(KartPrefab);
-        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
-    }
+
     private void SceneManager_OnSceneEvent(SceneEvent sceneEvent)
     {
         Debug.Log(sceneEvent.SceneEventType);
@@ -36,6 +31,11 @@ public class CheckRoading : NetworkBehaviour
                     // Since the server "initiates" the event we can simply just check if we are the server here
                     if (IsServer)
                     {
+                        var playerObj = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(sceneEvent.ClientId);
+                        if (playerObj != null)
+                        {
+                            playerObj.Despawn(true);
+                        }
                     }
                     else
                     {
@@ -58,8 +58,7 @@ public class CheckRoading : NetworkBehaviour
                         switch (SceneManager.GetActiveScene().name)
                         {
                             case "Kookmin_Multi":
-                                var spawn = Instantiate(KartPrefab);
-                                spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(sceneEvent.ClientId);
+                                
                                 break;
                         }
                     }
@@ -68,7 +67,7 @@ public class CheckRoading : NetworkBehaviour
                         switch (SceneManager.GetActiveScene().name)
                         {
                             case "Kookmin_Multi":
-                                SpawnPlayerServerRpc(sceneEvent.ClientId);
+                                //SpawnPlayerServerRpc(sceneEvent.ClientId);
                                 break;
                         }
                     }

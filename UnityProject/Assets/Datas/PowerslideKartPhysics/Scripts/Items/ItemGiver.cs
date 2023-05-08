@@ -2,19 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Unity.Netcode;
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
     // Class for objects that give items to karts when touched
-    public class ItemGiver : MonoBehaviour
+    public class ItemGiver : NetworkBehaviour
     {
         ItemManager manager;
         Collider trig;
         Renderer rend;
         public string itemName;
         public int ammo = 1;
-        public float cooldown = 1.0f;
+        public float cooldown = 5.0f;
         float offTime = 0.0f;
 
         private void Awake() {
@@ -36,13 +36,16 @@ namespace PowerslideKartPhysics
         private void OnTriggerEnter(Collider other) {
             if (manager != null) {
                 // Give item to caster
+
+                //해당 클라이더만
+                if (!other.CompareTag("Kart")) return;
                 ItemCaster caster = other.transform.GetTopmostParentComponent<ItemCaster>();
                 if (caster != null) {
                     offTime = 0.0f;
-
+                    int myRank = other.GetComponent<NetPlayerInfo>().myRank.Value;
                     // Give specific item if named, otherwise random item
                     caster.GiveItem(
-                        string.IsNullOrEmpty(itemName) ? manager.GetRandomItem() : manager.GetItem(itemName),
+                        string.IsNullOrEmpty(itemName) ? manager.GetRandomItem(myRank,true) : manager.GetItem(itemName),
                         ammo, false);
                 }
             }

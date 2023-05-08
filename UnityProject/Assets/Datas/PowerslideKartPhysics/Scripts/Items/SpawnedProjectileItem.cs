@@ -3,33 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Rigidbody))]
     // Class for spawned projectile items
-    public class SpawnedProjectileItem : MonoBehaviour
+    public class SpawnedProjectileItem : NetworkBehaviour
     {
         Transform tr;
         Rigidbody rb;
         Collider col;
         ItemCastProperties castProps;
-
+        private NetKartController itemowner;
+        private ItemManager im;
+        
         bool grounded = false;
-        [Header("Movement")]
-        public LayerMask groundMask = 1;
+        [Header("Movement")] 
+        public float DownValue = 10f;
+
+        [HideInInspector] public Vector3 itemVelocity;
+        public LayerMask groundMask = 0;
         public float groundCheckDistance = 1.0f;
         Vector3 groundNormal = Vector3.up;
         Vector3 groundPoint = Vector3.zero;
 
+        
         public float launchHeight = 0.0f;
         public float startSpeed = 0.0f;
         public float targetSpeed = 0.0f;
         public bool inheritKartSpeed = true;
         public bool maintainKartSpeed = true;
         public float accel = 10f;
-        Vector3 moveDir = Vector3.forward;
+        public Vector3 moveDir = Vector3.forward;
         public bool moveInAir = false;
         public float gravityAdd = -10f;
         public Vector3 gravityDir = Vector3.up;
@@ -54,13 +61,14 @@ namespace PowerslideKartPhysics
         WallCollision wallDetector;
         public WallDetectProps wallCollisionProps = WallDetectProps.Default;
 
+        private float despawnTime = 10f;
         float lifeTime = 0.0f;
         [Header("Caster")]
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
-        Kart[] allKarts;
-        Kart targetKart;
+        NetKartController[] allKarts;
+        NetKartController targetKart;
         public bool fetchKartsDuringSpawn = false;
 
         [Header("Homing")]
@@ -81,7 +89,10 @@ namespace PowerslideKartPhysics
         public UnityEvent collideEvent;
         public UnityEvent destroyEvent;
 
-        protected virtual void Awake() {
+        protected virtual void Awake()
+        {
+            im = FindObjectOfType<ItemManager>();
+            
             tr = transform;
             rb = GetComponent<Rigidbody>();
             col = GetComponent<Collider>();
@@ -89,9 +100,14 @@ namespace PowerslideKartPhysics
         }
 
         // Initialze spawned item with the given launch properties
-        public virtual void Initialize(ItemCastProperties props) {
+        public virtual void Initialize(ItemCastProperties props , ulong userid)
+        {
+
+            itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+                .GetComponent<NetKartController>();
+            if (itemowner == null) return;
             castProps = props;
-            casterCol = props.castCollider;
+            casterCol = GetComponent<Collider>();
             moveDir = (props.castDirection + props.castRotation * Vector3.up * launchHeight).normalized;
 
             // Match casting kart speed
@@ -111,10 +127,11 @@ namespace PowerslideKartPhysics
             }
 
             if (fetchKartsDuringSpawn) {
-                allKarts = FindObjectsOfType<Kart>();
+                allKarts = FindObjectsOfType<NetKartController>();
             }
-            else {
-                allKarts = props.allKarts;
+            else
+            {
+                allKarts = im.allKarts;
             }
 
             if (homingAccuracy > 0) {
@@ -123,7 +140,7 @@ namespace PowerslideKartPhysics
         }
 
         // Sets the target kart to the given kart
-        public virtual void SetHomingTarget(Kart target) {
+        public virtual void SetHomingTarget(NetKartController target) {
             targetKart = target;
         }
 
@@ -133,7 +150,7 @@ namespace PowerslideKartPhysics
                 float closeDist = -1.0f;
                 float closeAngle = -1.0f;
                 for (int i = 0; i < allKarts.Length; i++) {
-                    if (allKarts[i] != castProps.castKart) {
+                    if (allKarts[i] != itemowner) {
                         float curDist = (allKarts[i].transform.position - tr.position).sqrMagnitude;
                         float curAngle = Vector3.Dot((allKarts[i].transform.position - castProps.castPoint).normalized, moveDir);
                         bool lineOfSight = !useLineOfSight || !Physics.Linecast(tr.position, allKarts[i].transform.position, lineOfSightMask, QueryTriggerInteraction.Ignore);
@@ -161,9 +178,17 @@ namespace PowerslideKartPhysics
         }
 
         protected virtual void FixedUpdate() {
-            if (rb == null || col == null) { return; }
+            
+            //downForce
+          
 
+            if (rb == null || col == null) { return; }
+            
+            tr.LookAt(moveDir.normalized);
+            
+            
             lifeTime += Time.fixedDeltaTime;
+
             rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
 
             // Ignore collision with casting kart
@@ -243,12 +268,13 @@ namespace PowerslideKartPhysics
                     if (curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                         // Spin out kart upon collision
                         curCol.otherCollider.transform.GetTopmostParentComponent<Kart>().SpinOut(kartSpin, kartSpinCount);
-                        Destroy(gameObject);
+                        
+                        if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                     }
                 }
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
                     // Destroy upon wall collision
-                    Destroy(gameObject);
+                    if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                 }
                 else {
                     // Bounce collision logic
@@ -259,7 +285,7 @@ namespace PowerslideKartPhysics
 
                         bounces++;
                         if (bounces > maxBounces) {
-                            Destroy(gameObject);
+                            if(IsServer) gameObject.GetComponent<NetworkObject>().Despawn();
                         }
                         else {
                             collideEvent.Invoke();
