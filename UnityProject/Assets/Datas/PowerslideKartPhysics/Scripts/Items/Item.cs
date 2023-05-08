@@ -22,7 +22,7 @@ namespace PowerslideKartPhysics
         public virtual void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid) {
             //props.allKarts = allKarts;
             castProps = props;
-            
+            Debug.Log(itemName);
             
         }
 

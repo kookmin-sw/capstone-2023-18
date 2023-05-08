@@ -18,8 +18,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
      * BEST TIME : �� ���� �� �ְ� ��� üũ
      * �ش� �������� Ŭ���̾�Ʈ�� ���� ���� �ְ�, �������� ��� �� �� �ֵ��� �Ѵ�. 
      */
-    public NetworkVariable<int> myRank = new NetworkVariable<int>(0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
-    public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> myRank = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<short> Lap = new NetworkVariable<short>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkList<float> LapTimes;
     public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -33,7 +33,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
 
     //üũ����Ʈ
-    public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     public NetPlayManager npm;
 
@@ -41,25 +41,35 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     public NetworkVariable<int> Item = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
+
     private void Awake()
     {
         LapTimes = new NetworkList<float>();
+        StartCoroutine(FindComponent());
     }
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
-        if(IsOwner)
+        if (IsOwner)
         {
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
             npm.AddPlayerServerRpc();
         }
     }
 
+    IEnumerator FindComponent()
+    {
+        while (GameObject.Find("@PlayManager") == null)
+        {
+            yield return null;
+        }
+        GameObject.Find("@PlayManager").TryGetComponent(out npm);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(IsServer)
+        if (IsServer)
         {
             CheckPointDistance.Value = Vector3.Dot(RpForward.Value, (transform.position - RpPosition.Value));
         }
@@ -76,7 +86,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
                 RpForward.Value = cpinfo.forward;
                 RpNum.Value = cpinfo.CP_Num;
                 RpPosition.Value = cpinfo.centerPos;
-                
+
             }
         }
 
@@ -84,7 +94,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Checkpoint"))
+        if (other.CompareTag("Checkpoint"))
         {
             CP cpinfo = other.GetComponent<CP>();
             CpNum.Value = cpinfo.CheckPointNum;
@@ -110,7 +120,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
                     BestTime.Value = LastTime < BestTime.Value ? LastTime : BestTime.Value;
                 }
 
-                if(Lap.Value == npm.MaxLap)
+                if (Lap.Value == npm.MaxLap)
                 {
                     npm.CloseGameServerRpc();
                 }
