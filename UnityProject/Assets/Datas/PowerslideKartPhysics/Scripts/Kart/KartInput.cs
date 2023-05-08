@@ -37,7 +37,7 @@ namespace PowerslideKartPhysics
         // Cast an equipped item upon input press
         protected void PressItem() {
             if (caster != null) {
-                
+                caster.Cast();
             }
         }
     }

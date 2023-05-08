@@ -50,7 +50,7 @@ public class NetItemBox : NetworkBehaviour
             gameObject.SetActive(false);
             gameObject.GetComponent<NetworkObject>().Despawn(false);
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½
+            //¾ÆÀÌÅÛ ºÎ¿©
             NetPlayerInfo info = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(_client).GetComponent<NetPlayerInfo>();
             info.Item.Value = GetItemKind();
         }
@@ -59,8 +59,8 @@ public class NetItemBox : NetworkBehaviour
 
     int GetItemKind()
     {
-        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        //ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //À¯Àú µî¼ö³ª ¿ªÇÒ¿¡ µû¶ó ¾ÆÀÌÅÛ ¸®ÅÏ
+        //ÀÌ ºÎºÐÀº ÃßÈÄ °³¼± ¿¹Á¤ÀÌ¸ç, ÇöÀç´Â ºÎ½ºÅÍ¸¸ ¸®ÅÏ
         return 1;
     }
 

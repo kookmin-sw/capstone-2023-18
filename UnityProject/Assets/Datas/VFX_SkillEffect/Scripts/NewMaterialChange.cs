@@ -47,7 +47,7 @@ public class NewMaterialChange : MonoBehaviour
 
         m_cutOutFactor = Mathf.Clamp01(m_cutOutFactor);
         if (m_cutOutFactor <= 0 && m_time > m_timeToReduce)
-            //Destroy(gameObject);
+            Destroy(gameObject);
         m_objectMaterial.SetFloat("_MaskCutOut", m_cutOutFactor);
 
         if (m_upFactor != 0 && isupfactor != false)

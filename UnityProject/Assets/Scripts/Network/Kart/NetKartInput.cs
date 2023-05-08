@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using PowerslideKartPhysics;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,22 +10,12 @@ public class NetKartInput : NetworkBehaviour
     public bool Drift;
     public bool Item;
     public bool Return;
-    public bool isReverse = false;
-    public ItemCaster caster;
-    private void Awake()
-    {
-        caster = GetComponent<ItemCaster>();
-    }
 
     void Update()
     {
         if (IsOwner)
         {
-            if (isReverse)
-            {
-                Hmove = Input.GetAxisRaw("Horizontal") * -1f;
-            }
-            else Hmove = Input.GetAxisRaw("Horizontal");
+            Hmove = Input.GetAxisRaw("Horizontal");
             Vmove = Input.GetAxisRaw("Vertical");
             Drift = Input.GetKey(KeyCode.LeftShift);
             if (Input.GetKey(KeyCode.R))
@@ -37,17 +25,13 @@ public class NetKartInput : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
             {
-                if (caster != null) {
-                    
-                    caster.Cast(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
-                }
+                Item = true;
             }
             else if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 Item = false;
             }
         }
-        
-        
+
     }
-}   
+}

@@ -2,25 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_02_BlackHoleSphere
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ValidKeywords:
-  - IS_ALL_TEXTURE_STRAIGHT_MOVE
-  - IS_NORMAL_ANIMATE
-  - IS_NORMAL_DISTORTION
-  - IS_RIMLIGHT
-  - IS_SOFT_PARTICLES
-  - IS_TEXTURE_ANIMATE
-  - IS_TEXTURE_BLEND
-  - IS_USE_SECOND_COLOR
-  m_InvalidKeywords:
-  - IS_UNITY_PARTICLE_INSTANCING_ENABLED
-  - _ZWRITE_ON
+  m_ShaderKeywords: IS_ALL_TEXTURE_STRAIGHT_MOVE IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION
+    IS_RIMLIGHT IS_SOFT_PARTICLES IS_TEXTURE_ANIMATE IS_UNITY_PARTICLE_INSTANCING_ENABLED
+    IS_USE_SECOND_COLOR _ZWRITE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -94,7 +85,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _BlendDst: 10
     - _BlendSrc: 5
@@ -108,17 +98,14 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Impact: 0
-    - _ImpactFactor: 1
     - _ImpactSize: 0.5
     - _InvFade: 1
-    - _IsRotateAngle: 0
     - _Lighting: 0
     - _LinePass: 0
     - _MaskAnimatedSpeed: 1
     - _MaskCutOut: 1
     - _MaskFade: 0
     - _MaskOffsetFactor: 1
-    - _MaxIndex: 2
     - _Metallic: 0
     - _MixedMove: 1
     - _Mode: 0
@@ -134,7 +121,6 @@ Material:
     - _RimLight: 1
     - _RimScale: 10
     - _RimStrength: 15
-    - _RotateAngle: 0
     - _SecondColor: 1
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
@@ -145,9 +131,7 @@ Material:
     - _TexPosMove: -1
     - _TexcoordMove: 0
     - _TexcoordMoveStrength: 10
-    - _TexcoordMoveUsingCustom: 0
     - _TextureAnimate: 1
-    - _TextureAnimateAdvanced: 0
     - _TextureAnimateSpeed: 5
     - _TextureAnimateStyle: 0
     - _TextureBlend: 1
@@ -167,4 +151,3 @@ Material:
     - _RimColor: {r: 2.2923045, g: 1.8825177, b: 1.1137141, a: 1}
     - _TintColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor2: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []

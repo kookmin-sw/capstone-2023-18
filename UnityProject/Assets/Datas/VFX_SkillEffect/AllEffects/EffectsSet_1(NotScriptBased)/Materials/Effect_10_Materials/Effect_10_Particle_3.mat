@@ -2,18 +2,15 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 8
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_10_Particle_3
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ValidKeywords:
-  - IS_SOFT_PARTICLES
-  m_InvalidKeywords:
-  - IS_UNITY_PARTICLE_INSTANCING_ENABLED
-  - _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: IS_SOFT_PARTICLES IS_TEXTURE_BLEND IS_UNITY_PARTICLE_INSTANCING_ENABLED
+    _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -87,7 +84,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _BlendDst: 1
     - _BlendOp: 0
@@ -113,10 +109,8 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Impact: 0
-    - _ImpactFactor: 1
     - _ImpactSize: 0.5
     - _InvFade: 1
-    - _IsRotateAngle: 0
     - _Lighting: 0
     - _LightingEnabled: 0
     - _LinePass: 0
@@ -124,7 +118,6 @@ Material:
     - _MaskCutOut: 1
     - _MaskFade: 0
     - _MaskOffsetFactor: 1
-    - _MaxIndex: 2
     - _Metallic: 0
     - _MixedMove: 0
     - _Mode: 3
@@ -140,8 +133,6 @@ Material:
     - _RimLight: 0
     - _RimScale: 1
     - _RimStrength: 1
-    - _RotateAngle: 0
-    - _SecondColor: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
     - _SoftParticlesEnabled: 0
@@ -154,9 +145,7 @@ Material:
     - _TexPosMove: 0.08
     - _TexcoordMove: 0
     - _TexcoordMoveStrength: 2
-    - _TexcoordMoveUsingCustom: 0
     - _TextureAnimate: 0
-    - _TextureAnimateAdvanced: 0
     - _TextureAnimateSpeed: 1
     - _TextureAnimateStyle: 1
     - _TextureBlend: 0
@@ -179,4 +168,3 @@ Material:
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0.13598749, g: 1.0157844, b: 9.6098, a: 1}
     - _TintColor2: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []

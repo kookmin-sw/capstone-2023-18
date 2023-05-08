@@ -6,38 +6,37 @@ using UnityEngine;
 
 public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 {
-    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
-    //Player Object Componentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½, ï¿½ï¿½ Player Objectï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
-    //NetPlayerManagerï¿½ï¿½ ï¿½ï¿½ PlayerObjectï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ø´ï¿½ Componentï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï°ï¿½ ï¿½È´ï¿½.
+    //ÇÃ·¹ÀÌ¾îÀÇ Á¤º¸¸¦ ¾Ë±â À§ÇÑ ½ºÅ©¸³Æ®
+    //Player Object Component·Î Àû¿ëµÇ¾î, °¢ Player Object´Â ÇÏ³ª¾¿ °®°Ô µÈ´Ù.
+    //NetPlayerManager´Â °¢ PlayerObject¸¦ Ã£°í ÇØ´ç Component°ªÀ» ÀúÀåÇÑ ÈÄ, Áö¼ÓÀûÀ¸·Î Ã¼Å©ÇÏ°Ô µÈ´Ù.
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //°ü¸®ÇØ¾ß ÇÒ Á¤º¸
     /*
-     * LAP : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½
-     * CP : ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ CheckPoint
-     * LAP TIME : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ Ã¼Å©
-     * BEST TIME : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ Ã¼Å©
-     * ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. 
+     * LAP : ¸î ¹ÙÄû ÁøÇàÁßÀÎ°¡
+     * CP : ÇöÀç ÃÖ´ë·Î ÁøÇàµÈ CheckPoint
+     * LAP TIME : ·¦ ±¸°£ ´ç ½Ã°£ Ã¼Å©
+     * BEST TIME : ·¦ ±¸°£ ´ç ÃÖ°í ±â·Ï Ã¼Å©
+     * ÇØ´ç º¯¼öµéÀº Å¬¶óÀÌ¾ðÆ®´Â ÀÐÀ» ¼ö¸¸ ÀÖ°í, ¼­¹ö¸¸ÀÌ ±â·Ï ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù. 
      */
-    public NetworkVariable<int> myRank = new NetworkVariable<int>(0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
-    public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Owner);
+
     public NetworkVariable<short> Lap = new NetworkVariable<short>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkList<float> LapTimes;
     public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<float> KMH = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    //ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    //·©Å·Æ÷ÀÎÆ® ±âÁØ °Å¸®
     public NetworkVariable<float> CheckPointDistance = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<int> RpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<Vector3> RpForward = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<Vector3> RpPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
-    //Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ®
+    //Ã¼Å©Æ÷ÀÎÆ®
     public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     public NetPlayManager npm;
 
-    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //º¸À¯ ¾ÆÀÌÅÛ
     public NetworkVariable<int> Item = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
 
@@ -104,7 +103,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         {
             if (CpNum.Value == (npm.MaxCP - 1))
             {
-                //ï¿½ï¿½ï¿½ï¿½
+                //µµÂø
                 Lap.Value += 1;
                 int lc = LapTimes.Count;
                 float LastTime = 0;
