@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5394,6 +5394,16 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3982499960
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326319701834907560, guid: fc9c6f844552b4fda98fa03d91598a51,
+        type: 3}
+      propertyPath: ammo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326319701834907560, guid: fc9c6f844552b4fda98fa03d91598a51,
+        type: 3}
+      propertyPath: cooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8326319701834907561, guid: fc9c6f844552b4fda98fa03d91598a51,
         type: 3}
@@ -17060,6 +17070,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821797360, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1821797362, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: boostTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662957067406137279, guid: 9516ddf5142c440e28236f33fd8ef9ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4662957067624900905, guid: 9516ddf5142c440e28236f33fd8ef9ca,
         type: 3}
       propertyPath: m_RootOrder
