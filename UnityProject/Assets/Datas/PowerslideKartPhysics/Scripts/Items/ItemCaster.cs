@@ -1,20 +1,23 @@
-﻿// Copyright (c) 2022 Justin Couch / JustInvoke
+﻿
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.Netcode;
 
 namespace PowerslideKartPhysics
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(Kart))]
+    
     // Class for using items, attached to kart
-    public class ItemCaster : MonoBehaviour
+    public class ItemCaster : NetworkBehaviour
     {
-        Kart kart;
+        NetKartController kart;
         Transform kartTr;
         Rigidbody kartRb;
         Collider kartCol;
+        
         public Item item;
         public int ammo = 0;
         public float minCastInterval = 0.1f;
@@ -22,13 +25,16 @@ namespace PowerslideKartPhysics
         public UnityEvent castEvent;
 
         private void Awake() {
-            kart = GetComponent<Kart>();
+            kart = GetComponent<NetKartController>();
+            
             if (kart != null) {
                 kartTr = kart.transform;
                 kartRb = kart.GetComponent<Rigidbody>();
-                if (kart.rotator != null) {
-                    kartCol = kart.rotator.GetComponent<Collider>();
+                /***
+                if (kart.CentreOfMass != null) {
+                    kartCol = kart.CentreOfMass.GetComponent<Collider>();
                 }
+                ***/
             }
         }
 
@@ -37,13 +43,14 @@ namespace PowerslideKartPhysics
         }
 
         // Cast currently equipped item
-        public void Cast() {
+        
+        public void Cast(ulong userid, ulong objectid) {
             if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval) {
-                if (kart.active && !kart.spinningOut) {
+                if (kart.active && !kart.isSpin) {
                     ammo = Mathf.Max(0, ammo - 1);
                     timeSinceCast = 0.0f;
                     ItemCastProperties props = new ItemCastProperties();
-                    props.castKart = kart;
+                    //props.castKart = kart;
 
                     if (kartRb != null) {
                         props.castKartVelocity = kartRb.velocity;
@@ -52,13 +59,14 @@ namespace PowerslideKartPhysics
                     props.castGravity = kart.currentGravityDir;
                     props.castPoint = kartTr.position;
 
-                    if (kart.rotator != null) {
-                        props.castRotation = kart.rotator.rotation;
+                    if (kart.CentreOfMass != null) {
+                        props.castRotation = kart.CentreOfMass.rotation;
                     }
 
-                    props.castCollider = kartCol;
-                    props.castDirection = kart.forwardDir;
-                    item.Activate(props);
+                    //props.castCollider = kartCol;
+                    props.castDirection = kart.CentreOfMass.forward;
+                    
+                    item.ActivateServerRpc(props, userid, objectid);
                     castEvent.Invoke();
                 }
             }
@@ -84,16 +92,53 @@ namespace PowerslideKartPhysics
     }
 
     // Struct for passing item cast data
-    public struct ItemCastProperties
+    public struct ItemCastProperties : INetworkSerializable, System.IEquatable<ItemCastProperties>
     {
-        public Kart castKart;
-        public Kart[] allKarts;
+        
+        //public NetKartController castKart;
+        //public NetKartController[] allKarts;
         public Vector3 castKartVelocity;
         public Vector3 castPoint;
         public Quaternion castRotation;
         public Vector3 castDirection;
         public float castSpeed;
         public Vector3 castGravity;
-        public Collider castCollider;
+        //public Collider castCollider;
+        
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
+        {
+            if (serializer.IsReader)
+            {
+                
+                var reader = serializer.GetFastBufferReader();
+                //reader.Re
+                reader.ReadValueSafe(out castKartVelocity);
+                reader.ReadValueSafe(out castSpeed);
+                reader.ReadValueSafe(out castGravity);
+                //reader.ReadValueSafe(out castCollider);
+                reader.ReadValueSafe(out castPoint);
+                reader.ReadValueSafe(out castRotation);
+                reader.ReadValueSafe(out castDirection);
+                //reader.ReadArray(allKarts);
+            }
+            else
+            {
+                var writer = serializer.GetFastBufferWriter();
+                //writer.WriteValueSafe(castKart);
+                writer.WriteValueSafe(castKartVelocity);
+                writer.WriteValueSafe(castSpeed);
+                writer.WriteValueSafe(castGravity);
+                //writer.WriteValueSafe(castCollider);
+                writer.WriteValueSafe(castPoint);
+                writer.WriteValueSafe(castRotation);
+                writer.WriteValueSafe(castDirection);
+                //writer.WriteArray(allKarts);
+            }
+        }
+        public bool Equals(ItemCastProperties other)
+        {
+            return castKartVelocity == other.castKartVelocity && castSpeed == other.castSpeed && castGravity == other.castGravity
+                && castPoint == other.castPoint && castRotation == other.castRotation && castDirection == other.castDirection ;
+        }
     }
 }

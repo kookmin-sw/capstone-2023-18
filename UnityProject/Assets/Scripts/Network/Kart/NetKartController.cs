@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class NetKartController : NetworkBehaviour
 {
+
     [Space, Header("Suspension")]
     public float SuspensionDistance = 0.2f;
     public float suspensionForce = 30000f;
@@ -75,13 +76,31 @@ public class NetKartController : NetworkBehaviour
     public float skidWidth = 0.12f;
     private float frictionAngle;
 
-
+    
     [HideInInspector]
     public Vector3 normalDir;
 
     public NetKartInput input;
     public NetPlayManager npm;
 
+    
+    [Header("About Item")] 
+    public bool active = true;
+
+    
+    public bool isProtected = false;
+    public Vector3 currentGravityDir = Vector3.up;
+    [System.NonSerialized]
+    public bool isSpin = false;
+    Vector3 spinForward = Vector3.forward;
+    Vector3 spinUp = Vector3.up;
+    Vector3 spinOffset = Vector3.zero;
+    
+    public float spinDecel = 100.0f;
+    public float spinRate = 15f;
+    public float spinHeight = 1.0f;
+
+    
     private void Awake()
     {
         input = GetComponent<NetKartInput>();
@@ -113,7 +132,7 @@ public class NetKartController : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (IsOwner) //¿òÁ÷ÀÓ °è»ê Å¬¶óÀÌ¾ðÆ® ´Ü¿¡¼­ Ã³¸®
+        if (IsOwner) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½Ü¿ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         {
             carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
 
@@ -140,7 +159,7 @@ public class NetKartController : NetworkBehaviour
             //grounded check
             if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                Debug.Log("Grounded");
+                
                 accelarationLogic();
                 turningLogic();
                 frictionLogic();
@@ -173,7 +192,7 @@ public class NetKartController : NetworkBehaviour
             }
             else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                Debug.Log("air");
+                
                 grounded = false;
                 rb.drag = 1f;
                 rb.angularDrag = 10f;
@@ -192,7 +211,7 @@ public class NetKartController : NetworkBehaviour
         {
             tireVisuals();
             audioControl();
-            UseItem();
+            
         }
     }
 
@@ -286,11 +305,11 @@ public class NetKartController : NetworkBehaviour
             /*
             if (!input.Drift)
             {
-                //µå¸®ÇÁÆ® ¾È ÇÒ ¶§ -> µÞ ¹ÙÄû ¸¶Âû·Â Àû¿ë
+                //ï¿½å¸®ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ -> ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-                //Àü¹æ ¸¶Âû·Â
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 rb.AddForceAtPosition(-carVelocity.normalized * fricValue * ((-Vector3.Angle(EngineAt.transform.up, Vector3.up) / 90f) + 1) * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
-                //Ãø¸é ¸¶Âû·Â
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 rb.AddForceAtPosition(-carVelocity.normalized * SideFricValue * ((-Vector3.Angle(EngineAt.transform.up, Vector3.up) / 90f) + 1) * 100 * Mathf.Abs(carVelocity.normalized.x), EngineAt.position);
             }
             */
@@ -341,8 +360,9 @@ public class NetKartController : NetworkBehaviour
         }
         */
     }
-
-    IEnumerator OnBooster(float BoostTime)
+    
+    //=================== ITEM =======================
+    public IEnumerator OnBooster(float BoostTime)
     {
         npi.Item.Value = (int)ITEMS.NONE;
 
@@ -352,7 +372,6 @@ public class NetKartController : NetworkBehaviour
             float nowBoostTIme = BoostTime;
             float originSpeed = speed;
             speed = BoostPower;
-            BoosterVFX.SetActive(true);
             while (BoostTime > 0)
             {
                 float t = Time.fixedDeltaTime;
@@ -360,28 +379,32 @@ public class NetKartController : NetworkBehaviour
                 yield return new WaitForSeconds(t);
 
             }
-            BoosterVFX.SetActive(false);
             speed = originSpeed;
             yield return new WaitForSeconds(0.1f);
             isBoost = false;
         }
     }
 
-    void UseItem()
+    public IEnumerator OnProtected(float ProtectTime)
     {
-        if (input.Item && IsServer)
+        Debug.Log(isProtected);
+        if (!isProtected)
         {
-            input.Item = false;
-            switch (npi.Item.Value)
+            isProtected = true;
+            Debug.Log(isProtected);
+            float currentProtectTime = ProtectTime;
+            while (currentProtectTime > 0)
             {
-                case (int)ITEMS.NONE:
-                    break;
-                case (int)ITEMS.BOOST:
-                    StartCoroutine(OnBooster(2f));
-                    break;
+                currentProtectTime -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
+
+            isProtected = false;
+            Debug.Log(isProtected);
         }
     }
+    
+
 
 
 
