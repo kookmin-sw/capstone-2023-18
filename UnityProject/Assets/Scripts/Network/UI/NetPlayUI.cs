@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NetPlayUI : NetworkBehaviour
 {
     // Start is called before the first frame update
-    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //ÇÃ·¹ÀÌ¾îÀÇ ±âº» Á¤º¸¸¦ ´ãÀ½
     public NetPlayerInfo Player;
     public NetPlayManager npm;
 
@@ -47,7 +47,7 @@ public class NetPlayUI : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        //MatchmakingService.showRoomName();
+        MatchmakingService.showRoomName();
     }
 
     void LoadCoponent()
@@ -87,21 +87,21 @@ public class NetPlayUI : NetworkBehaviour
     {
         if (IsClient)
         {
-            //ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+            //½Ã°£ ¾÷µ¥ÀÌÆ®
             ShowTime();
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+            //¾ÆÀÌÅÛ ¾÷µ¥ÀÌÆ®
             UpdateItem();
-            //ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+            //·©Å· ¾÷µ¥ÀÌÆ®
             UpdateRank();
-            //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+            //·¦ ¾÷µ¥ÀÌÆ®
             UpdateLap();
-            //ï¿½Óµï¿½
+            //¼Óµµ
             UpdateSpeed();
         }
     }
 
 
-    //Play Time ï¿½ï¿½ï¿½ï¿½
+    //Play Time ÃøÁ¤
     string TransferTime(float t)
     {
         return string.Format("{0:0}:{1:00}.{2:000}",
@@ -119,7 +119,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
+    //°¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ¿¡ µû¶ó UI Ç¥½Ã
     void UpdateItem()
     {
         if (npm.isStart.Value == true)
@@ -128,7 +128,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    //¼øÀ§ ¾÷µ¥ÀÌÆ®
     void UpdateRank()
     {
         for(int i=0; i<8; i++)
@@ -161,7 +161,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //Ä«ï¿½ï¿½Æ®ï¿½Ù¿ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½Ä³ï¿½ï¿½Æ®
+    //Ä«¿îÆ®´Ù¿î ¸Þ¼¼Áö ºê·ÎµåÄ³½ºÆ®
 
     [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void CountdownClientRPC(int _count, ClientRpcParams rpcParams = default)
@@ -175,4 +175,5 @@ public class NetPlayUI : NetworkBehaviour
             Count.text = _count.ToString();
         }
     }
+
 }

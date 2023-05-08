@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ItemBox : MonoBehaviour
+public class ItemBox : NetworkBehaviour
 {
     private void Start()
     {
         gameObject.layer = 0; //Default Layer;
+        gameObject.GetComponent<NetworkObject>().DestroyWithScene = true;
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        gameObject.GetComponent<NetworkObject>().DestroyWithScene = true;
     }
 
     private void OnTriggerEnter(Collider other)

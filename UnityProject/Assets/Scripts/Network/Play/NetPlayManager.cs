@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class NetPlayManager : NetworkBehaviour
 {
+    public GameObject[] KartPrefab;
+    public LobbyOrchestrator LO;
     //���� ���� ��ġ
-    public static NetPlayManager instance;
-
     public GameObject[] StartingPoints;
 
     // ��ü������ �˾ƾ� �ϴ°�
@@ -27,18 +27,26 @@ public class NetPlayManager : NetworkBehaviour
     private SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
 
     //����
+    //���� ���� ��ġ
+    public static NetPlayManager instance;
+
+    //����
     public NetworkList<ulong> rank;
 
 
     public void Awake()
     {
-        Init();
         rank = new NetworkList<ulong>();
+        LO = LobbyOrchestrator.Instance.GetComponent<LobbyOrchestrator>();
+        setMapInfo();
+        //Init();
     }
-
+    public override void OnNetworkSpawn()
+    {
+        SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
+    }
     private void Start()
     {
-
         setMapInfo();
     }
     void Init()
@@ -61,15 +69,15 @@ public class NetPlayManager : NetworkBehaviour
     }
     private void Update()
     {
-        if(IsServer)
+        if (IsServer)
         {
             //�׽�Ʈ �ڵ�
-            if(Input.GetKeyDown(KeyCode.F5) && isStart.Value == false)
+            if (Input.GetKeyDown(KeyCode.F5) && isStart.Value == false)
             {
                 StartGameButton();
             }
 
-            if(isStart.Value)
+            if (isStart.Value)
             {
                 PlayTime.Value += Time.deltaTime;
                 GetRank();
@@ -77,7 +85,7 @@ public class NetPlayManager : NetworkBehaviour
         }
 
     }
-    
+
 
     //�׽�Ʈ �ڵ� �ӽ÷� �����ϱ� ����.
     void StartGameButton()
@@ -89,7 +97,7 @@ public class NetPlayManager : NetworkBehaviour
     public IEnumerator StartCountDown()
     {
         NetPlayUI ui = GetComponent<NetPlayUI>();
-        for(int i=3; i>0; i--)
+        for (int i = 3; i > 0; i--)
         {
             ui.Count.text = i.ToString();
             ui.CountdownClientRPC(i);
@@ -125,7 +133,7 @@ public class NetPlayManager : NetworkBehaviour
                    .ToArray();
 
         int i = 0;
-        
+
         foreach (ulong key in _rank)
         {
             rank[i] = _rank[i];
@@ -139,7 +147,7 @@ public class NetPlayManager : NetworkBehaviour
     //�� �÷��̾� ���� Ȯ��.
 
     //Player ����� ������ ���� �ִ� Player �����Ϳ� �߰�.
-    [ServerRpc (RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     public void AddPlayerServerRpc(ServerRpcParams serverRpcParams = default)
     {
         ulong uid = serverRpcParams.Receive.SenderClientId;
@@ -157,7 +165,7 @@ public class NetPlayManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc (Delivery = RpcDelivery.Reliable)]
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void AddPlayerClientRpc(ulong _uid, Vector3 _pos, ClientRpcParams rpcParams = default)
     {
         if (NetworkManager.Singleton.LocalClientId == _uid)
@@ -184,6 +192,11 @@ public class NetPlayManager : NetworkBehaviour
         }
     }
 
-
-    
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnPlayerServerRpc(ulong playerId)
+    {
+        Debug.Log("whyrano");
+        var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
+        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
+    }
 }

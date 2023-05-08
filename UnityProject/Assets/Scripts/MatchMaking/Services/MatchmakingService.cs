@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -125,9 +126,11 @@ public static class MatchmakingService {
 
         if (_currentLobby != null)
             try {
-                if (_currentLobby.HostId == Authentication.PlayerId) await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
+                Debug.Log("LLLLEEEAAVE LOBBYYY");
+                if (_currentLobby.HostId == Authentication.PlayerId)await Lobbies.Instance.DeleteLobbyAsync(_currentLobby.Id);
                 else await Lobbies.Instance.RemovePlayerAsync(_currentLobby.Id, Authentication.PlayerId);
                 _currentLobby = null;
+                NetworkManager.Singleton.Shutdown();
             }
             catch (Exception e) {
                 Debug.Log(e);

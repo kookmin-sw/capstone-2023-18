@@ -25,6 +25,7 @@ namespace PowerslideKartPhysics
         [ClientRpc]
         private void UseBoosterClientRpc(ulong userid,ulong objectid, bool isrush)
         {
+            Debug.Log("boost");
             NetworkObject player = GetNetworkObject(objectid);
             ItemEffect itemEffect = player.GetComponentInChildren<ItemEffect>();
 
