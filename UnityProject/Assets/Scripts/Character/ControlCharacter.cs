@@ -33,7 +33,7 @@ public class ControlCharacter : NetworkBehaviour
         }
         else
         {
-            root.eulerAngles = _rootRotate.Value;
+            root.transform.localEulerAngles = _rootRotate.Value;
         }
     }
     
@@ -44,7 +44,7 @@ public class ControlCharacter : NetworkBehaviour
 
         zRotate = Mathf.SmoothStep(zRotate, (-_hMove * 25), duration);
         _Rotate.z = zRotate;
-       
+        _rootRotate.Value = _Rotate;
         root.transform.localEulerAngles = _Rotate;
         //root.Rotate(_Rotate);
         //_rootRotate.Value = root.eulerAngles;

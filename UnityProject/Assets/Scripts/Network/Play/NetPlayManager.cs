@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class NetPlayManager : NetworkBehaviour
 {
+    public GameObject[] KartPrefab;
+    public LobbyOrchestrator LO;
     //시작 세팅 위치
     public GameObject[] StartingPoints;
 
@@ -30,13 +32,15 @@ public class NetPlayManager : NetworkBehaviour
     public void Awake()
     {
         rank = new NetworkList<ulong>();
+        LO = LobbyOrchestrator.Instance.GetComponent<LobbyOrchestrator>();
+        setMapInfo();
     }
 
     private void Start()
     {
-
-        setMapInfo();
+        SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId);
     }
+
 
     private void Update()
     {
@@ -154,8 +158,16 @@ public class NetPlayManager : NetworkBehaviour
     {
         using (new Load("Closing the game..."))
         {
+            Debug.Log("UNLOCK LOBBY");
             await MatchmakingService.UnLockLobby();
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnPlayerServerRpc(ulong playerId)
+    {
+        var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // 정해진 카트
+        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
     }
 }

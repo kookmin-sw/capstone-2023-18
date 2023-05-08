@@ -32,7 +32,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
 
     //체크포인트
-    public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     public NetPlayManager npm;
 
@@ -44,16 +44,25 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     private void Awake()
     {
         LapTimes = new NetworkList<float>();
+        StartCoroutine(FindComponent());
     }
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
-        if(IsOwner)
+        if (IsOwner)
         {
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
             npm.AddPlayerServerRpc();
         }
+    }
+
+    IEnumerator FindComponent()
+    {
+        while (GameObject.Find("@PlayManager") == null)
+        {
+            yield return null;
+        }
+        GameObject.Find("@PlayManager").TryGetComponent(out npm);
     }
 
     // Update is called once per frame

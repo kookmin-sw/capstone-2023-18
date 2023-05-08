@@ -26,7 +26,7 @@ public class LobbyPlayerInfo : INetworkSerializable
         isReady = false;
         isRedTeam = false;
         isHost = false;
-        position = PlayerPosition.None;
+        position = PlayerPosition.Defender;
         KartIndex = 0;
         CharacterIndex = 0;
     }

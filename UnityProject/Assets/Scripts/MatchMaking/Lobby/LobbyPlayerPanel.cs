@@ -35,4 +35,23 @@ public class LobbyPlayerPanel : MonoBehaviour {
     {
         _isYour.SetActive(isYour);
     }
+
+    public void SetPosition(int pos)
+    {
+        switch(pos)
+        {
+            case (int)PlayerPosition.None:
+                _positionText.text = "NONE";
+                break;
+            case (int)PlayerPosition.Defender:
+                _positionText.text = "DEFENDER";
+                break;
+            case (int)PlayerPosition.Attack:
+                _positionText.text = "ATTACKER";
+                break;
+            case (int)PlayerPosition.Runner:
+                _positionText.text = "RUNNER";
+                break;
+        }
+    }
 }

@@ -12,6 +12,7 @@ public class NetItemBox : NetworkBehaviour
         base.OnNetworkSpawn();
         if (IsServer)
         {
+            gameObject.GetComponent<NetworkObject>().DestroyWithScene = true;
             StartCoroutine(Updown());
         }
     }

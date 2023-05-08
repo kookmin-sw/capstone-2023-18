@@ -23,21 +23,29 @@ public class LobbyOrchestrator : NetworkBehaviour {
         DontDestroyOnLoad(gameObject);
         if (Instance == null)
         {
+            Debug.Log("New Lobby");
             Instance = gameObject;
             _mainLobbyScreen.gameObject.SetActive(true);
             _createScreen.gameObject.SetActive(false);
             _roomScreen.gameObject.SetActive(false);
 
+            CreateLobbyScreen.LobbyCreated -= CreateLobby;
             CreateLobbyScreen.LobbyCreated += CreateLobby;
+
+            LobbyRoomPanel.LobbySelected -= OnLobbySelected;
             LobbyRoomPanel.LobbySelected += OnLobbySelected;
+
+            RoomScreen.LobbyLeft -= OnLobbyLeft;
             RoomScreen.LobbyLeft += OnLobbyLeft;
+
+            RoomScreen.StartPressed -= OnGameStart;
             RoomScreen.StartPressed += OnGameStart;
-            NetworkObject.DestroyWithScene = true;
 
         }
         else
         {
-            Destroy(gameObject);
+            Debug.Log("Destroy Lobby");
+            gameObject.GetComponent<NetworkObject>().Despawn(true);
         }
 
         if (MatchmakingService.isJoiningLobby())
@@ -283,6 +291,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
     {
         Debug.Log("Set Kart" + _idx);
         _playersInLobby[_uid].KartIndex = _idx;
+        _playersInLobby[_uid].position = PresetItem.KartType[_idx];
         PropagateToClients();
         UpdateInterface();
     }
@@ -310,7 +319,6 @@ public class LobbyOrchestrator : NetworkBehaviour {
     private async void OnLobbyLeft() {
         using (new Load("Leaving Lobby...")) {
             _playersInLobby.Clear();
-            NetworkManager.Singleton.Shutdown();
             _countTeam = 0;
             await MatchmakingService.LeaveLobby();
         }

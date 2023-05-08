@@ -86,21 +86,29 @@ public class NetKartController : NetworkBehaviour
     {
         input = GetComponent<NetKartInput>();
         npi = GetComponent<NetPlayerInfo>();
-        GameObject.Find("@PlayManager").TryGetComponent(out npm);
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
-
+        StartCoroutine(FindComponent());
     }
 
     public override void OnNetworkSpawn()
     {
-        if(IsOwner)
+        if (IsOwner)
         {
             StartCoroutine(WaitStart());
         }
+    }
+
+    IEnumerator FindComponent()
+    {
+        while(GameObject.Find("@PlayManager") == null)
+        {
+            yield return null;
+        }
+        GameObject.Find("@PlayManager").TryGetComponent(out npm);
     }
 
     void FixedUpdate()

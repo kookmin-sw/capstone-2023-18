@@ -59,6 +59,7 @@ public class RoomScreen : MonoBehaviour {
                 _redPlayers[redCount].SetItem(player.Value.KartIndex, player.Value.CharacterIndex);
                 _redPlayers[redCount].SetHost(player.Value.isHost);
                 _redPlayers[redCount].SetYour(player.Key == NetworkManager.Singleton.LocalClientId);
+                _redPlayers[redCount].SetPosition((int)player.Value.position);
                 _redPlayers[redCount++].SetReady(player.Value.isReady);
             }
             else
@@ -68,6 +69,7 @@ public class RoomScreen : MonoBehaviour {
                 _bluePlayers[blueCount].SetItem(player.Value.KartIndex, player.Value.CharacterIndex);
                 _bluePlayers[blueCount].SetHost(player.Value.isHost);
                 _bluePlayers[blueCount].SetYour(player.Key == NetworkManager.Singleton.LocalClientId);
+                _bluePlayers[blueCount].SetPosition((int)player.Value.position);
                 _bluePlayers[blueCount++].SetReady(player.Value.isReady);
             }
 
