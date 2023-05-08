@@ -96,6 +96,7 @@ public class NetPlayManager : NetworkBehaviour
 
     public IEnumerator StartCountDown()
     {
+        ItemManager.instance.GetAllKarts();
         NetPlayUI ui = GetComponent<NetPlayUI>();
         for (int i = 3; i > 0; i--)
         {

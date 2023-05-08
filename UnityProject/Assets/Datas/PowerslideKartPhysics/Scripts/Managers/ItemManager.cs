@@ -21,11 +21,11 @@ namespace PowerslideKartPhysics
         public NetworkObject No1Player;
 
 
-        private void Awake() {
+        public override void OnNetworkSpawn()
+        {
             Init();
             items = GetComponentsInChildren<Item>();
             allKarts = FindObjectsOfType<NetKartController>();
-            
         }
 
         private void Update()

@@ -32667,6 +32667,7 @@ GameObject:
   - component: {fileID: 7656484559975736750}
   - component: {fileID: 4774520768741887005}
   - component: {fileID: 4441133213530690926}
+  - component: {fileID: 645352552}
   - component: {fileID: 999132855485064655}
   - component: {fileID: 6883160316347100567}
   - component: {fileID: 5916931713319791244}
@@ -32674,7 +32675,6 @@ GameObject:
   - component: {fileID: 1788742113035525297}
   - component: {fileID: 6486597275927946356}
   - component: {fileID: 6931569128395207553}
-  - component: {fileID: 645352552}
   m_Layer: 8
   m_Name: 44Car00
   m_TagString: Kart
@@ -32848,6 +32848,24 @@ MonoBehaviour:
   Return: 0
   isReverse: 0
   caster: {fileID: 0}
+--- !u!114 &645352552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7656484559975736744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730cc7dc225febb47bba671ce11b858f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  ammo: 0
+  minCastInterval: 0.1
+  castEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &999132855485064655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33356,24 +33374,6 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   duration: 0
   startTime: 0
---- !u!114 &645352552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7656484559975736744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 730cc7dc225febb47bba671ce11b858f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  ammo: 0
-  minCastInterval: 0.1
-  castEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &7656484560100282479
 GameObject:
   m_ObjectHideFlags: 0
