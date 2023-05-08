@@ -19,8 +19,12 @@ namespace PowerslideKartPhysics
         public NetKartController[] allKarts = new NetKartController[0];
         public List<playerData> PlayerDatas = new List<playerData>();
         public NetworkObject No1Player;
+        public NetPlayManager npm;
 
-
+        private void Awake()
+        {
+            StartCoroutine(FindComponent());
+        }
         public override void OnNetworkSpawn()
         {
             Init();
@@ -30,15 +34,24 @@ namespace PowerslideKartPhysics
 
         private void Update()
         {
-            if (IsServer)
+            if (IsServer && npm != null && npm.isStart.Value)
             {
-                No1Player =
-                    NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(NetPlayManager.instance.rank[0]);
-                
+                if(npm.rank.Count != 0)
+                {
+                    No1Player = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(npm.rank[0]);
+                }
+
             }
              
         }
-
+        IEnumerator FindComponent()
+        {
+            while (GameObject.Find("@PlayManager") == null)
+            {
+                yield return null;
+            }
+            GameObject.Find("@PlayManager").TryGetComponent(out npm);
+        }
         public void GetAllKarts()
         {
             if (!IsServer) return;
@@ -71,7 +84,7 @@ namespace PowerslideKartPhysics
                 {
                     im.AddComponent<ItemManager>();
                 }
-                DontDestroyOnLoad(im);
+                //DontDestroyOnLoad(im);
                 instance = im.GetComponent<ItemManager>();
             }
         }
