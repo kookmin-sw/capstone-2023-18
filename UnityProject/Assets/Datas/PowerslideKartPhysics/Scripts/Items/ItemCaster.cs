@@ -89,6 +89,33 @@ namespace PowerslideKartPhysics
                 ammo = ammoCount;
             }
         }
+
+        // Hit Item
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("SpinItems") && IsOwner)
+            {
+                Debug.Log("Touch Spin Item");
+                ImplementSpinServerRpc(other.gameObject.GetComponent<TestSpinItems>()._type);
+            }
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ImplementSpinServerRpc(int _type, ServerRpcParams serverRpcParams = default)
+        {
+            ulong uid = serverRpcParams.Receive.SenderClientId;
+            ImplementSpinClientRpc(uid, _type);
+        }
+
+        [ClientRpc(Delivery = RpcDelivery.Reliable)]
+        public void ImplementSpinClientRpc(ulong _uid, int _spinType)
+        {
+            if (NetworkManager.Singleton.LocalClientId == _uid && !kart.spinningOut)
+            {
+                StartCoroutine(kart.SpinCycle(_spinType, 4));
+            }
+        }
+
     }
 
     // Struct for passing item cast data

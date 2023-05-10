@@ -87,7 +87,9 @@ public class NetKartController : NetworkBehaviour
     [Header("About Item")] 
     public bool active = true;
 
-    
+    public bool spinningOut = false;
+
+
     public bool isProtected = false;
     public Vector3 currentGravityDir = Vector3.up;
     [System.NonSerialized]
@@ -96,9 +98,9 @@ public class NetKartController : NetworkBehaviour
     Vector3 spinUp = Vector3.up;
     Vector3 spinOffset = Vector3.zero;
     
-    public float spinDecel = 100.0f;
-    public float spinRate = 15f;
-    public float spinHeight = 1.0f;
+    private float spinDecel = 100.0f;
+    private float spinRate = 25f;
+    private float spinHeight = 4.0f;
 
     
     private void Awake()
@@ -155,15 +157,25 @@ public class NetKartController : NetworkBehaviour
             turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
             //grounded check
-            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
+            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength) || spinningOut)
             {
-                
-                accelarationLogic();
-                turningLogic();
-                frictionLogic();
-                brakeLogic();
-                AddAngularDrag();
-                OnDrift();
+                if (!spinningOut)
+                {
+                    accelarationLogic();
+                    turningLogic();
+                    frictionLogic();
+                    brakeLogic();
+                    AddAngularDrag();
+                    OnDrift();
+                }
+                else
+                {
+                    // Visual rotation while spinning out
+                    Debug.Log("Spinning");
+                    transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.LookRotation(spinForward, spinUp), 20f * Time.fixedDeltaTime);
+                    transform.localPosition = Vector3.Lerp(transform.localPosition, transform.localPosition + spinOffset, 20f * Time.fixedDeltaTime);
+                    rb.AddForce(new Vector3(-rb.velocity.x, 0.0f, -rb.velocity.z) * spinDecel, ForceMode.Acceleration); // Slow down while spinning out
+                }
                 //for drift behaviour
                 //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
 
@@ -401,7 +413,54 @@ public class NetKartController : NetworkBehaviour
             Debug.Log(isProtected);
         }
     }
-    
+
+    // Spin cycle that calculates the current spin angle
+    public IEnumerator SpinCycle(int spinType, float spinAmount)
+    {
+        Debug.Log("Spin Start");
+        // Spin start
+        spinningOut = true;
+        float spinDir = Mathf.Sign(0.5f - Random.value);
+        //Mathf.Sign() -> 인자로 들어온 값의 부호 반환
+        float curSpin = 0.0f;
+        float maxSpin = spinAmount * Mathf.PI * 2.0f;
+
+        // Actual spin cycle
+        while (Mathf.Abs(curSpin) < maxSpin)
+        {
+            curSpin += spinDir * spinRate * Mathf.Clamp((maxSpin - Mathf.Abs(curSpin)), 0.1f, 1.0f) * Time.fixedDeltaTime;
+            switch (spinType)
+            {
+                case (int)SpinAxis.Yaw: //좌우 y축 기준
+                    Debug.Log("Spin YAW");
+                    spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
+                    spinUp = Vector3.up;
+                    break;
+                case (int)SpinAxis.Roll: //x축 기준
+                    Debug.Log("Spin ROLL");
+                    spinUp = new Vector3(Mathf.Sin(curSpin), Mathf.Cos(curSpin), 0.0f);
+                    break;
+                case (int)SpinAxis.Pitch: //축 기준
+                    Debug.Log("Spin PITCH");
+                    spinForward = new Vector3(0.0f, Mathf.Sin(curSpin), Mathf.Cos(curSpin));
+                    spinUp = new Vector3(0.0f, Mathf.Cos(curSpin), -Mathf.Sin(curSpin));
+                    break;
+            }
+
+            if (spinType != (int)SpinAxis.Yaw)
+            {
+                spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / Mathf.Max(maxSpin, 0.001f)) * Mathf.PI);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        // Spin end
+        spinningOut = false;
+        spinForward = Vector3.forward;
+        spinOffset = Vector3.zero;
+        spinUp = Vector3.up;
+    }
+
 
 
 
