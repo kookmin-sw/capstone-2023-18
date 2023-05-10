@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -69,6 +70,7 @@ public class NetKartController : NetworkBehaviour
     //public bool drftSndMachVel;
 
     [Header("Other Settings")]
+    public CinemachineVirtualCamera CamControll;
     public AudioSource engineSound;
     public bool airDrag;
     public float UpForce;
@@ -112,6 +114,7 @@ public class NetKartController : NetworkBehaviour
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
+        CamControll = transform.Find("Camera Controller CM").gameObject.GetComponent<CinemachineVirtualCamera>();
         StartCoroutine(FindComponent());
     }
 
@@ -419,7 +422,10 @@ public class NetKartController : NetworkBehaviour
     {
         Debug.Log("Spin Start");
         // Spin start
+        CinemachineTransposer _vCamTransposer = CamControll.GetCinemachineComponent<CinemachineTransposer>();
+        _vCamTransposer.m_YawDamping = 20;
         spinningOut = true;
+
         float spinDir = Mathf.Sign(0.5f - Random.value);
         //Mathf.Sign() -> 인자로 들어온 값의 부호 반환
         float curSpin = 0.0f;
@@ -456,6 +462,7 @@ public class NetKartController : NetworkBehaviour
 
         // Spin end
         spinningOut = false;
+        _vCamTransposer.m_YawDamping = 0.5f;
         spinForward = Vector3.forward;
         spinOffset = Vector3.zero;
         spinUp = Vector3.up;
