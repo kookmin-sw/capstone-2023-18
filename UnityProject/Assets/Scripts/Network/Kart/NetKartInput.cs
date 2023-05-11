@@ -35,7 +35,7 @@ public class NetKartInput : NetworkBehaviour
                 Return = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl) && !PlayManager.isReturning)
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 if (caster != null) {
                     

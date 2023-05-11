@@ -33,9 +33,12 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
 
     //üũ����Ʈ
-    public NetworkVariable<int> CpNum = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> CpNum = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-    public NetPlayManager npm;
+    public NetKartInput input;
+    public NetPlayManager npm; //Network Player Manager
+    public NetPlayCheckPoint cpm; //Check Point Manager
+    public bool isReturning;
 
     //���� ������
     public NetworkVariable<int> Item = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -44,7 +47,10 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     private void Awake()
     {
+        CpNum.Value = 0;
         LapTimes = new NetworkList<float>();
+        input = gameObject.GetComponent<NetKartInput>();
+        isReturning = false;
         StartCoroutine(FindComponent());
     }
 
@@ -64,6 +70,12 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             yield return null;
         }
         GameObject.Find("@PlayManager").TryGetComponent(out npm);
+
+        while (GameObject.Find("CheckPoints") == null)
+        {
+            yield return null;
+        }
+        GameObject.Find("CheckPoints").TryGetComponent(out cpm);
     }
 
     // Update is called once per frame
@@ -72,6 +84,15 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         if (IsServer)
         {
             CheckPointDistance.Value = Vector3.Dot(RpForward.Value, (transform.position - RpPosition.Value));
+        }
+
+        if(IsOwner && input.Return)
+        {
+            input.Return = false;
+            if (isReturning == false)
+            {
+                StartCoroutine(ReturnToCP(transform, cpm.CP[CpNum.Value].transform));
+            }
         }
     }
 
@@ -94,10 +115,38 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     private void OnTriggerEnter(Collider other)
     {
+
+
         if (other.CompareTag("Checkpoint") && IsOwner)
         {
             CP cpinfo = other.GetComponent<CP>();
-            CpNum.Value = cpinfo.CheckPointNum;
+            bool isCorrectRoute = false;
+            //1. Chcek to Correct Next CheckPoint
+            if(cpinfo == cpm.CP[CpNum.Value])
+            {
+                isCorrectRoute = true;
+            }
+
+            foreach(CP toNext in cpm.CP[CpNum.Value].NextCheckPoint)
+            {
+                if(toNext == cpinfo)
+                {
+                    isCorrectRoute = true;
+                }
+            }
+
+
+            //if NO -> Warning and Don't Update to Checkpoint
+            //if Yes -> Update to CheckPoint Keep going
+            if(isCorrectRoute)
+            {
+                npm.UI.Warning.SetActive(false);
+                CpNum.Value = cpinfo.CheckPointNum;
+            }
+            else
+            {
+                npm.UI.Warning.SetActive(true);
+            }
         }
 
         if (other.CompareTag("EndPoint") && IsOwner)
@@ -126,6 +175,25 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
                 }
             }
 
+        }
+    }
+
+    public IEnumerator ReturnToCP(Transform _user, Transform _returnPoint)
+    {
+        if (IsOwner)
+        {
+            isReturning = true;
+            Rigidbody rb = _user.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+
+            // 최근 체크포인트로 카트의 위치/회전 변경
+            _user.position = _returnPoint.position + new Vector3(0, 1, 0);
+            _user.rotation = _returnPoint.rotation;
+
+            //0.3초 이후 다시 움직이기.
+            yield return new WaitForSecondsRealtime(0.3f);
+            rb.constraints = RigidbodyConstraints.None;
+            isReturning = false;
         }
     }
 

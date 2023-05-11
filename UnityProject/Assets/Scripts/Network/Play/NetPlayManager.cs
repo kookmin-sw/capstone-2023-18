@@ -33,10 +33,11 @@ public class NetPlayManager : NetworkBehaviour
     //����
     public NetworkList<ulong> rank;
 
-
+    public NetPlayUI UI;
     private void Awake()
     {
         rank = new NetworkList<ulong>();
+        UI = gameObject.GetComponent<NetPlayUI>();
     }
     public override void OnNetworkSpawn()
     {
@@ -93,14 +94,13 @@ public class NetPlayManager : NetworkBehaviour
     public IEnumerator StartCountDown()
     {
         ItemManager.instance.GetAllKarts();
-        NetPlayUI ui = GetComponent<NetPlayUI>();
         for (int i = 3; i > 0; i--)
         {
             //ui.Count.text = i.ToString();
-            ui.CountdownClientRPC(i);
+            UI.CountdownClientRPC(i);
             yield return new WaitForSeconds(1);
         }
-        ui.CountdownClientRPC(0);
+        UI.CountdownClientRPC(0);
         isStart.Value = true;
     }
 
@@ -108,7 +108,6 @@ public class NetPlayManager : NetworkBehaviour
     {
         //������ ���� ������ �޾ƿͼ� ����Ѵ�.
         MaxLap = 1;
-        MaxCP = GameObject.FindGameObjectsWithTag("Checkpoint").Count();
         StartingPoints = GameObject.FindGameObjectsWithTag("StartPoint");
     }
 
@@ -139,7 +138,6 @@ public class NetPlayManager : NetworkBehaviour
         }
 
     }
-
 
     //�� �÷��̾� ���� Ȯ��.
 

@@ -27,6 +27,7 @@ public class NetPlayUI : NetworkBehaviour
     [Space, Header("Image")]
     public Image IconImage;
     public Sprite[] ITEM_ICONS;
+    public GameObject Warning;
 
     [Space, Header("Rank")]
     public Transform[] Ranks;
@@ -81,6 +82,7 @@ public class NetPlayUI : NetworkBehaviour
     void LoadIconImages()
     {
         ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEM>().ICONS;
+        Warning = UI.transform.Find("Warning").gameObject;
     }
 
     // Update is called once per frame

@@ -390,7 +390,6 @@ GameObject:
   - component: {fileID: 4383176082698419437}
   - component: {fileID: 4842699027159999902}
   - component: {fileID: 8307742952654116159}
-  - component: {fileID: 2383336511417408871}
   - component: {fileID: 3209800104823528060}
   - component: {fileID: 1187803001590704611}
   - component: {fileID: 7369095441036373057}
@@ -914,6 +913,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   BoosterVFX: {fileID: 1702297493211349986}
   carVelocity: {x: 0, y: 0, z: 0}
+  CamControll: {fileID: 0}
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
@@ -923,23 +923,9 @@ MonoBehaviour:
   input: {fileID: 0}
   npm: {fileID: 0}
   active: 1
+  spinningOut: 0
   isProtected: 0
   currentGravityDir: {x: 0, y: 1, z: 0}
-  spinDecel: 100
-  spinRate: 15
-  spinHeight: 1
---- !u!114 &2383336511417408871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501922021925328216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e076498cf7f63f24aa3e79f83c0e9be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3209800104823528060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,7 +971,10 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   CpNum:
     m_InternalValue: -1
+  input: {fileID: 0}
   npm: {fileID: 0}
+  cpm: {fileID: 0}
+  isReturning: 0
   Item:
     m_InternalValue: 0
 --- !u!114 &7369095441036373057
