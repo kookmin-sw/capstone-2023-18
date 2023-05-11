@@ -43,9 +43,10 @@ namespace PowerslideKartPhysics
                 if (caster != null) {
                     offTime = 0.0f;
                     int myRank = other.GetComponent<NetPlayerInfo>().myRank.Value;
+                    ulong objid = other.GetComponent<NetworkObject>().NetworkObjectId;
                     // Give specific item if named, otherwise random item
                     caster.GiveItem(
-                        string.IsNullOrEmpty(itemName) ? manager.GetRandomItem(myRank,true) : manager.GetItem(itemName),
+                        string.IsNullOrEmpty(itemName) ? manager.GetRandomItem(myRank,true,objid) : manager.GetItem(itemName),
                         ammo, false);
                 }
             }

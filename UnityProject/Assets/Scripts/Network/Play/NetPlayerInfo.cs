@@ -18,8 +18,10 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
      * BEST TIME : �� ���� �� �ְ� ��� üũ
      * �ش� �������� Ŭ���̾�Ʈ�� ���� ���� �ְ�, �������� ��� �� �� �ֵ��� �Ѵ�. 
      */
+    public NetworkVariable<int> myPosition = new NetworkVariable<int>(0,
+        NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server); 
     public NetworkVariable<int> myRank = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-    public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<short> Lap = new NetworkVariable<short>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkList<float> LapTimes;
     public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -54,6 +56,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         {
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
             npm.AddPlayerServerRpc();
+            
+            
         }
     }
 

@@ -96,23 +96,22 @@ namespace PowerslideKartPhysics
             if (other.CompareTag("SpinItems") && IsOwner)
             {
                 Debug.Log("Touch Spin Item");
-                ImplementSpinServerRpc(other.gameObject.GetComponent<TestSpinItems>()._type);
+                //ImplementSpinServerRpc(other.gameObject.GetComponent<TestSpinItems>()._type, 2f);
             }
         }
 
         [ServerRpc(RequireOwnership = false)]
-        public void ImplementSpinServerRpc(int _type, ServerRpcParams serverRpcParams = default)
+        public void ImplementSpinServerRpc(int _type,float spinAmount,ulong uid, ServerRpcParams serverRpcParams = default)
         {
-            ulong uid = serverRpcParams.Receive.SenderClientId;
-            ImplementSpinClientRpc(uid, _type);
+            ImplementSpinClientRpc(uid, _type, spinAmount);
         }
 
         [ClientRpc(Delivery = RpcDelivery.Reliable)]
-        public void ImplementSpinClientRpc(ulong _uid, int _spinType)
+        public void ImplementSpinClientRpc(ulong _uid, int _spinType, float spinAmount)
         {
             if (NetworkManager.Singleton.LocalClientId == _uid && !kart.spinningOut)
             {
-                StartCoroutine(kart.SpinCycle(_spinType, 4));
+                if(!kart.isProtected) StartCoroutine(kart.SpinCycle(_spinType, spinAmount));
             }
         }
 

@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using System.Linq;
 using PowerslideKartPhysics;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.SceneManagement;
 
 public class NetPlayManager : NetworkBehaviour
@@ -192,8 +193,17 @@ public class NetPlayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnPlayerServerRpc(ulong playerId)
     {
-        Debug.Log("whyrano");
+        
         var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
         spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
+        Debug.Log(LO._playersInLobby[playerId]);
+        //TODO
+        
+        NetPlayerInfo playerInfo = spawn.GetComponent<NetPlayerInfo>();
+        if (LO._playersInLobby[playerId].isRedTeam) playerInfo.teamNumber.Value = 0;
+        else playerInfo.teamNumber.Value = 1;
+        playerInfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
+        
+
     }
 }

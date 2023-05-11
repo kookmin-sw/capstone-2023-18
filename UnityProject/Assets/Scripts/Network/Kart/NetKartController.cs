@@ -100,7 +100,7 @@ public class NetKartController : NetworkBehaviour
     
     private float spinDecel = 100.0f;
     private float spinRate = 25f;
-    private float spinHeight = 4.0f;
+    private float spinHeight = 2.0f;
 
     
     private void Awake()
@@ -397,11 +397,9 @@ public class NetKartController : NetworkBehaviour
 
     public IEnumerator OnProtected(float ProtectTime)
     {
-        Debug.Log(isProtected);
         if (!isProtected)
         {
             isProtected = true;
-            Debug.Log(isProtected);
             float currentProtectTime = ProtectTime;
             while (currentProtectTime > 0)
             {
@@ -410,7 +408,6 @@ public class NetKartController : NetworkBehaviour
             }
 
             isProtected = false;
-            Debug.Log(isProtected);
         }
     }
 

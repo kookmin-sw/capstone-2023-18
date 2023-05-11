@@ -11,72 +11,68 @@ namespace PowerslideKartPhysics
     public class BuffItem : Item
     {
         public float buffTime = 1f;
-        
+
         [ServerRpc(RequireOwnership = false)]
         public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid)
         {
             base.ActivateServerRpc(props, userid, objectid);
-            Debug.Log(itemName);
-            useItem(itemName, userid, objectid);
+            UseItem(userid, objectid, itemName);
         }
 
-        private void useItem(string itemName, ulong userid, ulong objectid)
-        {
-            switch (itemName)
-            {
-                case "ReverseBuffother" :
-                    UseReverseBuffotherClientRpc(userid,objectid);
-                    break;
-                case "ReverseBuffTeam" :
-                    UseReverseBuffTeamClientRpc(userid,getMyTeam(objectid));
-                    break;
-                case "SlowItem" : 
-                    UseSlowTeamClientRpc(getMyTeam(objectid),userid);
-                    break;
-            }
-        }
+       
 
         private int getMyTeam(ulong id)
         {
             int myteamNum = 0;
-            
             NetworkObject itemuser = GetNetworkObject(id);
             myteamNum = itemuser.GetComponent<NetPlayerInfo>().teamNumber.Value;
             return myteamNum;
         }
-        
-        [ClientRpc]
-        private void UseReverseBuffTeamClientRpc(ulong userid, int teamNum)
-        {
-            Debug.Log("check" + teamNum);
-            List<playerData> data = ItemManager.instance.PlayerDatas;
-            for (int i = 0; i < data.Count; i++)
-            {
-                playerData tmp = data[i];
-                //use to not my team
-                if (tmp.teamNumber != teamNum)
-                {
-                    NetworkObject target = GetNetworkObject(tmp.networkobjectId);
-                    target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.reverse,buffTime,userid);
-                    if (tmp.clientId == NetworkManager.Singleton.LocalClientId)
-                    {
-                        NetKartInput playerInput = target.GetComponent<NetKartInput>();
-                        StartCoroutine(ReverseBuffTimer(buffTime,playerInput));
-                    }
-                }
-            }
 
+        private void UseItem(ulong userid, ulong objectid, string name)
+        {
+            List<playerData> tmp;
+            int myteamNum = getMyTeam(objectid);
+            if (myteamNum == 0)
+            {
+                tmp = ItemManager.instance.BlueTeam;
+            }
+            else tmp = ItemManager.instance.RedTeam;
+
+            for (int i = 0; i < tmp.Count; i++)
+            {
+                ulong t_userid = tmp[i].clientId;
+                ulong t_objid = tmp[i].networkobjectId;
+                
+                switch (name)
+                {
+                    case "ReverseBuffTeam":
+                        UseReverseBuffTeamClientRpc(t_userid,t_objid);
+                        break;
+                    case "SlowItem":
+                        UseSlowTeamClientRpc(t_userid,t_objid);
+                        break;
+                    case "ThunderItem" :
+                        UseThunderItemClientRpc(t_userid,t_objid);
+                        break;
+                }
+                
+            }
         }
+
+        #region Reverse
         
         [ClientRpc]
-        private void UseReverseBuffotherClientRpc(ulong userid, ulong objectid)
+        private void UseReverseBuffTeamClientRpc(ulong userid, ulong objectid)
         {
-            if (NetworkManager.Singleton.LocalClientId != userid)
+            NetworkObject target = GetNetworkObject(objectid);
+            target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.reverse,buffTime,userid);
+            if (userid == NetworkManager.Singleton.LocalClientId)
             {
-                GameObject player = NetworkManager.LocalClient.PlayerObject.gameObject;
-                NetKartInput playerInput = player.GetComponent<NetKartInput>();
+                NetKartInput playerInput = target.GetComponent<NetKartInput>();
                 StartCoroutine(ReverseBuffTimer(buffTime,playerInput));
             }
+
         }
         
         
@@ -93,26 +89,18 @@ namespace PowerslideKartPhysics
             playerInput.isReverse = false;
         }
 
+        #endregion
+
+        #region Slow
+
         [ClientRpc]
-        private void UseSlowTeamClientRpc(int teamNum,ulong userid)
+        private void UseSlowTeamClientRpc(ulong userid , ulong objectid)
         {
-            Debug.Log("check");   
-            List<playerData> data = ItemManager.instance.PlayerDatas;
-            for (int i = 0; i < data.Count; i++)
+            NetworkObject target = GetNetworkObject(objectid);
+            target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.slow,buffTime,userid);
+            if (userid == NetworkManager.Singleton.LocalClientId)
             {
-                playerData tmp = data[i];
-                //use to not my team
-                if (tmp.teamNumber != teamNum)
-                {
-                    NetworkObject target = GetNetworkObject(tmp.networkobjectId);
-                    Debug.Log("targetId : " + tmp.networkobjectId);
-                    target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.slow,buffTime,userid);
-                    if (tmp.clientId == NetworkManager.Singleton.LocalClientId)
-                    {
-                        
-                        StartCoroutine(SlowBuffTimer(buffTime, target.GetComponent<NetKartController>()));
-                    }
-                }
+                StartCoroutine(SlowBuffTimer(buffTime, target.GetComponent<NetKartController>()));
             }
         }
 
@@ -131,6 +119,25 @@ namespace PowerslideKartPhysics
 
             playerController.MaxSpeed = currSpeed;
         }
+
+        #endregion
+
+        #region MyRegion
+
+        [ClientRpc]
+        private void UseThunderItemClientRpc(ulong userid, ulong objectid)
+        {
+            NetworkObject target = GetNetworkObject(objectid);
+            target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.Thunder, buffTime, userid);
+            if (userid == NetworkManager.Singleton.LocalClientId)
+            {
+                target.GetComponent<ItemCaster>().ImplementSpinServerRpc((int)ItemManager.SpinAxis.Pitch,3,userid);
+            }
+        }
+        
+
+        #endregion
+        
     }
 }
 
