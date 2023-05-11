@@ -190,7 +190,6 @@ public class NetPlayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnPlayerServerRpc(ulong playerId)
     {
-        Debug.Log("whyrano");
         var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
         NetPlayerInfo userinfo = spawn.GetComponent<NetPlayerInfo>();
 
