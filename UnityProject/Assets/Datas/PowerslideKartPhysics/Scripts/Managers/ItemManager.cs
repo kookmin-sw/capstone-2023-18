@@ -18,9 +18,12 @@ namespace PowerslideKartPhysics
         Item[] items = new Item[0];
         public NetKartController[] allKarts = new NetKartController[0];
         public List<playerData> PlayerDatas = new List<playerData>();
+        public List<playerData> RedTeam = new List<playerData>(); // teamnum = 0
+        public List<playerData> BlueTeam = new List<playerData>(); // teamnum = 1
         public NetworkObject No1Player;
         public NetPlayManager npm;
-
+        
+        public enum SpinAxis { Yaw = 0, Pitch = 1, Roll = 2 }
         private void Awake()
         {
             StartCoroutine(FindComponent());
@@ -42,7 +45,6 @@ namespace PowerslideKartPhysics
                 }
 
             }
-             
         }
         IEnumerator FindComponent()
         {
@@ -64,6 +66,17 @@ namespace PowerslideKartPhysics
                 tmp.clientId = allKarts[i].GetComponent<NetworkObject>().OwnerClientId;
                 tmp.networkobjectId = allKarts[i].GetComponent<NetworkObject>().NetworkObjectId;
                 tmp.teamNumber = allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value;
+                if (tmp.teamNumber == 0)
+                {
+                    //redTeam
+                    RedTeam.Add(tmp);
+                }
+                else if (tmp.teamNumber == 1)
+                {
+                    //blueTeam
+                    BlueTeam.Add(tmp);
+                }
+                
                 PlayerDatas.Add(tmp);
             }
             Debug.Log("playerdata.count :  " + PlayerDatas.Count);
@@ -90,18 +103,33 @@ namespace PowerslideKartPhysics
         }
 
         // Return a random item from the list of items
-        public Item GetRandomItem(int myRank, bool test) {
+        public Item GetRandomItem(int myRank, bool test, ulong objid) {
             if (test)
             {
                 if (items.Length == 0) { return null; }
                 return items[Random.Range(0, items.Length)];
             }
-
             else
             {
                 itemName[] myItems = RandomItem(myRank);
                 itemName itemName = myItems[Random.Range(0, myItems.Length)];
-                Item item = GetItem(itemName.ToString());
+                Item item = null;
+                if (itemName == itemName.position)
+                {
+                    if (objid == (int)PlayerPosition.Attack)
+                    {
+                        item = GetItem(itemName.BombItem.ToString());
+                    }
+                    else if (objid == (int)PlayerPosition.Defender)
+                    {
+                        item = GetItem(itemName.BufferItem_ReverseTeam.ToString());
+                    }
+                    else if(objid == (int)PlayerPosition.Runner)
+                    {
+                        item = GetItem(itemName.RushItem.ToString());
+                    }
+                }
+                item = GetItem(itemName.ToString());
                 return item;
             }
             
@@ -135,25 +163,25 @@ namespace PowerslideKartPhysics
             itemName[] item1 = new[]
             {
                 itemName.position, itemName.FishItem, itemName.FishItem, itemName.FishItem, itemName.FishItem,
-                itemName.ShildItem, itemName.ShildItem, itemName.SquidItem, itemName.LimitSkillItem, itemName.ShildItem
+                itemName.ShieldItem, itemName.ShieldItem, itemName.SquidItem, itemName.LimitSkillItem, itemName.ShieldItem
             };
             itemName[] item2 = new[]
             {
                 itemName.position,itemName.FishItem,itemName.FishItem,itemName.FishItem,itemName.FishItem,
-                itemName.ShildItem,itemName.BirdStrikeItem,itemName.HomingItem,itemName.BirdStrikeItem
+                itemName.ShieldItem,itemName.BirdStrikeItem,itemName.HomingItem,itemName.BirdStrikeItem
             };
             itemName[] item3 = new[]
             {
                 itemName.position, itemName.BirdStrikeItem, itemName.BirdStrikeItem, itemName.BirdStrikeItem,
                 itemName.BirdStrikeItem,
-                itemName.HomingItem, itemName.HomingItem, itemName.SquidItem, itemName.ShildItem,
+                itemName.HomingItem, itemName.HomingItem, itemName.SquidItem, itemName.ShieldItem,
                 itemName.LimitSkillItem
             };
             itemName[] item4 = new[]
             {
                 itemName.position, itemName.BirdStrikeItem, itemName.BirdStrikeItem, itemName.BirdStrikeItem,
                 itemName.BirdStrikeItem,
-                itemName.HomingItem, itemName.HomingItem, itemName.GuardOneItem, itemName.ShildItem,
+                itemName.HomingItem, itemName.HomingItem, itemName.GuardOneItem, itemName.ShieldItem,
                 itemName.LimitSkillItem
             };
             itemName[] item5 = new[]
@@ -216,7 +244,7 @@ namespace PowerslideKartPhysics
 
     public enum itemName
     {
-        position, HomingItem, GuardOneItem, LimitSkillItem, SquidItem, BirdStrikeItem, FishItem, BoostItem, ShildItem, SlowItem,ThunderItem,BombItem,BufferItem_ReverseTeam,RushItem
+        position, HomingItem, GuardOneItem, LimitSkillItem, SquidItem, BirdStrikeItem, FishItem, BoostItem, ShieldItem, SlowItem,ThunderItem,BombItem,BufferItem_ReverseTeam,RushItem
     }
     public struct playerData : INetworkSerializable, System.IEquatable<playerData>
     {

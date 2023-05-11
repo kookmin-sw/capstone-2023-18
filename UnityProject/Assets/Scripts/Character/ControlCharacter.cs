@@ -40,8 +40,7 @@ public class ControlCharacter : NetworkBehaviour
 
     void RotateSide(float _hMove)
     {
-        Debug.Log(_hMove);
-
+        
         zRotate = Mathf.SmoothStep(zRotate, (-_hMove * 25), duration);
         _Rotate.z = zRotate;
         _rootRotate.Value = _Rotate;

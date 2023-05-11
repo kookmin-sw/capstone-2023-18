@@ -4,19 +4,23 @@ using UnityEngine;
 using Unity.Netcode;
 public class ItemEffect : NetworkBehaviour
 {
-    public GameObject ShildEffect;
+    public GameObject ShieldEffect;
     public GameObject RushEffect;
     public GameObject ReverseEffect;
     public GameObject BoostEffect;
     public GameObject SlowEffect;
+    public GameObject ThunderEffect;
+    public GameObject TeamShield;
     
     public enum effectType
     {
-        shild,
+        shield,
         rush,
         reverse,
         boost,
         slow,
+        Thunder,
+        TeamShield,
     }
     
 
@@ -33,8 +37,8 @@ public class ItemEffect : NetworkBehaviour
         GameObject effect = null;
         switch (type)
         {
-            case effectType.shild :
-                effect = ShildEffect;
+            case effectType.shield :
+                effect = ShieldEffect;
                 break;
             case effectType.reverse :
                 effect = ReverseEffect;
@@ -47,6 +51,12 @@ public class ItemEffect : NetworkBehaviour
                 break;
             case effectType.slow :
                 effect = SlowEffect;
+                break;
+            case effectType.Thunder :
+                effect = ThunderEffect;
+                break;
+            case effectType.TeamShield :
+                effect = TeamShield;
                 break;
         }
         

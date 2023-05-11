@@ -42,7 +42,7 @@ namespace PowerslideKartPhysics
 
         // Returns whether an object has a Kart component or is a child of an object with a Kart component
         public static bool IsKart(this Component obj) {
-            return obj.Is<Kart>();
+            return obj.Is<NetKartController>();
         }
 
         // Returns whether an object has a SpawnedProjectileItem component or is a child of an object with a SpawnedProjectileItem component

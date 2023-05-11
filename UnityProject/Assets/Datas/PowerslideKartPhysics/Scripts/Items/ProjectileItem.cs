@@ -26,7 +26,7 @@ namespace PowerslideKartPhysics
                 {
                     //1등의 정보를 받아와야
                     Debug.Log(spawnOffset);
-                    Vector3 no1pos = ItemManager.instance.No1Player.transform.position+ castProps.castRotation * spawnOffset ;
+                    Vector3 no1pos = ItemManager.instance.No1Player.transform.position+ castProps.castRotation * spawnOffset;
                     spawnedItem = Instantiate(itemPrefab, no1pos, castProps.castRotation);
                 }
                 else spawnedItem = Instantiate(itemPrefab, castProps.castPoint + castProps.castRotation * spawnOffset, castProps.castRotation);
