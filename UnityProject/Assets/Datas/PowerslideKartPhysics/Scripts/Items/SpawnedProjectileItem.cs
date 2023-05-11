@@ -17,7 +17,9 @@ namespace PowerslideKartPhysics
         Collider col;
         ItemCastProperties castProps;
         private NetKartController itemowner;
+        private int ownerTeamNum;
         private ItemManager im;
+        
         
         bool grounded = false;
         [Header("Movement")] 
@@ -106,6 +108,12 @@ namespace PowerslideKartPhysics
             itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
                 .GetComponent<NetKartController>();
             if (itemowner == null) return;
+
+
+            ownerTeamNum = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+                .GetComponent<NetPlayerInfo>().teamNumber.Value;
+            
+            
             castProps = props;
             casterCol = GetComponent<Collider>();
             moveDir = (props.castDirection + props.castRotation * Vector3.up * launchHeight).normalized;
@@ -150,7 +158,7 @@ namespace PowerslideKartPhysics
                 float closeDist = -1.0f;
                 float closeAngle = -1.0f;
                 for (int i = 0; i < allKarts.Length; i++) {
-                    if (allKarts[i] != itemowner) {
+                    if (allKarts[i] != itemowner && ownerTeamNum != allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value) {
                         float curDist = (allKarts[i].transform.position - tr.position).sqrMagnitude;
                         float curAngle = Vector3.Dot((allKarts[i].transform.position - castProps.castPoint).normalized, moveDir);
                         bool lineOfSight = !useLineOfSight || !Physics.Linecast(tr.position, allKarts[i].transform.position, lineOfSightMask, QueryTriggerInteraction.Ignore);
@@ -180,8 +188,7 @@ namespace PowerslideKartPhysics
         protected virtual void FixedUpdate() {
             
             //downForce
-          
-
+            
             if (rb == null || col == null) { return; }
             
             tr.LookAt(moveDir.normalized);
