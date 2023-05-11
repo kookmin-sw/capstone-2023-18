@@ -192,6 +192,12 @@ public class NetPlayManager : NetworkBehaviour
     {
         Debug.Log("whyrano");
         var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
+        NetPlayerInfo userinfo = spawn.GetComponent<NetPlayerInfo>();
+
+        Players.Add(playerId, userinfo);
+        rank.Add(playerId);
+        spawn.transform.position = StartingPoints[UserCount].transform.position;
+        UserCount += 1;
         spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
     }
 }

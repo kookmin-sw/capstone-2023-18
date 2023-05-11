@@ -59,7 +59,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         if (IsOwner)
         {
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
-            npm.AddPlayerServerRpc();
+            //npm.AddPlayerServerRpc();
         }
     }
 
