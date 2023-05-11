@@ -61,6 +61,16 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
             //npm.AddPlayerServerRpc();
         }
+
+        NetPointerOnMap pointer = gameObject.GetComponentInChildren<NetPointerOnMap>();
+        if(IsOwner)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     IEnumerator FindComponent()

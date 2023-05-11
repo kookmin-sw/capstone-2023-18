@@ -8,17 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Color_Blue_Minimap
-  m_Shader: {fileID: 4800000, guid: 317e3d3b84bf0a741a3e867e27dfa7bb, type: 3}
-  m_ValidKeywords:
-  - _MK_OUTLINE_HULL_CLIP
+  m_Shader: {fileID: 10755, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap:
     IGNOREPROJECTOR: False
-    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -131,6 +129,7 @@ Material:
     - _Initialized: 0
     - _InputTab: 1
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _OptionsTab: 1
     - _Outline: 3
@@ -160,6 +159,7 @@ Material:
     - _StencilZFail: 0
     - _StylizeTab: 1
     - _Surface: 0
+    - _UVSec: 0
     - _VertexAnimation: 0
     - _VertexAnimationIntensity: 0.05
     - _VertexAnimationStutter: 0
@@ -167,9 +167,9 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0, g: 0.120746545, b: 1, a: 1}
+    - _AlbedoColor: {r: 0, g: 0.120746486, b: 1, a: 1}
     - _BaseColor: {r: 0, g: 0.12074661, b: 1, a: 1}
-    - _Color: {r: 0, g: 0.120746516, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.12074659, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
