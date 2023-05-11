@@ -12,7 +12,7 @@ public enum PointerType
 }
 public class NetPointerOnMap : MonoBehaviour
 {
-    Transform[] Pointers;
+    public Transform[] Pointers;
 
     private void Awake()
     {
@@ -21,9 +21,10 @@ public class NetPointerOnMap : MonoBehaviour
 
     public void SetPointer(PointerType _type)
     {
-        for(int i=0; i<Pointers.Length; i++)
+        Debug.Log("setpoiunter" + _type);
+        for(int i=1; i<Pointers.Length; i++)
         {
-            Pointers[i].gameObject.SetActive(i == (int)_type ? true : false);
+            Pointers[i].gameObject.SetActive(i-1 == (int)_type ? true : false);
         }
     }
 

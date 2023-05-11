@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2262053119746634456}
-  m_Layer: 8
+  - component: {fileID: -8912027429478947066}
+  m_Layer: 9
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,6 +36,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8912027429478947066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83089460363405395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743bf0c968636214290ee81677f21ed1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pointers: []
 --- !u!1 &4232885463376129626
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +59,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1260200557649386923}
   - component: {fileID: 4998925880124244878}
-  - component: {fileID: 3554999255382695715}
   - component: {fileID: 2067204188356011761}
   m_Layer: 9
   m_Name: OtherPoint_Red
@@ -53,7 +66,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1260200557649386923
 Transform:
   m_ObjectHideFlags: 0
@@ -111,19 +124,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3554999255382695715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232885463376129626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f9f7f1559f348e1833fd00c9737d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m: {fileID: 2100000, guid: 2fe18a912734246cbb52062682f58943, type: 2}
 --- !u!33 &2067204188356011761
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -142,7 +142,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4617200985843581104}
   - component: {fileID: 4617200985843581106}
-  - component: {fileID: 4617200985843581105}
   - component: {fileID: 2297256905271304831}
   m_Layer: 9
   m_Name: MyPoint_Red
@@ -208,19 +207,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4617200985843581105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4617200985843581111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f9f7f1559f348e1833fd00c9737d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m: {fileID: 2100000, guid: 2fe18a912734246cbb52062682f58943, type: 2}
 --- !u!33 &2297256905271304831
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -239,7 +225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8869509652744829713}
   - component: {fileID: 6539771435055197235}
-  - component: {fileID: 2972504548983434930}
   - component: {fileID: 4936251796312987670}
   m_Layer: 9
   m_Name: OtherPoint_Blue
@@ -247,7 +232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8869509652744829713
 Transform:
   m_ObjectHideFlags: 0
@@ -305,19 +290,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2972504548983434930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5887709166712594351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f9f7f1559f348e1833fd00c9737d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m: {fileID: 2100000, guid: 2fe18a912734246cbb52062682f58943, type: 2}
 --- !u!33 &4936251796312987670
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -336,7 +308,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1830072078593376179}
   - component: {fileID: 1226850175453519516}
-  - component: {fileID: 5085404444209426552}
   - component: {fileID: 3371402662658999035}
   m_Layer: 9
   m_Name: MyPoint_Blue
@@ -344,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1830072078593376179
 Transform:
   m_ObjectHideFlags: 0
@@ -402,19 +373,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5085404444209426552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181725400750565945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8f9f7f1559f348e1833fd00c9737d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m: {fileID: 2100000, guid: 2fe18a912734246cbb52062682f58943, type: 2}
 --- !u!33 &3371402662658999035
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,15 +25,18 @@ public class NetPlayUI : NetworkBehaviour
     public Text[] RankIds;
     public Text Lap;
     public Text KMH;
+    public TextMeshProUGUI MyRank;
 
     [Space, Header("Image")]
     public Image IconImage;
+    public Image[] RankImages;
     public Sprite[] ITEM_ICONS;
     public GameObject Warning;
 
     [Space, Header("Rank")]
+    ulong MyID = 0;
     public Transform[] Ranks;
-
+    private string[] RankCount = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"};
     private void Awake()
     {
         Init();
@@ -46,6 +51,10 @@ public class NetPlayUI : NetworkBehaviour
         LoadIconImages();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        MyID = NetworkManager.Singleton.LocalClientId;
+    }
     private void FixedUpdate()
     {
         //MatchmakingService.showRoomName();
@@ -58,13 +67,16 @@ public class NetPlayUI : NetworkBehaviour
 
     void FindTextObj()
     {
-        TotalTime = UI.transform.Find("TotalTime").GetComponent<Text>();
-        BestTime = UI.transform.Find("BestTime").GetComponent<Text>();
+        TotalTime = UI.transform.Find("TimeBG/TotalTime").GetComponent<Text>();
+        BestTime = UI.transform.Find("TimeBG/BestTime").GetComponent<Text>();
+        Lap = UI.transform.Find("TimeBG/Lap").GetComponent<Text>();
         Count = UI.transform.Find("Count").GetComponent<Text>();
+        MyRank = UI.transform.Find("MyRank").GetComponent<TextMeshProUGUI>();
         Debug.Log("FIND COUNT" + Count.name);
         KMH = UI.transform.Find("KMH").GetComponent<Text>();
 
         Ranks = new Transform[8];
+        RankImages = new Image[8];
 
         for(int i=1; i<=8; i++)
         {
@@ -74,9 +86,9 @@ public class NetPlayUI : NetworkBehaviour
         RankIds = new Text[Ranks.Length];
         for(int i=0; i<Ranks.Length; i++)
         {
+            RankImages[i] = Ranks[i].GetComponent<Image>();
             RankIds[i] = Ranks[i].Find("name_Text").GetComponent<Text>();
         }
-        Lap = UI.transform.Find("Lap").GetComponent<Text>();
     }
 
     void LoadIconImages()
@@ -138,14 +150,30 @@ public class NetPlayUI : NetworkBehaviour
         {
             if (i < npm.rank.Count)
             {
+                ulong nowUser = npm.rank[i];
+                if(nowUser == MyID)
+                {
+                    MyRank.text = RankCount[i];
+                }
+
                 Ranks[i].gameObject.SetActive(true);
-                RankIds[i].text = "Unknown" + npm.rank[i].ToString();
+                if(IsServer)
+                {
+                    UpdateRankColorClientRpc(i, npm.Players[nowUser].teamNumber.Value);
+                }
+                RankIds[i].text = "USER  " + nowUser.ToString();
             }
             else
             {
                 Ranks[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
+    public void UpdateRankColorClientRpc(int _idx, int _teamNumber)
+    {
+        RankImages[_idx].DOColor(_teamNumber == 0 ? Color.red : Color.blue, 0);
     }
 
     void UpdateLap()

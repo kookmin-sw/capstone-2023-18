@@ -7,15 +7,9 @@ public class NetPlayCheckPoint : MonoBehaviour
     public CP[] CP;
     public NetPlayManager npm;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         init();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void init()

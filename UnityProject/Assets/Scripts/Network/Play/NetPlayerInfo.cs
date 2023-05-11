@@ -26,6 +26,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     public NetworkList<float> LapTimes;
     public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<float> KMH = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<ulong> ID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     //��ŷ����Ʈ ���� �Ÿ�
     public NetworkVariable<float> CheckPointDistance = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -49,7 +50,6 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     private void Awake()
     {
-        CpNum.Value = 0;
         LapTimes = new NetworkList<float>();
         input = gameObject.GetComponent<NetKartInput>();
         isReturning = false;
@@ -60,19 +60,13 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     {
         if (IsOwner)
         {
+            CpNum.Value = 0;
+            ID.Value = NetworkManager.Singleton.LocalClientId;
             GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
-            //npm.AddPlayerServerRpc();
+            GameObject.Find("MiniMap_Camera").GetComponent<MinimapCamFollowing>().target = transform;
         }
 
-        NetPointerOnMap pointer = gameObject.GetComponentInChildren<NetPointerOnMap>();
-        if(IsOwner)
-        {
-
-        }
-        else
-        {
-
-        }
+        
     }
 
     IEnumerator FindComponent()
@@ -82,7 +76,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             yield return null;
         }
         GameObject.Find("@PlayManager").TryGetComponent(out npm);
-
+        StartCoroutine(SetPointClients());
+        StartCoroutine(SetNameTackClients());
         while (GameObject.Find("CheckPoints") == null)
         {
             yield return null;
@@ -190,9 +185,51 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         }
     }
 
+    IEnumerator SetPointClients()
+    {
+        NetPointerOnMap pointer = gameObject.GetComponentInChildren<NetPointerOnMap>();
+        while (npm.isStart.Value == false)
+        {
+            yield return null;
+        }
+        if (IsOwner)
+        {
+            if (teamNumber.Value == 0)//Red Team
+            {
+                pointer.SetPointer(PointerType.MY_RED);
+            }
+            else//Blue Team
+            {
+                pointer.SetPointer(PointerType.MY_BLUE);
+            }
+        }
+        else
+        {
+            if (teamNumber.Value == 0)//Red Team
+            {
+                pointer.SetPointer(PointerType.OTHER_RED);
+            }
+            else//Blue Team
+            {
+                pointer.SetPointer(PointerType.OTHER_BLUE);
+            }
+        }
+    }
+
+    IEnumerator SetNameTackClients()
+    {
+        NetShowNickName nick = gameObject.GetComponentInChildren<NetShowNickName>();
+        while (npm.isStart.Value == false)
+        {
+            yield return null;
+        }
+        nick.SetNameTack("USER " + ID.Value.ToString(), teamNumber.Value);
+
+    }
+
     public IEnumerator ReturnToCP(Transform _user, Transform _returnPoint)
     {
-        if (IsOwner)
+        if (IsOwner&&isReturning == false && npm.isStart.Value == true)
         {
             isReturning = true;
             Rigidbody rb = _user.GetComponent<Rigidbody>();

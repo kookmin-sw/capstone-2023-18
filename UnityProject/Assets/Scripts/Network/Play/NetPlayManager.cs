@@ -25,7 +25,7 @@ public class NetPlayManager : NetworkBehaviour
     public int MaxCP; // �ش� �ʿ� CP�� �� �� �ִ���.
 
     //�÷��̾ ���൵
-    private SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
+    public SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
 
     //����
     //���� ���� ��ġ
@@ -192,19 +192,18 @@ public class NetPlayManager : NetworkBehaviour
     private void SpawnPlayerServerRpc(ulong playerId)
     {
         var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
+        spawn.transform.position = StartingPoints[UserCount].transform.position;
+        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
         NetPlayerInfo userinfo = spawn.GetComponent<NetPlayerInfo>();
-
         Players.Add(playerId, userinfo);
         rank.Add(playerId);
-        spawn.transform.position = StartingPoints[UserCount].transform.position;
         UserCount += 1;
-        spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
         Debug.Log(LO._playersInLobby[playerId]);
         //TODO
-        
-        NetPlayerInfo playerInfo = spawn.GetComponent<NetPlayerInfo>();
-        if (LO._playersInLobby[playerId].isRedTeam) playerInfo.teamNumber.Value = 0;
-        else playerInfo.teamNumber.Value = 1;
-        playerInfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
+        if (LO._playersInLobby[playerId].isRedTeam) userinfo.teamNumber.Value = 0;
+        else userinfo.teamNumber.Value = 1;
+        userinfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
+
+       
     }
 }
