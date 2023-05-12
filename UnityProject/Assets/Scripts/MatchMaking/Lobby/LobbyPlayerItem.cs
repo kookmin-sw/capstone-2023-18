@@ -28,11 +28,13 @@ public class LobbyPlayerItem : MonoBehaviour
     {
         for(int i=0; i< MaxKart; i++)
         {
+            if (Karts[i].gameObject == null) break;
             Karts[i].gameObject.SetActive(i == KartIndex ? true : false);
         }
 
         for (int i = 0; i < MaxCharacter; i++)
         {
+            if (Characters[i] == null) break;
             Characters[i].gameObject.SetActive(i == CharacterIndex ? true : false);
         }
     }

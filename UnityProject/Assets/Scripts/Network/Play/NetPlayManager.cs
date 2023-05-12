@@ -25,7 +25,7 @@ public class NetPlayManager : NetworkBehaviour
     public int MaxCP; // �ش� �ʿ� CP�� �� �� �ִ���.
 
     //�÷��̾ ���൵
-    private SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
+    public SortedDictionary<ulong, NetPlayerInfo> Players = new SortedDictionary<ulong, NetPlayerInfo>();
 
     //����
     //���� ���� ��ġ
@@ -34,10 +34,11 @@ public class NetPlayManager : NetworkBehaviour
     //����
     public NetworkList<ulong> rank;
 
-
+    public NetPlayUI UI;
     private void Awake()
     {
         rank = new NetworkList<ulong>();
+        UI = gameObject.GetComponent<NetPlayUI>();
     }
     public override void OnNetworkSpawn()
     {
@@ -94,14 +95,13 @@ public class NetPlayManager : NetworkBehaviour
     public IEnumerator StartCountDown()
     {
         ItemManager.instance.GetAllKarts();
-        NetPlayUI ui = GetComponent<NetPlayUI>();
         for (int i = 3; i > 0; i--)
         {
             //ui.Count.text = i.ToString();
-            ui.CountdownClientRPC(i);
+            UI.CountdownClientRPC(i);
             yield return new WaitForSeconds(1);
         }
-        ui.CountdownClientRPC(0);
+        UI.CountdownClientRPC(0);
         isStart.Value = true;
     }
 
@@ -109,7 +109,6 @@ public class NetPlayManager : NetworkBehaviour
     {
         //������ ���� ������ �޾ƿͼ� ����Ѵ�.
         MaxLap = 1;
-        MaxCP = GameObject.FindGameObjectsWithTag("Checkpoint").Count();
         StartingPoints = GameObject.FindGameObjectsWithTag("StartPoint");
     }
 
@@ -140,7 +139,6 @@ public class NetPlayManager : NetworkBehaviour
         }
 
     }
-
 
     //�� �÷��̾� ���� Ȯ��.
 
@@ -193,17 +191,21 @@ public class NetPlayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnPlayerServerRpc(ulong playerId)
     {
-        
         var spawn = Instantiate(KartPrefab[LO._playersInLobby[playerId].KartIndex]); // ������ īƮ
+        spawn.transform.position = StartingPoints[UserCount].transform.position;
         spawn.GetComponent<NetworkObject>().SpawnAsPlayerObject(playerId);
+        NetPlayerInfo userinfo = spawn.GetComponent<NetPlayerInfo>();
+        Players.Add(playerId, userinfo);
+        rank.Add(playerId);
+        UserCount += 1;
         Debug.Log(LO._playersInLobby[playerId]);
         //TODO
-        
-        NetPlayerInfo playerInfo = spawn.GetComponent<NetPlayerInfo>();
-        if (LO._playersInLobby[playerId].isRedTeam) playerInfo.teamNumber.Value = 0;
-        else playerInfo.teamNumber.Value = 1;
-        playerInfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
-        
+        userinfo.myCharacter.Value = LO._playersInLobby[playerId].CharacterIndex;
+        if (LO._playersInLobby[playerId].isRedTeam) userinfo.teamNumber.Value = 0;
+        else userinfo.teamNumber.Value = 1;
+        userinfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
+
+
 
     }
 }
