@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028302, g: 0.22571318, b: 0.30692133, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17070,6 +17070,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 405686735, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288761326115993671, guid: 9516ddf5142c440e28236f33fd8ef9ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4662957067624900905, guid: 9516ddf5142c440e28236f33fd8ef9ca,
         type: 3}
       propertyPath: m_RootOrder
@@ -19956,8 +19965,11 @@ MonoBehaviour:
   RankIds: []
   Lap: {fileID: 0}
   KMH: {fileID: 0}
+  MyRank: {fileID: 0}
   IconImage: {fileID: 0}
+  RankImages: []
   ITEM_ICONS: []
+  Warning: {fileID: 0}
   Ranks: []
 --- !u!114 &815682940
 MonoBehaviour:
@@ -19981,6 +19993,7 @@ MonoBehaviour:
   UserCount: 0
   MaxLap: 0
   MaxCP: 0
+  UI: {fileID: 0}
 --- !u!1 &834545923
 GameObject:
   m_ObjectHideFlags: 0

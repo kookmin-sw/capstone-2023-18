@@ -106,23 +106,23 @@ namespace PowerslideKartPhysics
 
         IEnumerator SlowBuffTimer(float bufftime, NetKartController playerController)
         {
-            float currSpeed = playerController.MaxSpeed;
+            float currSpeed = playerController.speed;
             
             float currentTime = bufftime;
             while (currentTime > 0)
             {
                 
-                playerController.MaxSpeed = currSpeed / 2;
+                playerController.speed = currSpeed / 2;
                 currentTime -= Time.fixedDeltaTime;
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }
 
-            playerController.MaxSpeed = currSpeed;
+            playerController.speed = currSpeed;
         }
 
         #endregion
 
-        #region MyRegion
+        #region Thunder
 
         [ClientRpc]
         private void UseThunderItemClientRpc(ulong userid, ulong objectid)

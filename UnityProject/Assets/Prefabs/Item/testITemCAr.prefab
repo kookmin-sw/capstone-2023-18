@@ -4687,6 +4687,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   BoosterVFX: {fileID: 0}
   carVelocity: {x: 0, y: 0, z: 0}
+  CamControll: {fileID: 0}
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
@@ -4738,6 +4739,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPosition:
     m_InternalValue: 0
+  myCharacter:
+    m_InternalValue: 0
   myRank:
     m_InternalValue: 0
   teamNumber:
@@ -4747,6 +4750,8 @@ MonoBehaviour:
   BestTime:
     m_InternalValue: 0
   KMH:
+    m_InternalValue: 0
+  ID:
     m_InternalValue: 0
   CheckPointDistance:
     m_InternalValue: 0
@@ -4758,7 +4763,10 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   CpNum:
     m_InternalValue: -1
+  input: {fileID: 0}
   npm: {fileID: 0}
+  cpm: {fileID: 0}
+  isReturning: 0
   Item:
     m_InternalValue: 0
 --- !u!114 &-8649796934617380209
@@ -25715,6 +25723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 951099334
+      objectReference: {fileID: 0}
+    - target: {fileID: 5889623909070686910, guid: c7e7603cc703f354fad812f0a92a44aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6374554222356237183, guid: c7e7603cc703f354fad812f0a92a44aa,
         type: 3}
