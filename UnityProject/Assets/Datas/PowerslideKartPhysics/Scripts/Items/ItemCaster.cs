@@ -17,7 +17,8 @@ namespace PowerslideKartPhysics
         Transform kartTr;
         Rigidbody kartRb;
         Collider kartCol;
-        
+
+        public NetPlayerInfo npi;
         public Item item;
         public int ammo = 0;
         public float minCastInterval = 0.1f;
@@ -26,7 +27,7 @@ namespace PowerslideKartPhysics
 
         private void Awake() {
             kart = GetComponent<NetKartController>();
-            
+            npi = GetComponent<NetPlayerInfo>();
             if (kart != null) {
                 kartTr = kart.transform;
                 kartRb = kart.GetComponent<Rigidbody>();
@@ -38,8 +39,17 @@ namespace PowerslideKartPhysics
             }
         }
 
-        private void Update() {
+        private void Update()
+        {
             timeSinceCast += Time.deltaTime;
+            if (item == null || ammo == 0)
+            {
+                npi.myItem.Value = "None";
+            }
+            else
+            {
+                npi.myItem.Value = item.itemName;
+            }
         }
 
         // Cast currently equipped item

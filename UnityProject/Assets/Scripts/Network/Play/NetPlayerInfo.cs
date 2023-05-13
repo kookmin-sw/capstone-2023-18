@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
@@ -18,6 +19,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
      * BEST TIME : �� ���� �� �ְ� ��� üũ
      * �ش� �������� Ŭ���̾�Ʈ�� ���� ���� �ְ�, �������� ��� �� �� �ֵ��� �Ѵ�. 
      */
+    public NetworkVariable<string> myItem = new NetworkVariable<string>("", NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> myPosition = new NetworkVariable<int>(0,
         NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -59,6 +62,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         StartCoroutine(FindComponent());
     }
 
+    
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
@@ -103,6 +107,56 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             if (isReturning == false)
             {
                 StartCoroutine(ReturnToCP(transform, cpm.CP[CpNum.Value].transform));
+            }
+        }
+
+        if (IsOwner)
+        {
+            Debug.Log(myItem.Value);
+            switch (myItem.Value)
+            {
+                case "HomingItem" :
+                    Item.Value = 0;
+                    break;
+                case "GuardOneItem" :
+                    Item.Value = 1;
+                    break;
+                case "LimitSkillItem" :
+                    Item.Value = 2;
+                    break;
+                case "SquidItem" :
+                    Item.Value = 3;
+                    break;
+                case "BirdStrikeItem" :
+                    Item.Value = 4;
+                    break;
+                case "FishItem" :
+                    Item.Value = 5;
+                    break;
+                case "BoostItem" :
+                    Item.Value = 6;
+                    break;
+                case "ShieldItem" :
+                    Item.Value = 7;
+                    break;
+                case "SlowItem" :
+                    Item.Value = 8;
+                    break;
+                case "ThunderItem" :
+                    Item.Value = 9;
+                    break;
+                case "BombItem" :
+                    Item.Value = 10;
+                    break;
+                case "BufferItem_ReverseTeam" :
+                    Item.Value = 11;
+                    break;
+                case "RushItem" :
+                    Item.Value = 12;
+                    break;
+                case "None" :
+                    Item.Value = 13;
+                    break;
             }
         }
     }

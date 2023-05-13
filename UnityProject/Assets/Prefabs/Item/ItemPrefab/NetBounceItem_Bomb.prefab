@@ -135,7 +135,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2540433896333183303
 MonoBehaviour:
@@ -360,6 +360,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BombItem_effect
       objectReference: {fileID: 0}
+    - target: {fileID: 9037111707968590536, guid: 88075386f4bb0451f8c15f3f25e06e3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88075386f4bb0451f8c15f3f25e06e3e, type: 3}
 --- !u!4 &767538273799108264 stripped
@@ -440,11 +445,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BombItem_prefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 5205576459973892892, guid: 105e3c11aa9c948498398bf589c4eb6b,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 951099334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 105e3c11aa9c948498398bf589c4eb6b, type: 3}

@@ -51,8 +51,7 @@ public class KartController : MonoBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.NONE;
-    
+
     public float BoostPower;
     public bool isBoost;
     public AnimationCurve BoostCurve;
@@ -352,30 +351,7 @@ public class KartController : MonoBehaviour
         }
         */
     }
-
-    public IEnumerator OnBooster(float BoostTime)
-    {
-        hasItem = ITEMS.NONE;
-        if(!isBoost)
-        {
-            isBoost = true;
-            float nowBoostTIme = BoostTime;
-            float originSpeed = speed;
-            speed = BoostPower;
-            BoosterVFX.SetActive(true);
-            while (BoostTime > 0)
-            {
-                float t = Time.fixedDeltaTime;
-                BoostTime -= t;
-                yield return new WaitForSeconds(t);
-
-            }
-            BoosterVFX.SetActive(false);
-            speed = originSpeed;
-            yield return new WaitForSeconds(0.1f);
-            isBoost = false;
-        }
-    }
+    
 
     public IEnumerator OnProtected(float ProtectTime)
     {
@@ -395,22 +371,7 @@ public class KartController : MonoBehaviour
             Debug.Log(isProtected);
         }
     }
-
-    void UseItem()
-    {
-        if(input.Item)
-        {
-            input.Item = false;
-            switch(hasItem)
-            {
-                case ITEMS.NONE:
-                    break;
-                case ITEMS.BOOST:
-                   
-                    break;
-            }
-        }
-    }
+    
 
 
     private void OnDrawGizmos()

@@ -26,15 +26,16 @@ public class ItemBox : NetworkBehaviour
 
     int SelectItem()
     {
-        //¾ÆÀÌÅÛÀ» È¹µæÇÑ À¯ÀúÀÇ »óÈ²¿¡ ¸ÂÃß¾î ¾ÆÀÌÅÛÀ» ¼³Á¤ÇÔ.
-        //ÇöÀç´Â ºÎ½ºÅÍ¹Û¿¡ ¾øÀ¸¹Ç·Î ºÎ½ºÅÍ¸¸.
-        return (int)ITEMS.BOOST;
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Í¹Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½Î½ï¿½ï¿½Í¸ï¿½.
+        //return (int)ITEMS.BOOST;
+        return 0;
     }
 
     IEnumerator RemakeBox(NetKartController user)
     {
-        //¾ÆÀÌÅÛ È¹µæ ½Ã, ¹Ú½º disable
-        //nÃÊ ÈÄ Àç»ý¼º
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½ï¿½, ï¿½Ú½ï¿½ disable
+        //nï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         user.npi.Item.Value = SelectItem();
         gameObject.layer = 30;
         yield return new WaitForSeconds(2f);
