@@ -11,6 +11,7 @@ public class ItemEffect : NetworkBehaviour
     public GameObject SlowEffect;
     public GameObject ThunderEffect;
     public GameObject TeamShield;
+    public GameObject SquidEffect;
     
     public enum effectType
     {
@@ -21,6 +22,7 @@ public class ItemEffect : NetworkBehaviour
         slow,
         Thunder,
         TeamShield,
+        Squid,
     }
     
 
@@ -57,6 +59,9 @@ public class ItemEffect : NetworkBehaviour
                 break;
             case effectType.TeamShield :
                 effect = TeamShield;
+                break;
+            case effectType.Squid :
+                effect = SquidEffect;
                 break;
         }
         

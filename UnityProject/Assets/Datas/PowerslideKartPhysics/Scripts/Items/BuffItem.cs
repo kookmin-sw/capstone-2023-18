@@ -55,6 +55,9 @@ namespace PowerslideKartPhysics
                     case "ThunderItem" :
                         UseThunderItemClientRpc(t_userid,t_objid);
                         break;
+                    case "LimitSkillItem" : 
+                        UseLimitSkillClientRpc(t_userid,t_objid);
+                        break;
                 }
                 
             }
@@ -131,13 +134,60 @@ namespace PowerslideKartPhysics
             target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.Thunder, buffTime, userid);
             if (userid == NetworkManager.Singleton.LocalClientId)
             {
-                target.GetComponent<ItemCaster>().ImplementSpinServerRpc((int)ItemManager.SpinAxis.Pitch,3,userid);
+                target.GetComponent<ItemCaster>().ImplementSpinServerRpc((int)ItemManager.SpinAxis.Yaw,3,userid);
             }
         }
         
 
         #endregion
+
+        #region LimitSkill
+
+        [ClientRpc]
+        private void UseLimitSkillClientRpc(ulong userid , ulong objectid)
+        {
+            NetworkObject target = GetNetworkObject(objectid);
+            //target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.slow,buffTime,userid);
+            if (userid == NetworkManager.Singleton.LocalClientId)
+            {
+                StartCoroutine(LimitSkillBuffTimer(buffTime, target.GetComponent<NetKartInput>()));
+            }
+        }
+
+        IEnumerator LimitSkillBuffTimer(float bufftime, NetKartInput netKartInput)
+        {
+            netKartInput.isLimit = true;
+            float currentTime = bufftime;
+            while (currentTime > 0)
+            {
+                currentTime -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+            }
+            netKartInput.isLimit = false;
+        }
+
+        #endregion
+
+        #region Squid
         
+        [ClientRpc]
+        private void UseSquidItemClientRpc(ulong userid, ulong objectid)
+        {
+            NetworkObject target = GetNetworkObject(objectid);
+            target.GetComponentInChildren<ItemEffect>().EffectOn(ItemEffect.effectType.Squid,buffTime,userid);
+            if (userid == NetworkManager.Singleton.LocalClientId)
+            {
+                //TODO : UI Effect
+                
+            }
+
+        }
+        
+        
+        
+        
+
+        #endregion
     }
 }
 

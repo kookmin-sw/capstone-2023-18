@@ -13,6 +13,7 @@ public class NetKartInput : NetworkBehaviour
     public bool Item;
     public bool Return;
     public bool isReverse = false;
+    public bool isLimit = false;
     public ItemCaster caster;
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class NetKartInput : NetworkBehaviour
                 Return = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !isLimit)
             {
                 if (caster != null) {
                     
