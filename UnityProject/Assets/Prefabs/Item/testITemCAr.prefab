@@ -4342,6 +4342,7 @@ MonoBehaviour:
   Item: 0
   Return: 0
   isReverse: 0
+  isLimit: 0
   caster: {fileID: 0}
 --- !u!114 &1948999050429200999
 MonoBehaviour:
@@ -4687,6 +4688,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   BoosterVFX: {fileID: 0}
   carVelocity: {x: 0, y: 0, z: 0}
+  CamControll: {fileID: 0}
   engineSound: {fileID: 0}
   airDrag: 0
   UpForce: 0
@@ -4738,6 +4740,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPosition:
     m_InternalValue: 0
+  myCharacter:
+    m_InternalValue: 0
   myRank:
     m_InternalValue: 0
   teamNumber:
@@ -4747,6 +4751,8 @@ MonoBehaviour:
   BestTime:
     m_InternalValue: 0
   KMH:
+    m_InternalValue: 0
+  ID:
     m_InternalValue: 0
   CheckPointDistance:
     m_InternalValue: 0
@@ -4758,7 +4764,10 @@ MonoBehaviour:
     m_InternalValue: {x: 0, y: 0, z: 0}
   CpNum:
     m_InternalValue: -1
+  input: {fileID: 0}
   npm: {fileID: 0}
+  cpm: {fileID: 0}
+  isReturning: 0
   Item:
     m_InternalValue: 0
 --- !u!114 &-8649796934617380209

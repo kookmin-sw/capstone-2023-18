@@ -53,7 +53,7 @@ public class PlayUI : NetworkBehaviour
 
     void LoadIconImages()
     {
-        ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEM>().ICONS;
+        //ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEM>().ICONS;
     }
 
     // Update is called once per frame
@@ -61,15 +61,15 @@ public class PlayUI : NetworkBehaviour
     {
         if (UserKart != null)
         {
-            //½Ã°£ ¾÷µ¥ÀÌÆ®
+            //ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             ShowTime();
-            //¾ÆÀÌÅÛ ¾÷µ¥ÀÌÆ®
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             UpdateItem();
         }
     }
 
 
-    //Play Time ÃøÁ¤
+    //Play Time ï¿½ï¿½ï¿½ï¿½
     string TransferTime(float t)
     {
         return string.Format("{0:0}:{1:00}.{2:000}",
@@ -84,9 +84,9 @@ public class PlayUI : NetworkBehaviour
         BestTime.text = "BEST : " + TransferTime(TimeCheck.BestTime);
     }
 
-    //°¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ¿¡ µû¶ó UI Ç¥½Ã
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
     void UpdateItem()
     {
-        IconImage.sprite = ITEM_ICONS[(int)UserKart.hasItem];
+       
     }
 }

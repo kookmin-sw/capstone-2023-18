@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using PowerslideKartPhysics;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 public class NetPlayUI : NetworkBehaviour
 {
     // Start is called before the first frame update
-    //ÇÃ·¹ÀÌ¾îÀÇ ±âº» Á¤º¸¸¦ ´ãÀ½
+    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public NetPlayerInfo Player;
     public NetPlayManager npm;
 
@@ -105,7 +106,7 @@ public class NetPlayUI : NetworkBehaviour
 
     void LoadIconImages()
     {
-        ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEM>().ICONS;
+        ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEMIcon>().ICONS;
         Warning = UI.transform.Find("Warning").gameObject;
     }
 
@@ -114,21 +115,21 @@ public class NetPlayUI : NetworkBehaviour
     {
         if (IsClient)
         {
-            //½Ã°£ ¾÷µ¥ÀÌÆ®
+            //ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             ShowTime();
-            //¾ÆÀÌÅÛ ¾÷µ¥ÀÌÆ®
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             UpdateItem();
-            //·©Å· ¾÷µ¥ÀÌÆ®
+            //ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             UpdateRank();
-            //·¦ ¾÷µ¥ÀÌÆ®
+            //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             UpdateLap();
-            //¼Óµµ
+            //ï¿½Óµï¿½
             UpdateSpeed();
         }
     }
 
 
-    //Play Time ÃøÁ¤
+    //Play Time ï¿½ï¿½ï¿½ï¿½
     string TransferTime(float t)
     {
         return string.Format("{0:0}:{1:00}.{2:000}",
@@ -146,7 +147,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //°¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ¿¡ µû¶ó UI Ç¥½Ã
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
     void UpdateItem()
     {
         if (npm.isStart.Value == true)
@@ -155,7 +156,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //¼øÀ§ ¾÷µ¥ÀÌÆ®
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     void UpdateRank()
     {
         for(int i=0; i<8; i++)
@@ -204,7 +205,7 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
-    //Ä«¿îÆ®´Ù¿î ¸Þ¼¼Áö ºê·ÎµåÄ³½ºÆ®
+    //Ä«ï¿½ï¿½Æ®ï¿½Ù¿ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½Ä³ï¿½ï¿½Æ®
 
     [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void CountdownClientRPC(int _count, ClientRpcParams rpcParams = default)

@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5042203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5042204}
+  - component: {fileID: 5042205}
+  m_Layer: 0
+  m_Name: SquidItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5042204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042203}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0679093, y: -3.7480235, z: 11.747432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4662957067624900905}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5042205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713897f68e9d74b8aa19ff68a1b6e50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: SquidItem
+  buffTime: 3
 --- !u!1 &18917197
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,7 +62,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &18917198
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Bouncer
+  itemName: BombItem
   itemPrefab: {fileID: 5462182083005470935, guid: 7413cf0e6865b4419ba6e234c225a003,
     type: 3}
   spawnOffset: {x: 0, y: 1, z: 7}
@@ -59,7 +105,7 @@ GameObject:
   - component: {fileID: 247806279}
   - component: {fileID: 247806280}
   m_Layer: 0
-  m_Name: ButterItem_ReverseAll
+  m_Name: ThunderItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713897f68e9d74b8aa19ff68a1b6e50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: ReverseBuffother
+  itemName: ThunderItem
   buffTime: 3
 --- !u!1 &310999767
 GameObject:
@@ -138,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Homing Item
+  itemName: HomingItem
   itemPrefab: {fileID: 5462182083005470935, guid: 768c14f88894d4fe69f9903803b86aa1,
     type: 3}
   spawnOffset: {x: 0, y: 0.5, z: 5}
@@ -188,6 +234,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: SlowItem
   buffTime: 3
+--- !u!1 &471230668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471230669}
+  - component: {fileID: 471230670}
+  m_Layer: 0
+  m_Name: LimitSkillItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &471230669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471230668}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0679093, y: -3.7480235, z: 11.747432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4662957067624900905}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471230670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471230668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713897f68e9d74b8aa19ff68a1b6e50b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: LimitSkillItem
+  buffTime: 3
 --- !u!1 &1771409442
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Trap
+  itemName: FishItem
   itemPrefab: {fileID: 5462182083005470935, guid: 9bc7debd8e9ed4fb6a81232608b8acfa,
     type: 3}
   spawnOffset: {x: 0, y: 0.5, z: -0.5}
@@ -280,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72bac7494eefc4bba247868f0c2fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 'Rush '
+  itemName: RushItem
   boostAmount: 1
   boostTime: 1
   isRush: 1
@@ -328,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Podu
+  itemName: GuardOneItem
   itemPrefab: {fileID: 5462182083005470935, guid: cffa1fc9687504c4a8e913ab2d450ab0,
     type: 3}
   spawnOffset: {x: 0, y: 3, z: 15}
@@ -348,7 +440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1288761326115993670
 Transform:
   m_ObjectHideFlags: 0
@@ -376,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Bouncer
+  itemName: BirdStrikeItem
   itemPrefab: {fileID: 5462182083005470935, guid: 8f42fa2d2318a4969b77561b5a1f05d6,
     type: 3}
   spawnOffset: {x: 0, y: 1, z: 7}
@@ -566,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72bac7494eefc4bba247868f0c2fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Boost
+  itemName: BoostItem
   boostAmount: 1
   boostTime: 2
   isRush: 0
@@ -614,6 +706,8 @@ Transform:
   - {fileID: 405686736}
   - {fileID: 1892152895}
   - {fileID: 310999768}
+  - {fileID: 471230669}
+  - {fileID: 5042204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -377,7 +377,6 @@ public class NetKartController : NetworkBehaviour
     //=================== ITEM =======================
     public IEnumerator OnBooster(float BoostTime)
     {
-        npi.Item.Value = (int)ITEMS.NONE;
 
         if (!isBoost)
         {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
      * BEST TIME : �� ���� �� �ְ� ��� üũ
      * �ش� �������� Ŭ���̾�Ʈ�� ���� ���� �ְ�, �������� ��� �� �� �ֵ��� �Ѵ�. 
      */
+    public NetworkVariable<int> myItem = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Owner);
     public NetworkVariable<int> myPosition = new NetworkVariable<int>(0,
         NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -59,6 +62,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         StartCoroutine(FindComponent());
     }
 
+    
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
@@ -104,6 +108,11 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             {
                 StartCoroutine(ReturnToCP(transform, cpm.CP[CpNum.Value].transform));
             }
+        }
+
+        if (IsServer)
+        {
+            Item.Value = myItem.Value;
         }
     }
 

@@ -24,6 +24,13 @@ namespace PowerslideKartPhysics
         public NetPlayManager npm;
         
         public enum SpinAxis { Yaw = 0, Pitch = 1, Roll = 2 }
+        public enum itemName
+        {
+            //monkey = HomingItem
+            position, HomingItem = 0, GuardOneItem = 1, LimitSkillItem = 2, SquidItem = 3, 
+            BirdStrikeItem = 4, FishItem = 5, BoostItem = 6, ShieldItem = 7, SlowItem = 8,
+            ThunderItem = 9,BombItem = 10,BufferItem_ReverseTeam = 11,RushItem = 12
+        }
         private void Awake()
         {
             StartCoroutine(FindComponent());
@@ -242,10 +249,7 @@ namespace PowerslideKartPhysics
         
     }
 
-    public enum itemName
-    {
-        position, HomingItem, GuardOneItem, LimitSkillItem, SquidItem, BirdStrikeItem, FishItem, BoostItem, ShieldItem, SlowItem,ThunderItem,BombItem,BufferItem_ReverseTeam,RushItem
-    }
+    
     public struct playerData : INetworkSerializable, System.IEquatable<playerData>
     {
         public ulong clientId;

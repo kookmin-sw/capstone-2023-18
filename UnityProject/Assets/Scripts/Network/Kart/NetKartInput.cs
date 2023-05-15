@@ -13,52 +13,42 @@ public class NetKartInput : NetworkBehaviour
     public bool Item;
     public bool Return;
     public bool isReverse = false;
+    public bool isLimit = false;
     public ItemCaster caster;
-    public NetPlayerInfo npi;
     private void Awake()
     {
         caster = GetComponent<ItemCaster>();
-        npi = GetComponent<NetPlayerInfo>();
     }
 
     void Update()
     {
         if (IsOwner)
         {
-            if (npi.isFinish.Value == 0)
+            if (isReverse)
             {
-                if (isReverse)
-                {
-                    Hmove = Input.GetAxisRaw("Horizontal") * -1f;
-                }
-                else Hmove = Input.GetAxisRaw("Horizontal");
-                Vmove = Input.GetAxisRaw("Vertical");
-                Drift = Input.GetKey(KeyCode.LeftShift);
-                if (Input.GetKey(KeyCode.R))
-                {
-                    Return = true;
-                }
+                Hmove = Input.GetAxisRaw("Horizontal") * -1f;
+            }
+            else Hmove = Input.GetAxisRaw("Horizontal");
+            Vmove = Input.GetAxisRaw("Vertical");
+            Drift = Input.GetKey(KeyCode.LeftShift);
+            if (Input.GetKey(KeyCode.R))
+            {
+                Return = true;
+            }
 
-                if (Input.GetKeyDown(KeyCode.LeftControl))
-                {
-                    if (caster != null)
-                    {
-
-                        caster.Cast(NetworkManager.Singleton.LocalClientId, NetworkObjectId);
-                    }
-                }
-                else if (Input.GetKeyUp(KeyCode.LeftControl))
-                {
-                    Item = false;
+            if (Input.GetKeyDown(KeyCode.LeftControl) && !isLimit)
+            {
+                if (caster != null) {
+                    
+                    caster.Cast(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
                 }
             }
-            else
+            else if (Input.GetKeyUp(KeyCode.LeftControl))
             {
-                Hmove = Input.GetAxisRaw("Horizontal");
-                Vmove = 0;
-                Drift = Input.GetKey(KeyCode.LeftShift);
+                Item = false;
             }
         }
+        
         
     }
 }   
