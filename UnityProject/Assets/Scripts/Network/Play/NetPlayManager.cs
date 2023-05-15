@@ -10,12 +10,14 @@ using UnityEngine.SceneManagement;
 public class NetPlayManager : NetworkBehaviour
 {
     public GameObject[] KartPrefab;
+    public GameObject EndUI;
     public LobbyOrchestrator LO;
     //���� ���� ��ġ
     public GameObject[] StartingPoints;
 
     // ��ü������ �˾ƾ� �ϴ°�
     public NetworkVariable<bool> isStart; //���� ������ �����ߴ���
+    public NetworkVariable<bool> isClosing = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<float> PlayTime; // ���� ���� �ð�.
     public int UserCount = 0;
 
@@ -39,6 +41,7 @@ public class NetPlayManager : NetworkBehaviour
     {
         rank = new NetworkList<ulong>();
         UI = gameObject.GetComponent<NetPlayUI>();
+        EndUI = GameObject.Find("EndUI");
     }
     public override void OnNetworkSpawn()
     {
@@ -103,6 +106,22 @@ public class NetPlayManager : NetworkBehaviour
         }
         UI.CountdownClientRPC(0);
         isStart.Value = true;
+    }
+
+
+    public IEnumerator EndCountDown()
+    {
+        if (IsServer)
+        {
+            for (int i = 10; i > 0; i--)
+            {
+                //ui.Count.text = i.ToString();
+                UI.CountdownClientRPC(i);
+                yield return new WaitForSeconds(1);
+            }
+            UI.CountdownClientRPC(-1);
+            StopAllUserClientRpc();
+        }
     }
 
     void setMapInfo()
@@ -175,11 +194,12 @@ public class NetPlayManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void CloseGameServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        OnGameClose();
+        isClosing.Value = true;
+        StartCoroutine(EndCountDown());
     }
     //���� ����
 
-    private async void OnGameClose()
+    public async void OnGameClose()
     {
         using (new Load("Closing the game..."))
         {
@@ -187,6 +207,33 @@ public class NetPlayManager : NetworkBehaviour
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void StopUserServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        var sender = serverRpcParams.Receive.SenderClientId;
+        StopUserClientRpc(sender);
+    }
+
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
+    public void StopUserClientRpc(ulong _uid)
+    {
+        if (NetworkManager.Singleton.LocalClientId == _uid)
+        {
+            NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(_uid).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll; ;
+        }
+    }
+
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
+    public void StopAllUserClientRpc()
+    {
+        NetworkManager.Singleton.SpawnManager.GetLocalPlayerObject().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll; ;
+
+        EndUI.SetActive(true);
+        EndUI.GetComponent<EndUIController>().OnScoreBoard();
+    }
+
+
 
     [ServerRpc(RequireOwnership = false)]
     private void SpawnPlayerServerRpc(ulong playerId)
@@ -204,8 +251,5 @@ public class NetPlayManager : NetworkBehaviour
         if (LO._playersInLobby[playerId].isRedTeam) userinfo.teamNumber.Value = 0;
         else userinfo.teamNumber.Value = 1;
         userinfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
-
-
-
     }
 }

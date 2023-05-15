@@ -37,6 +37,17 @@ public class NetPlayUI : NetworkBehaviour
     ulong MyID = 0;
     public Transform[] Ranks;
     private string[] RankCount = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"};
+
+    [Space, Header("End_UI")]
+    public GameObject EndUI;
+    public Transform MvpTransfrom;
+    public TextMeshProUGUI Banner;
+    public Image[] SourceImages; //00 ->Btn_red 01 ->Btn_blue
+    public GameObject[] EndRanks;
+    public TextMeshProUGUI[] EndRanks_ID;
+    public TextMeshProUGUI[] EndRanks_Time;
+    public Image[] EndRankds_BG;
+
     private void Awake()
     {
         Init();
@@ -45,6 +56,7 @@ public class NetPlayUI : NetworkBehaviour
     void Init()
     {
         UI = GameObject.Find("Play_UI");
+        EndUI = GameObject.Find("EndGame_UI");
         npm = gameObject.GetComponent<NetPlayManager>();
         FindTextObj();
         LoadCoponent();
@@ -200,6 +212,10 @@ public class NetPlayUI : NetworkBehaviour
         if(_count == 0)
         {
             Count.text = "";
+        }
+        else if(_count == -1)
+        {
+            Count.text = "GAME END";
         }
         else
         {
