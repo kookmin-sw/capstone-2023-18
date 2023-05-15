@@ -50,7 +50,7 @@ public class KartController : MonoBehaviour
 
 
     [Header("Item")]
-    public ITEMS hasItem = ITEMS.NONE;
+    
 
     public float BoostPower;
     public bool isBoost;
@@ -314,7 +314,7 @@ public class KartController : MonoBehaviour
 
     IEnumerator OnBooster(float BoostTime)
     {
-        hasItem = ITEMS.NONE;
+        
         if(!isBoost)
         {
             isBoost = true;
@@ -338,18 +338,7 @@ public class KartController : MonoBehaviour
 
     void UseItem()
     {
-        if(input.Item)
-        {
-            input.Item = false;
-            switch(hasItem)
-            {
-                case ITEMS.NONE:
-                    break;
-                case ITEMS.BOOST:
-                    StartCoroutine(OnBooster(2f));
-                    break;
-            }
-        }
+        
     }
 
 
