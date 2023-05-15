@@ -201,7 +201,6 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
                 if (Lap.Value == npm.MaxLap)
                 {
                     isFinish.Value = 1;
-                    //npm.StopUserServerRpc();
                     if (!npm.isClosing.Value)
                     {
                         npm.CloseGameServerRpc();
