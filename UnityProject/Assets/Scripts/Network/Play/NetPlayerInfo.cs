@@ -29,10 +29,11 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     public NetworkVariable<int> myRank = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<int> teamNumber = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
     public NetworkVariable<short> Lap = new NetworkVariable<short>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    public NetworkList<float> LapTimes;
-    public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<float> LapTimes = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> BestTime = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> KMH = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<ulong> ID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<int> isFinish = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     //��ŷ����Ʈ ���� �Ÿ�
     public NetworkVariable<float> CheckPointDistance = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
@@ -52,11 +53,10 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     //���� ������
     public NetworkVariable<int> Item = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
-
+    public bool touchedEndpoint;
 
     private void Awake()
     {
-        LapTimes = new NetworkList<float>();
         input = gameObject.GetComponent<NetKartInput>();
         isReturning = false;
         StartCoroutine(FindComponent());
@@ -133,6 +133,14 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.CompareTag("EndPoint") && IsOwner)
+        {
+            touchedEndpoint = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
 
@@ -169,17 +177,18 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             }
         }
 
-        if (other.CompareTag("EndPoint") && IsOwner)
+        if (other.CompareTag("EndPoint") && IsOwner && touchedEndpoint == false)
         {
+            touchedEndpoint = true;
             if (CpNum.Value == (npm.MaxCP - 1))
             {
                 //����
+                Debug.Log("EndPoint" + gameObject.name);
                 Lap.Value += 1;
-                int lc = LapTimes.Count;
                 float LastTime = 0;
-                LastTime = npm.PlayTime.Value - (lc > 0 ? LapTimes[lc - 1] : 0);
-                LapTimes.Add(LastTime);
-
+                float NowTime = npm.PlayTime.Value;
+                LastTime = NowTime - LapTimes.Value;
+                LapTimes.Value = NowTime;
                 if (BestTime.Value == 0)
                 {
                     BestTime.Value = LastTime;
@@ -191,20 +200,27 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
 
                 if (Lap.Value == npm.MaxLap)
                 {
-                    npm.CloseGameServerRpc();
+                    isFinish.Value = 1;
+                    if (!npm.isClosing.Value)
+                    {
+                        npm.CloseGameServerRpc();
+                    }
                 }
             }
 
         }
     }
 
+
     IEnumerator SetPointClients()
     {
         NetPointerOnMap pointer = gameObject.GetComponentInChildren<NetPointerOnMap>();
+        pointer.gameObject.SetActive(false);
         while (npm.isStart.Value == false)
         {
             yield return null;
         }
+        pointer.gameObject.SetActive(true);
         if (IsOwner)
         {
             if (teamNumber.Value == 0)//Red Team
