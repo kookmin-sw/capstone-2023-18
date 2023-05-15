@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6748956939215516213}
   - component: {fileID: 5361686219875580250}
   - component: {fileID: 5759538533433812689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Straight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,9 +182,9 @@ GameObject:
   - component: {fileID: 1567893565113586412}
   - component: {fileID: 3083214832677770132}
   - component: {fileID: 291599650436377097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Straight_Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1829,6 +1829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: cp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970020101652380105, guid: b3856dc3e7d9c45bdb00d65cf0e9cc7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4970020101652380105, guid: b3856dc3e7d9c45bdb00d65cf0e9cc7f,
         type: 3}
