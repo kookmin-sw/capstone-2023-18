@@ -6,8 +6,8 @@ behaviors:
       batch_size: 2048
       buffer_size: 819200
       learning_rate: 0.001
-      beta: 0.02
-      epsilon: 0.35
+      beta: 0.01
+      epsilon: 0.3
       lambd: 0.95
       num_epoch: 3
       learning_rate_schedule: linear
@@ -59,7 +59,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 300000000
+    max_steps: 200000000
     time_horizon: 4096
     summary_freq: 100000
     threaded: true
@@ -67,7 +67,7 @@ behaviors:
     behavioral_cloning:
       demo_path: UnityProject/Demos/testppo3.demo
       steps: 0
-      strength: 1.0
+      strength: 0.9
       samples_per_update: 0
       num_epoch: 3
       batch_size: 4096
