@@ -42,13 +42,60 @@ namespace PowerslideKartPhysics
         private void Update()
         {
             timeSinceCast += Time.deltaTime;
-            if (item == null || ammo == 0)
+
+
+            if (IsOwner)
             {
-                npi.myItem.Value = "None";
-            }
-            else
-            {
-                npi.myItem.Value = item.itemName;
+                if (item == null || ammo == 0)
+                {
+                    npi.myItem.Value = 13;
+                }
+                else
+                {
+                    switch (item.itemName)
+                    {
+                        case "HomingItem":
+                            npi.myItem.Value = 0;
+                            break;
+                        case "GuardOneItem":
+                            npi.myItem.Value = 1;
+                            break;
+                        case "LimitSkillItem":
+                            npi.myItem.Value = 2;
+                            break;
+                        case "SquidItem":
+                            npi.myItem.Value = 3;
+                            break;
+                        case "BirdStrikeItem":
+                            npi.myItem.Value = 4;
+                            break;
+                        case "FishItem":
+                            npi.myItem.Value = 5;
+                            break;
+                        case "BoostItem":
+                            npi.myItem.Value = 6;
+                            break;
+                        case "ShieldItem":
+                            npi.myItem.Value = 7;
+                            break;
+                        case "SlowItem":
+                            npi.myItem.Value = 8;
+                            break;
+                        case "ThunderItem":
+                            npi.myItem.Value = 9;
+                            break;
+                        case "BombItem":
+                            npi.myItem.Value = 10;
+                            break;
+                        case "BufferItem_ReverseTeam":
+                            npi.myItem.Value = 11;
+                            break;
+                        case "RushItem":
+                            npi.myItem.Value = 12;
+                            break;
+                    }
+                }   
+            
             }
         }
 

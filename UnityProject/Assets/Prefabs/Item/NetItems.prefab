@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Bouncer
+  itemName: BombItem
   itemPrefab: {fileID: 5462182083005470935, guid: 7413cf0e6865b4419ba6e234c225a003,
     type: 3}
   spawnOffset: {x: 0, y: 1, z: 7}
@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &247806279
 Transform:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Homing Item
+  itemName: HomingItem
   itemPrefab: {fileID: 5462182083005470935, guid: 768c14f88894d4fe69f9903803b86aa1,
     type: 3}
   spawnOffset: {x: 0, y: 0.5, z: 5}
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Trap
+  itemName: FishItem
   itemPrefab: {fileID: 5462182083005470935, guid: 9bc7debd8e9ed4fb6a81232608b8acfa,
     type: 3}
   spawnOffset: {x: 0, y: 0.5, z: -0.5}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72bac7494eefc4bba247868f0c2fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 'Rush '
+  itemName: RushItem
   boostAmount: 1
   boostTime: 1
   isRush: 1
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Podu
+  itemName: GuardOneItem
   itemPrefab: {fileID: 5462182083005470935, guid: cffa1fc9687504c4a8e913ab2d450ab0,
     type: 3}
   spawnOffset: {x: 0, y: 3, z: 15}
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfe6e50d544f8a489ffbfda61cc6354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Bouncer
+  itemName: BirdStrikeItem
   itemPrefab: {fileID: 5462182083005470935, guid: 8f42fa2d2318a4969b77561b5a1f05d6,
     type: 3}
   spawnOffset: {x: 0, y: 1, z: 7}
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb72bac7494eefc4bba247868f0c2fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Boost
+  itemName: BoostItem
   boostAmount: 1
   boostTime: 2
   isRush: 0

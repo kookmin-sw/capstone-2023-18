@@ -291,7 +291,6 @@ namespace PowerslideKartPhysics
                         Debug.Log(curCol.otherCollider);
                         if (IsServer)
                         {
-                            Debug.Log("Despawn1");
                             gameObject.GetComponent<NetworkObject>().Despawn();
                         }
                     }
@@ -300,7 +299,6 @@ namespace PowerslideKartPhysics
                     // Destroy upon wall collision
                     if (IsServer)
                     {
-                        Debug.Log("Despawn2");
                         gameObject.GetComponent<NetworkObject>().Despawn();
                     }
                 }
@@ -316,7 +314,6 @@ namespace PowerslideKartPhysics
 
                             if (IsServer)
                             {
-                                Debug.Log("Despawn3");
                                 gameObject.GetComponent<NetworkObject>().Despawn();
                             }
                         }
