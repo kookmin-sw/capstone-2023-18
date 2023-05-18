@@ -42,8 +42,6 @@ namespace PowerslideKartPhysics
         private void Update()
         {
             timeSinceCast += Time.deltaTime;
-
-
             if (IsOwner)
             {
                 if (item == null || ammo == 0)

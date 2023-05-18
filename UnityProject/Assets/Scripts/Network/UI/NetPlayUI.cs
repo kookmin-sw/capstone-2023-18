@@ -11,6 +11,7 @@ public class NetPlayUI : NetworkBehaviour
 {
     // Start is called before the first frame update
     //�÷��̾��� �⺻ ������ ����
+    public NetKartInput input;
     public NetPlayerInfo Player;
     public NetPlayManager npm;
 
@@ -33,6 +34,7 @@ public class NetPlayUI : NetworkBehaviour
     public Image[] RankImages;
     public Sprite[] ITEM_ICONS;
     public GameObject Warning;
+    public GameObject limitImage;
 
     [Space, Header("Rank")]
     ulong MyID = 0;
@@ -67,6 +69,7 @@ public class NetPlayUI : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         MyID = NetworkManager.Singleton.LocalClientId;
+        input =  NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<NetKartInput>();
     }
     private void FixedUpdate()
     {
@@ -106,6 +109,7 @@ public class NetPlayUI : NetworkBehaviour
 
     void LoadIconImages()
     {
+        limitImage = UI.transform.Find("ItemSlot/LockUI").gameObject;
         ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEMIcon>().ICONS;
         Warning = UI.transform.Find("Warning").gameObject;
     }
@@ -125,10 +129,20 @@ public class NetPlayUI : NetworkBehaviour
             UpdateLap();
             //�ӵ�
             UpdateSpeed();
+            UpdateLimit();
         }
     }
 
-
+    void UpdateLimit()
+    {
+        if (npm.isStart.Value == true)
+        {
+            if (limitImage == null) return;
+            if(input.isLimit) limitImage.SetActive(true);
+            else limitImage.SetActive(false);
+        }
+       
+    }
     //Play Time ����
     string TransferTime(float t)
     {
