@@ -58,6 +58,9 @@ namespace PowerslideKartPhysics
                     case "LimitSkillItem" : 
                         UseLimitSkillClientRpc(t_userid,t_objid);
                         break;
+                    case "SquidItem" : 
+                        UseSquidItemClientRpc(t_userid,t_objid);
+                        break;
                 }
                 
             }
@@ -178,11 +181,24 @@ namespace PowerslideKartPhysics
             if (userid == NetworkManager.Singleton.LocalClientId)
             {
                 //TODO : UI Effect
-                
+                StartCoroutine(oilTimer(2f));
+
             }
 
         }
-        
+        IEnumerator oilTimer(float bufftime)
+        {
+            GameObject oil = GameObject.Find("Play_UI/ItemEffect/Squid");
+            
+            oil.SetActive(true);
+            float currentTime = bufftime;
+            while (currentTime > 0)
+            {
+                currentTime -= Time.fixedDeltaTime;
+                yield return new WaitForSeconds(Time.fixedDeltaTime);
+            }
+            oil.SetActive(false);
+        }
         
         
         
