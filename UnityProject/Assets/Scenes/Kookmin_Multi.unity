@@ -40932,15 +40932,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 405686735, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+    - target: {fileID: 5042203, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1771409442, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1821797360, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+    - target: {fileID: 1892152894, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1288761326115993671, guid: 9516ddf5142c440e28236f33fd8ef9ca,
+    - target: {fileID: 1892152896, guid: 9516ddf5142c440e28236f33fd8ef9ca, type: 3}
+      propertyPath: spawnOffset.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662957066970915926, guid: 9516ddf5142c440e28236f33fd8ef9ca,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -41004,11 +41012,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetItemsManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 5040973152320107029, guid: 9516ddf5142c440e28236f33fd8ef9ca,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8492882565249004340, guid: 9516ddf5142c440e28236f33fd8ef9ca,
         type: 3}
@@ -55111,12 +55114,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ICONS:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: fdce7336c79c14c8481c4d480fd66714, type: 3}
   - {fileID: 21300000, guid: 7066f6f1bc4de4dbdb79422effef5f71, type: 3}
   - {fileID: 21300000, guid: b295418022c4d4ceca173221877e8b6f, type: 3}
   - {fileID: 21300000, guid: bb2837f7738c84c85ab627915f0a1ae5, type: 3}
   - {fileID: 21300000, guid: ad5a35d9228b1435ca2515aec6421c14, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: d9ff6182557584df883916eaefc6afa2, type: 3}
   - {fileID: 21300000, guid: 7034836bce40749bd8a53358a674d0a3, type: 3}
   - {fileID: 21300000, guid: 87857f5a64dcd4a8dbccf7a6fe280b17, type: 3}
   - {fileID: 21300000, guid: f4ad2093e302b4b1596f14a8e9ddccd2, type: 3}
@@ -55173,8 +55176,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e92da087ac27f74ba1f0d10749518d2, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 88a2bde63aaa36e4e8dfe5f9b2388a79, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
