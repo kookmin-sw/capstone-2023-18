@@ -150,6 +150,8 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             CP cpinfo = other.GetComponent<CP>();
             bool isCorrectRoute = false;
             //1. Chcek to Correct Next CheckPoint
+            
+            
             if(cpinfo == cpm.CP[CpNum.Value])
             {
                 isCorrectRoute = true;

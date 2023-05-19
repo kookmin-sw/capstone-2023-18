@@ -23,7 +23,7 @@ public class Sensor : MonoBehaviour
         }
         
         if(collider.gameObject.CompareTag("Goal")){
-            script.AddReward(20f);
+            script.AddReward(40f);
             script.EndEpisode();
         }
 

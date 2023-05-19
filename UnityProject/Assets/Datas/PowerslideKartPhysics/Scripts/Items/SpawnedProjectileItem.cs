@@ -284,7 +284,8 @@ namespace PowerslideKartPhysics
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
 
                 if (colHit.gameObject.CompareTag("Kart")) {
-                    if (curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
+                    //curCol.otherCollider != casterCol || 
+                    if ( (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                         // Spin out kart upon collision
                         ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
                         colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
@@ -292,6 +293,7 @@ namespace PowerslideKartPhysics
                         if (IsServer)
                         {
                             gameObject.GetComponent<NetworkObject>().Despawn();
+                            break;
                         }
                     }
                 }
@@ -300,6 +302,7 @@ namespace PowerslideKartPhysics
                     if (IsServer)
                     {
                         gameObject.GetComponent<NetworkObject>().Despawn();
+                        break;
                     }
                 }
                 else {
@@ -315,6 +318,7 @@ namespace PowerslideKartPhysics
                             if (IsServer)
                             {
                                 gameObject.GetComponent<NetworkObject>().Despawn();
+                                break;
                             }
                         }
                         else {

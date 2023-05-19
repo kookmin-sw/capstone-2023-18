@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class KartController : MonoBehaviour
@@ -51,6 +50,7 @@ public class KartController : MonoBehaviour
 
 
     [Header("Item")]
+    
 
     public float BoostPower;
     public bool isBoost;
@@ -82,30 +82,12 @@ public class KartController : MonoBehaviour
 
     public KartInput input;
 
-    [Header("Get Hit")] 
-    public bool active = true;
-    public bool isProtected = false;
-    public Vector3 currentGravityDir = Vector3.up;
-    [System.NonSerialized]
-    public bool isSpin = false;
-    Vector3 spinForward = Vector3.forward;
-    Vector3 spinUp = Vector3.up;
-    Vector3 spinOffset = Vector3.zero;
-    
-    public float spinDecel = 100.0f;
-    public float spinRate = 15f;
-    public float spinHeight = 1.0f;
-
-    public UnityEvent spinOutEvent;
-    //rotation dir
-    public enum SpinAxis { Yaw, Pitch, Roll}
-
     private void Awake()
     {
         input = GetComponent<KartInput>();
 
         rb = GetComponent<Rigidbody>();
-        
+
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
@@ -113,88 +95,75 @@ public class KartController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isSpin) {
-            // Visual rotation while spinning out
-            CentreOfMass.localRotation = Quaternion.Lerp(CentreOfMass.localRotation, Quaternion.LookRotation(spinForward, spinUp), 20f * Time.fixedDeltaTime);
-            CentreOfMass.localPosition = Vector3.Lerp(CentreOfMass.localPosition, Vector3.zero + spinOffset, 20f * Time.fixedDeltaTime);
-            rb.AddForce(new Vector3(-rb.velocity.x, 0.0f, -rb.velocity.z) * spinDecel, ForceMode.Acceleration); // Slow down while spinning out
+        carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
+
+        curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
+
+        //inputs
+        float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
+        float speedInput = speed *  input.Vmove * Time.fixedDeltaTime * 1000;
+
+        //helping veriables
+
+        speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
+        if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
+        {
+            speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
         }
-        
-        
-
-
-            carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
-
-            curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
-
-            //inputs
-            float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
-            float speedInput = speed * input.Vmove * Time.fixedDeltaTime * 1000;
-
-            //helping veriables
-
-            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-            if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
-            {
-                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / 100);
-            }
-
-            SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-            fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
+        SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
+        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
             //friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude))+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-            turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
+        turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
-            //grounded check
-            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
+        //grounded check
+        if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
+        {
+            accelarationLogic();
+            turningLogic();
+            frictionLogic();
+            brakeLogic();
+            AddAngularDrag();
+            OnDrift();
+            //for drift behaviour
+            //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
+
+            //draws green ground checking ray ....ingnore
+            Debug.DrawLine(groundCheck.position, hit.point, Color.green);
+            grounded = true;
+
+            //rb.centerOfMass = Vector3.zero;
+
+            normalDir = hit.normal;
+
+            //DownForce
+            rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
+
+            //Non-Slip Code
+            if (carVelocity.magnitude < 1)
             {
-                accelarationLogic();
-                turningLogic();
-                frictionLogic();
-                brakeLogic();
-                AddAngularDrag();
-                OnDrift();
-                //for drift behaviour
-                //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
-
-                //draws green ground checking ray ....ingnore
-                Debug.DrawLine(groundCheck.position, hit.point, Color.green);
-                grounded = true;
-
-                //rb.centerOfMass = Vector3.zero;
-
-                normalDir = hit.normal;
-
-                //DownForce
-                rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
-
-                //Non-Slip Code
-                if (carVelocity.magnitude < 1)
-                {
-                    rb.drag = 10;
-                }
-                else
-                {
-                    rb.drag = dragAmount;
-                }
-
-
+                rb.drag = 2;
             }
-            else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
+            else
             {
-                //Debug.Log("air");
-                grounded = false;
-                rb.drag = 1f;
-                rb.angularDrag = 10f;
-                rb.centerOfMass = CentreOfMass.localPosition;
-                /*
-                if (!airDrag)
-                {
-                    rb.angularDrag = 0.1f;
-                }
-                */
+                rb.drag = dragAmount;
             }
+        }
+        else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
+        {
+           //Debug.Log("air");
+            grounded = false;
+            rb.drag = 1f;
+            rb.angularDrag = 10f;
+            //rb.centerOfMass = CentreOfMass.localPosition;
+            /*
+            if (!airDrag)
+            {
+                rb.angularDrag = 0.1f;
+            }
+            */
+        }
 
-        
+
 
     }
 
@@ -202,17 +171,8 @@ public class KartController : MonoBehaviour
     {
         tireVisuals();
         audioControl();
-        //UseItem();
-
-        //test
-        if (TextKMH != null)
-        {
-            TextKMH.text = (carVelocity.magnitude * 2).ToString();
-            //
-            //(carVelocity.magnitude * 2).ToString();
-        }
-            //(Mathf.Abs(carVelocity.x) / carVelocity.magnitude).ToString();
-            //((int)carVelocity.z * 10).ToString();
+        UseItem();
+        
     }
 
 
@@ -351,27 +311,35 @@ public class KartController : MonoBehaviour
         }
         */
     }
-    
 
-    public IEnumerator OnProtected(float ProtectTime)
+    IEnumerator OnBooster(float BoostTime)
     {
-        Debug.Log(isProtected);
-        if (!isProtected)
+        
+        if(!isBoost)
         {
-            isProtected = true;
-            Debug.Log(isProtected);
-            float currentProtectTime = ProtectTime;
-            while (currentProtectTime > 0)
+            isBoost = true;
+            float nowBoostTIme = BoostTime;
+            float originSpeed = speed;
+            speed = BoostPower;
+            BoosterVFX.SetActive(true);
+            while (BoostTime > 0)
             {
-                currentProtectTime -= Time.fixedDeltaTime;
-                yield return new WaitForSeconds(Time.fixedDeltaTime);
-            }
+                float t = Time.fixedDeltaTime;
+                BoostTime -= t;
+                yield return new WaitForSeconds(t);
 
-            isProtected = false;
-            Debug.Log(isProtected);
+            }
+            BoosterVFX.SetActive(false);
+            speed = originSpeed;
+            yield return new WaitForSeconds(0.1f);
+            isBoost = false;
         }
     }
-    
+
+    void UseItem()
+    {
+        
+    }
 
 
     private void OnDrawGizmos()
@@ -421,69 +389,7 @@ public class KartController : MonoBehaviour
         }
 #endif
     }
-    
-    //spinCount : how many time get spin
-    public void SpinOut(SpinAxis spinType, int spinCount)
-    {
-        if (!isSpin)
-        {
-            //CancelDrift();
-            //CancelDriftBoost(true);  -> 마카의 드리프트 부스터 캔슬
-            //EmptyBoostReserve();
-            StartCoroutine(SpinCycle(spinType, Mathf.Max(0, spinCount)));
-            spinOutEvent.Invoke(); //-> ?
-        }
-    } 
-    
-    IEnumerator SpinCycle(SpinAxis spinType, float spinAmount) {
-        // Spin start
-        isSpin = true;
-        
-        float spinDir = Mathf.Sign(0.5f - Random.value);
-        float curSpin = 0.0f;
-        float maxSpin = spinAmount * Mathf.PI * 2.0f;
 
-        // Actual spin cycle
-        while (Mathf.Abs(curSpin) < maxSpin) {
-            Debug.Log(curSpin);
-            curSpin += spinDir * spinRate * Mathf.Clamp((maxSpin - Mathf.Abs(curSpin)), 0.1f, 1.0f) * Time.fixedDeltaTime;
-            switch (spinType) {
-                case SpinAxis.Yaw:
-                    spinForward = new Vector3(Mathf.Sin(curSpin), Mathf.Sin(curSpin * 2.0f) * 0.1f, Mathf.Cos(curSpin));
-                    spinUp = Vector3.up;
-                    break;
-                case SpinAxis.Roll:
-                    spinUp = new Vector3(Mathf.Sin(curSpin), Mathf.Cos(curSpin), 0.0f);
-                    break;
-                case SpinAxis.Pitch:
-                    spinForward = new Vector3(0.0f, Mathf.Sin(curSpin), Mathf.Cos(curSpin));
-                    spinUp = new Vector3(0.0f, Mathf.Cos(curSpin), -Mathf.Sin(curSpin));
-                    break;
-            }
 
-            if (spinType != SpinAxis.Yaw) {
-                spinOffset = Vector3.up * spinHeight * Mathf.Sin((Mathf.Abs(curSpin) / Mathf.Max(maxSpin, 0.001f)) * Mathf.PI);
-            }
-            yield return new WaitForFixedUpdate();
-        }
 
-        // Spin end
-        
-        isSpin = false;
-        spinForward = Vector3.forward;
-        spinOffset = Vector3.zero;
-        spinUp = Vector3.up;
-        //boostPadUsed = false;
-    }
-
-    // ----- for Item ------
-    void CancelDrift()
-    { //init drift
-        
-
-    }
-    
-    
-    
-    
 }

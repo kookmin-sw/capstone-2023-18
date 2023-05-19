@@ -188,15 +188,15 @@ MonoBehaviour:
   casterIgnoreTime: 0.5
   canHitCaster: 1
   fetchKartsDuringSpawn: 0
-  homingAccuracy: 0
-  prioritizeKartsInFront: 0
+  homingAccuracy: 10
+  prioritizeKartsInFront: 1
   minHomingAngle: 0
-  maxHomingDist: 0
-  useLineOfSight: 0
+  maxHomingDist: 50
+  useLineOfSight: 1
   lineOfSightMask:
     serializedVersion: 2
-    m_Bits: 0
-  findTargetWhileActive: 0
+    m_Bits: 1
+  findTargetWhileActive: 1
   kartSpin: 2
   kartSpinCount: 2
   collideEvent:
