@@ -68,8 +68,11 @@ public class NetPlayUI : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        MyID = NetworkManager.Singleton.LocalClientId;
-        input =  NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<NetKartInput>();
+        if (IsOwner)
+        {
+            MyID = NetworkManager.Singleton.LocalClientId;
+            input = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<NetKartInput>();
+        }
     }
     private void FixedUpdate()
     {
