@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1892152895
 Transform:
   m_ObjectHideFlags: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
   itemName: GuardOneItem
   itemPrefab: {fileID: 5462182083005470935, guid: cffa1fc9687504c4a8e913ab2d450ab0,
     type: 3}
-  spawnOffset: {x: 0, y: 3, z: 15}
+  spawnOffset: {x: 0, y: 3, z: 10}
 --- !u!1 &1288761326115993671
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BoostItem
   boostAmount: 1
-  boostTime: 2
+  boostTime: 1
   isRush: 0
 --- !u!1 &4662957067624900907
 GameObject:
