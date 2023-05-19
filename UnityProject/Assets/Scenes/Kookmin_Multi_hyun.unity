@@ -16575,7 +16575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2447026207
+  GlobalObjectIdHash: 2918867949
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
@@ -16606,6 +16606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caebd301d60b4a34c8abeb82c53e7176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 0}
   Player: {fileID: 0}
   npm: {fileID: 0}
   UI: {fileID: 0}
@@ -16621,6 +16622,7 @@ MonoBehaviour:
   RankImages: []
   ITEM_ICONS: []
   Warning: {fileID: 0}
+  limitImage: {fileID: 0}
   Ranks: []
   EndUI: {fileID: 0}
   MvpTransfrom: {fileID: 0}
@@ -39791,6 +39793,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building ST
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100274036414925589, guid: f4b043265ff481f4382912e3a56e0f17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2541687924359674423, guid: f4b043265ff481f4382912e3a56e0f17,
         type: 3}
