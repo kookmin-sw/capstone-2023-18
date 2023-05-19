@@ -69,7 +69,9 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         {
             CpNum.Value = 0;
             ID.Value = NetworkManager.Singleton.LocalClientId;
-            GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().Player = gameObject.GetComponent<NetPlayerInfo>();
+            NetPlayUI npi = GameObject.Find("@PlayManager").GetComponent<NetPlayUI>();
+            npi.Player = gameObject.GetComponent<NetPlayerInfo>();
+            npi.input = input;
             GameObject.Find("MiniMap_Camera").GetComponent<MinimapCamFollowing>().target = transform;
         }
 

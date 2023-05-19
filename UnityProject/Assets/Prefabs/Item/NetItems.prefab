@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1892152895
 Transform:
   m_ObjectHideFlags: 0
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbab11e5517b4df399798a24875fe11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: ShildItem
+  itemName: ShieldItem
   defenseTime: 1
 --- !u!1 &4662957067406137279
 GameObject:
@@ -687,5 +687,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713897f68e9d74b8aa19ff68a1b6e50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: ReverseBuffTeam
+  itemName: BufferItem_ReverseTeam
   buffTime: 3
