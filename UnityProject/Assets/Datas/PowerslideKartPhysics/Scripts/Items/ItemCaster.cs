@@ -158,6 +158,7 @@ namespace PowerslideKartPhysics
         [ServerRpc(RequireOwnership = false)]
         public void ImplementSpinServerRpc(int _type,float spinAmount,ulong uid, ServerRpcParams serverRpcParams = default)
         {
+            
             ImplementSpinClientRpc(uid, _type, spinAmount);
         }
 

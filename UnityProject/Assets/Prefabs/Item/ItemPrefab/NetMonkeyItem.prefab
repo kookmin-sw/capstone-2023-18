@@ -630,13 +630,13 @@ MonoBehaviour:
   itemVelocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 257
   groundCheckDistance: 1.5
   launchHeight: 0
-  startSpeed: 20
+  startSpeed: 40
   targetSpeed: 50
-  inheritKartSpeed: 1
-  maintainKartSpeed: 1
+  inheritKartSpeed: 0
+  maintainKartSpeed: 0
   accel: 10
   moveDir: {x: 0, y: 0, z: 1}
   moveInAir: 1
@@ -663,7 +663,7 @@ MonoBehaviour:
       m_Bits: 1024
     wallTag: Wall
   casterIgnoreTime: 0.5
-  canHitCaster: 1
+  canHitCaster: 0
   fetchKartsDuringSpawn: 0
   homingAccuracy: 10
   prioritizeKartsInFront: 1
@@ -672,7 +672,7 @@ MonoBehaviour:
   useLineOfSight: 1
   lineOfSightMask:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 8
   findTargetWhileActive: 1
   kartSpin: 1
   kartSpinCount: 2

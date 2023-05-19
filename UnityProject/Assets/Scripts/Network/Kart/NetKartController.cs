@@ -90,8 +90,6 @@ public class NetKartController : NetworkBehaviour
     public bool active = true;
 
     public bool spinningOut = false;
-
-
     public bool isProtected = false;
     public Vector3 currentGravityDir = Vector3.up;
     [System.NonSerialized]
