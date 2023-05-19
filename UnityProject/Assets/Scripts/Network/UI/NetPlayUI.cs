@@ -68,8 +68,10 @@ public class NetPlayUI : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        MyID = NetworkManager.Singleton.LocalClientId;
-        input =  NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<NetKartInput>();
+        if (IsOwner)
+        {
+            MyID = NetworkManager.Singleton.LocalClientId;
+        }
     }
     private void FixedUpdate()
     {
@@ -109,7 +111,7 @@ public class NetPlayUI : NetworkBehaviour
 
     void LoadIconImages()
     {
-        limitImage = UI.transform.Find("ItemSlot/LockUI").gameObject;
+        limitImage = UI.transform.Find("ItemSlot").Find("LockUI").gameObject;
         ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEMIcon>().ICONS;
         Warning = UI.transform.Find("Warning").gameObject;
     }
