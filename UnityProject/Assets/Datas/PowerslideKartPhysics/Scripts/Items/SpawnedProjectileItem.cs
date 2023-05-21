@@ -65,7 +65,8 @@ namespace PowerslideKartPhysics
 
         public float despawnTime = 10f;
         float lifeTime = 0.0f;
-        [Header("Caster")]
+        [Header("Caster")] 
+        private ulong userId;
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
@@ -106,7 +107,7 @@ namespace PowerslideKartPhysics
         public virtual void Initialize(ItemCastProperties props , ulong userid)
         {
             //init spinType
-
+            userId = userid;
             spinType = (int)kartSpin;
 
             itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
@@ -291,6 +292,7 @@ namespace PowerslideKartPhysics
                 if ( curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                     // Spin out kart upon collision
                     if (!colHit.gameObject.CompareTag("Kart")) return;
+                    if (userId == colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId) return;
                     ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
                     colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
                     Debug.Log(curCol.otherCollider);
