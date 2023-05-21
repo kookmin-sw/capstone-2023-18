@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8133265226682561602}
   m_RootOrder: 0
@@ -51,9 +52,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5462182083005470935
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +95,7 @@ GameObject:
   - component: {fileID: 8608377128635603763}
   - component: {fileID: 2540433896333183303}
   - component: {fileID: 4567911620038884197}
+  - component: {fileID: -1591700700772733069}
   m_Layer: 9
   m_Name: HomingItem
   m_TagString: Untagged
@@ -107,6 +113,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.4955082, y: 7.472204, z: -3.0452726}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6053724088548306796}
   m_Father: {fileID: 0}
@@ -137,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf7067d71622fd4cb5d64f7a5902910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DownValue: 10
+  itemVelocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 1
@@ -147,6 +156,7 @@ MonoBehaviour:
   inheritKartSpeed: 1
   maintainKartSpeed: 1
   accel: 10
+  moveDir: {x: 0, y: 0, z: 1}
   moveInAir: 1
   gravityAdd: -10
   gravityDir: {x: 0, y: 1, z: 0}
@@ -156,6 +166,7 @@ MonoBehaviour:
   forwardFriction: 0
   sideFriction: 10
   maxFallSpeed: 30
+  fallSpeedDecel: 10
   wallBounceReflect: 0
   itemBounceReflect: 0
   bounceReflectForce: 1
@@ -169,6 +180,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 1024
     wallTag: Walls
+  despawnTime: 10
   casterIgnoreTime: 0.5
   canHitCaster: 0
   fetchKartsDuringSpawn: 0
@@ -205,3 +217,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &-1591700700772733069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462182083005470935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

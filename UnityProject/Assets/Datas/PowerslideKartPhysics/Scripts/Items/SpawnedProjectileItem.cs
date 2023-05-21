@@ -63,7 +63,7 @@ namespace PowerslideKartPhysics
         WallCollision wallDetector;
         public WallDetectProps wallCollisionProps = WallDetectProps.Default;
 
-        private float despawnTime = 10f;
+        public float despawnTime = 10f;
         float lifeTime = 0.0f;
         [Header("Caster")]
         public float casterIgnoreTime = 0.5f;
@@ -167,7 +167,7 @@ namespace PowerslideKartPhysics
                     if (allKarts[i] != itemowner)
                     {
                         
-                        Debug.Log(allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value);
+                        Debug.Log(ownerTeamNum + " : " + allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value);
                         if (ownerTeamNum == allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value) continue;
                         
                         
@@ -207,7 +207,10 @@ namespace PowerslideKartPhysics
             
             
             lifeTime += Time.fixedDeltaTime;
-
+            if (IsServer)
+            {
+                if(lifeTime > despawnTime) gameObject.GetComponent<NetworkObject>().Despawn();
+            }
             rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
 
             // Ignore collision with casting kart
@@ -283,20 +286,21 @@ namespace PowerslideKartPhysics
                 bool wallHit = wallDetector.WallTest(wallProps);
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
 
-                if (colHit.gameObject.CompareTag("Kart")) {
+               
                     
-                    if ( curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
-                        // Spin out kart upon collision
-                        ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
-                        colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
-                        Debug.Log(curCol.otherCollider);
-                        if (IsServer)
-                        {
-                            gameObject.GetComponent<NetworkObject>().Despawn();
-                            break;
-                        }
+                if ( curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
+                    // Spin out kart upon collision
+                    if (!colHit.gameObject.CompareTag("Kart")) return;
+                    ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
+                    colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
+                    Debug.Log(curCol.otherCollider);
+                    if (IsServer)
+                    {
+                        gameObject.GetComponent<NetworkObject>().Despawn();
+                        break;
                     }
                 }
+                
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
                     // Destroy upon wall collision
                     if (IsServer)

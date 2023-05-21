@@ -633,8 +633,8 @@ MonoBehaviour:
     m_Bits: 257
   groundCheckDistance: 1.5
   launchHeight: 0
-  startSpeed: 40
-  targetSpeed: 50
+  startSpeed: 100
+  targetSpeed: 100
   inheritKartSpeed: 0
   maintainKartSpeed: 0
   accel: 10
@@ -662,6 +662,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 1024
     wallTag: Wall
+  despawnTime: 10
   casterIgnoreTime: 0.5
   canHitCaster: 0
   fetchKartsDuringSpawn: 0
@@ -672,7 +673,7 @@ MonoBehaviour:
   useLineOfSight: 1
   lineOfSightMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1025
   findTargetWhileActive: 1
   kartSpin: 1
   kartSpinCount: 2

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2396484957471741725
 Transform:
   m_ObjectHideFlags: 0
@@ -4908,7 +4908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2396484958100159983
 Transform:
   m_ObjectHideFlags: 0
@@ -10097,8 +10097,8 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckDistance: 1.5
   launchHeight: 0
-  startSpeed: 40
-  targetSpeed: 40
+  startSpeed: 100
+  targetSpeed: 100
   inheritKartSpeed: 0
   maintainKartSpeed: 0
   accel: 20
@@ -10126,6 +10126,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 1024
     wallTag: Walls
+  despawnTime: 10
   casterIgnoreTime: 0.5
   canHitCaster: 0
   fetchKartsDuringSpawn: 0
@@ -10136,7 +10137,7 @@ MonoBehaviour:
   useLineOfSight: 1
   lineOfSightMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1025
   findTargetWhileActive: 1
   kartSpin: 2
   kartSpinCount: 2

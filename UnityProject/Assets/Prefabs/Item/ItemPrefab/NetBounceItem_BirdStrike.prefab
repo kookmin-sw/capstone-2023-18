@@ -891,14 +891,14 @@ MonoBehaviour:
     m_Bits: 1
   groundCheckDistance: 1.5
   launchHeight: 0
-  startSpeed: 20
-  targetSpeed: 40
-  inheritKartSpeed: 1
-  maintainKartSpeed: 1
+  startSpeed: 100
+  targetSpeed: 200
+  inheritKartSpeed: 0
+  maintainKartSpeed: 0
   accel: 10
   moveDir: {x: 0, y: 0, z: 1}
   moveInAir: 0
-  gravityAdd: -10
+  gravityAdd: -30
   gravityDir: {x: 0, y: 1, z: 0}
   inheritKartGravity: 1
   gravityIsGroundNormal: 1
@@ -920,6 +920,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 256
     wallTag: Wall
+  despawnTime: 10
   casterIgnoreTime: 0.5
   canHitCaster: 1
   fetchKartsDuringSpawn: 0

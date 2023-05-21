@@ -22,13 +22,13 @@ public class ItemExplosion : NetworkBehaviour
     [ClientRpc]
     private void onExplosionClientRpc()
     {
-        StartCoroutine(onEffect(1f));
+        StartCoroutine(onEffect(0.5f));
     }
 
     IEnumerator onEffect(float time)
     {
         effect.SetActive(true);
-        while (time > 0)
+        while (time+1f > 0)
         {
             time -= Time.fixedDeltaTime;
             yield return new WaitForSeconds(Time.fixedDeltaTime);
