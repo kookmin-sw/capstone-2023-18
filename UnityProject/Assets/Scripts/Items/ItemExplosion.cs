@@ -28,7 +28,7 @@ public class ItemExplosion : NetworkBehaviour
     IEnumerator onEffect(float time)
     {
         effect.SetActive(true);
-        while (time+1f > 0)
+        while (time > 0)
         {
             time -= Time.fixedDeltaTime;
             yield return new WaitForSeconds(Time.fixedDeltaTime);

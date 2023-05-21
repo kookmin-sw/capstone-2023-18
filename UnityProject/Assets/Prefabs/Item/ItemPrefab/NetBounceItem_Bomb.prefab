@@ -45,9 +45,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.36230275, b: 0.59891665, a: 1}
-  m_Intensity: 7.3768
-  m_Range: 13.171298
+  m_Color: {r: 0.5899261, g: 0.99466074, b: 0.36613238, a: 1}
+  m_Intensity: 7.0475893
+  m_Range: 13.581639
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -29499,7 +29499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &767538273799108264
 Transform:
   m_ObjectHideFlags: 0
@@ -29640,12 +29640,12 @@ MonoBehaviour:
   destroyOnWallHit: 0
   destroyOnItemHit: 0
   wallCollisionProps:
-    wallDetectionType: 0
+    wallDetectionType: 2
     wallDotLimit: 0.5
     wallMask:
       serializedVersion: 2
       m_Bits: 1024
-    wallTag: Walls
+    wallTag: Wall
   despawnTime: 10
   casterIgnoreTime: 0.5
   canHitCaster: 0
