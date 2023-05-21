@@ -5663,10 +5663,9 @@ GameObject:
   - component: {fileID: 8133265226682561602}
   - component: {fileID: 4627593127381943404}
   - component: {fileID: 2540433896333183303}
-  - component: {fileID: 772327869488791888}
-  - component: {fileID: 1469112340122945010}
   - component: {fileID: 4567911620038884197}
   - component: {fileID: -9210868297776378900}
+  - component: {fileID: 2110649502226680095}
   m_Layer: 0
   m_Name: NetBounceItem_BirdStrike
   m_TagString: Untagged
@@ -5753,8 +5752,8 @@ MonoBehaviour:
       m_Bits: 256
     wallTag: Wall
   despawnTime: 10
-  casterIgnoreTime: 0.5
-  canHitCaster: 1
+  casterIgnoreTime: 999
+  canHitCaster: 0
   fetchKartsDuringSpawn: 0
   homingAccuracy: 0
   prioritizeKartsInFront: 0
@@ -5773,44 +5772,6 @@ MonoBehaviour:
   destroyEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &772327869488791888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5462182083005470935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  InLocalSpace: 0
-  Interpolate: 1
---- !u!114 &1469112340122945010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5462182083005470935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &4567911620038884197
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5843,6 +5804,61 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &2110649502226680095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462182083005470935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca18b1aff5bb3e498b69d39cea4db5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interpolationBackTime: 0.01
+  extrapolationMode: 1
+  useExtrapolationTimeLimit: 1
+  extrapolationTimeLimit: 5
+  useExtrapolationDistanceLimit: 0
+  extrapolationDistanceLimit: 20
+  sendPositionThreshold: 0
+  sendRotationThreshold: 0
+  sendScaleThreshold: 0
+  sendVelocityThreshold: 0
+  sendAngularVelocityThreshold: 0
+  receivedPositionThreshold: 0
+  receivedRotationThreshold: 0
+  snapPositionThreshold: 0
+  snapRotationThreshold: 0
+  snapScaleThreshold: 0
+  positionLerpSpeed: 1
+  rotationLerpSpeed: 1
+  scaleLerpSpeed: 1
+  timeCorrectionSpeed: 0.01
+  snapTimeThreshold: 3
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  syncVelocity: 0
+  syncAngularVelocity: 0
+  isPositionCompressed: 0
+  isRotationCompressed: 0
+  isScaleCompressed: 0
+  isVelocityCompressed: 0
+  isAngularVelocityCompressed: 0
+  automaticallyResetTime: 1
+  isSmoothingAuthorityChanges: 0
+  transformSource: 1
+  whenToUpdateTransform: 1
+  sendRate: 144
+  networkChannel: 
+  childObjectToSync: {fileID: 0}
+  setVelocityInsteadOfPositionOnNonOwners: 1
+  maxPositionDifferenceForVelocitySyncing: 5
+  useLocalTransformOnly: 0
+  ownerChangeIndicator: 1
+  receivedStatesCounter: 0
 --- !u!1 &6449063659089793449
 GameObject:
   m_ObjectHideFlags: 0
@@ -5951,8 +5967,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.7244735, g: 1, b: 0, a: 1}
-  m_Intensity: 3.839549
-  m_Range: 14.7749
+  m_Intensity: 3.6275208
+  m_Range: 15.57836
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
