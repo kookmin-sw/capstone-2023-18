@@ -13,8 +13,8 @@ public class CreateLobbyScreen : MonoBehaviour {
     public void OnCreateClicked() {
         var lobbyData = new LobbyData {
             Name = _nameInput.text,
-            isSinglePlay = _singleToggle,
-            Map = _singleToggle ? "Kookmin" : "Kookmin_multi"
+            isSinglePlay = _singleToggle.isOn,
+            Map = _singleToggle.isOn ? "Kookmin" : "Kookmin_multi"
         };
 
         LobbyCreated?.Invoke(lobbyData);

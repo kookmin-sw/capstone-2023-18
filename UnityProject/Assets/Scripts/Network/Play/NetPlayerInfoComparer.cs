@@ -11,11 +11,6 @@ public class NetPlayerInfoComparer : IComparer<NetPlayerInfo>
         {
             if (y.isFinish.Value == 0)
             {
-                int finishComparison = y.isFinish.Value.CompareTo(x.isFinish.Value);
-                if (finishComparison != 0) return -finishComparison;
-
-
-
                 int lapComparison = y.Lap.Value.CompareTo(x.Lap.Value);
                 if (lapComparison != 0) return -lapComparison;
 

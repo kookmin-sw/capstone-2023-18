@@ -37,7 +37,7 @@ public class NetPlayUI : NetworkBehaviour
     public GameObject limitImage;
 
     [Space, Header("Rank")]
-    ulong MyID = 0;
+    public ulong MyID = 0;
     public Transform[] Ranks;
     private string[] RankCount = { "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"};
 
@@ -66,16 +66,10 @@ public class NetPlayUI : NetworkBehaviour
         LoadIconImages();
     }
 
+
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
-        {
-            MyID = NetworkManager.Singleton.LocalClientId;
-        }
-    }
-    private void FixedUpdate()
-    {
-        //MatchmakingService.showRoomName();
+        MyID = NetworkManager.Singleton.LocalClientId;
     }
 
     void LoadCoponent()
@@ -188,7 +182,7 @@ public class NetPlayUI : NetworkBehaviour
                 Ranks[i].gameObject.SetActive(true);
                 if(IsServer)
                 {
-                    UpdateRankColorClientRpc(i, npm.Players[nowUser].teamNumber.Value);
+                    //UpdateRankColorClientRpc(i, npm.Players[nowUser].teamNumber.Value);
                 }
                 RankIds[i].text = "USER  " + nowUser.ToString();
             }
@@ -202,7 +196,7 @@ public class NetPlayUI : NetworkBehaviour
     [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void UpdateRankColorClientRpc(int _idx, int _teamNumber)
     {
-        RankImages[_idx].DOColor(_teamNumber == 0 ? Color.red : Color.blue, 0);
+        //RankImages[_idx].DOColor(_teamNumber == 0 ? Color.red : Color.blue, 0);
     }
 
     void UpdateLap()
