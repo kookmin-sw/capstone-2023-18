@@ -34,7 +34,7 @@ namespace PowerslideKartPhysics
                 SpawnedProjectileItem projectile = spawnedItem.GetComponent<SpawnedProjectileItem>();
                 if (projectile != null)
                 {
-                    projectile.Initialize(castProps, userid);
+                    projectile.InitializeClientRpc(castProps, userid, objectid);
                 }
                 
             }

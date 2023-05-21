@@ -66,7 +66,7 @@ namespace PowerslideKartPhysics
         public float despawnTime = 10f;
         float lifeTime = 0.0f;
         [Header("Caster")] 
-        private ulong userId;
+        private ulong spawnOwnerObjId;
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
@@ -103,11 +103,13 @@ namespace PowerslideKartPhysics
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType);
         }
 
+        [ClientRpc]
         // Initialze spawned item with the given launch properties
-        public virtual void Initialize(ItemCastProperties props , ulong userid)
+        public virtual void InitializeClientRpc(ItemCastProperties props , ulong userid, ulong objectid)
         {
             //init spinType
-            userId = userid;
+            spawnOwnerObjId = objectid;
+            Debug.Log(objectid  + " : " + spawnOwnerObjId);
             spinType = (int)kartSpin;
 
             itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
@@ -292,7 +294,9 @@ namespace PowerslideKartPhysics
                 if ( curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                     // Spin out kart upon collision
                     if (!colHit.gameObject.CompareTag("Kart")) return;
-                    if (userId == colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId) return;
+                    ulong targetObjId = colHit.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+                    Debug.Log(spawnOwnerObjId+" / casterid : " +targetObjId  + " / hitter");
+                    if (spawnOwnerObjId == targetObjId) return;
                     ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
                     colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
                     Debug.Log(curCol.otherCollider);

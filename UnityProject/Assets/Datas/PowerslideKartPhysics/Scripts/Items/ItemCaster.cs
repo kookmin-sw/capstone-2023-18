@@ -100,6 +100,7 @@ namespace PowerslideKartPhysics
         // Cast currently equipped item
         
         public void Cast(ulong userid, ulong objectid) {
+            Debug.Log(objectid);
             if (item != null && kart != null && ammo > 0 && timeSinceCast >= minCastInterval) {
                 if (kart.active && !kart.isSpin) {
                     ammo = Mathf.Max(0, ammo - 1);
