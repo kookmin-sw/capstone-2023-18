@@ -53,8 +53,16 @@ public static class MatchmakingService {
 
     public static async Task CreateLobbyWithAllocation(LobbyData data) {
         // Create a relay allocation and generate a join code to share with the lobby
-        int maxPlayer = 8;
-        var a = await RelayService.Instance.CreateAllocationAsync(maxPlayer);//8명 고정
+        int maxPlayer;
+        if (data.isSinglePlay)
+        {
+            maxPlayer = 1;
+        }
+        else
+        {
+            maxPlayer = 8;
+        }
+        var a = await RelayService.Instance.CreateAllocationAsync(maxPlayer);
         var joinCode = await RelayService.Instance.GetJoinCodeAsync(a.AllocationId);
 
         // Create a lobby, adding the relay join code to the lobby data

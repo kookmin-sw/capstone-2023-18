@@ -10,7 +10,12 @@ public class testAISpawn : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(spawnTimer(2f));
+        //StartCoroutine(spawnTimer(2f));
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        Instantiate(ai, startPos.transform.position + new Vector3(0f, 0.3f, 0f), startPos.transform.rotation);
     }
 
     IEnumerator spawnTimer(float time)

@@ -147,7 +147,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
     {
 
 
-        if (other.CompareTag("Checkpoint") && IsOwner)
+        if (other.CompareTag("CheckPoint_User") && IsOwner)
         {
             CP cpinfo = other.GetComponent<CP>();
             bool isCorrectRoute = false;

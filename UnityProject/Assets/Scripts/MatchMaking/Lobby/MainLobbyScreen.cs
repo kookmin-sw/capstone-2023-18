@@ -7,7 +7,7 @@ public class MainLobbyScreen : MonoBehaviour {
     [SerializeField] private LobbyRoomPanel _lobbyPanelPrefab;
     [SerializeField] private Transform _lobbyParent;
     [SerializeField] private GameObject _noLobbiesText;
-    [SerializeField] private float _lobbyRefreshRate = 2;
+    [SerializeField] private float _lobbyRefreshRate = 1;
 
     private readonly List<LobbyRoomPanel> _currentLobbySpawns = new();
     private float _nextRefreshTime;

@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 689174080635315983, guid: c57f2ade0fec98726929351d75cc8ad6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2883374083270441375, guid: c57f2ade0fec98726929351d75cc8ad6,
         type: 3}
       propertyPath: m_Name
-      value: AICar Ver.12
+      value: AICar Ver.12 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2883374083270441375, guid: c57f2ade0fec98726929351d75cc8ad6,
         type: 3}
@@ -70,6 +75,11 @@ PrefabInstance:
     - target: {fileID: 2883374083270441380, guid: c57f2ade0fec98726929351d75cc8ad6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883374084186844247, guid: c57f2ade0fec98726929351d75cc8ad6,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

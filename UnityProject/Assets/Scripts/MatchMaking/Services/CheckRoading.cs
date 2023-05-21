@@ -97,13 +97,18 @@ public class CheckRoading : NetworkBehaviour
                         if (IsServer)
                         {
                             Debug.Log("All Clients LOADED!");
+                        NetPlayManager npm;
                             switch (SceneManager.GetActiveScene().name)
                             {
                                 case "Kookmin_Multi":
-                                    var npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
+                                    npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
                                     StartCoroutine(npm.StartCountDown());
                                     break;
-                            }
+                                case "Kookmin":
+                                    npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
+                                    StartCoroutine(npm.StartCountDown());
+                                    break;
+                        }
 
                             // Handle any server-side tasks here
                         }

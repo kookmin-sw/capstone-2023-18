@@ -82,6 +82,8 @@ public class KartController : MonoBehaviour
 
     public KartInput input;
 
+    public NetPlayManager npm;
+
     private void Awake()
     {
         input = GetComponent<KartInput>();
@@ -91,79 +93,86 @@ public class KartController : MonoBehaviour
         engineSound = GetComponent<AudioSource>();
         grounded = false;
         rb.centerOfMass = CentreOfMass.localPosition;
+
+        if(GameObject.Find("@PlayManager"))
+        {
+            GameObject.Find("@PlayManager").TryGetComponent<NetPlayManager>(out npm);
+        }
     }
 
     void FixedUpdate()
     {
-        carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
-
-        curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
-
-        //inputs
-        float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
-        float speedInput = speed *  input.Vmove * Time.fixedDeltaTime * 1000;
-
-        //helping veriables
-
-        speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
-        if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
+        if (npm.isStart.Value)
         {
-            speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
-        }
-        SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-        fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
+            carVelocity = transform.InverseTransformDirection(rb.velocity); //local velocity of car
+
+            curveVelocity = Mathf.Abs(carVelocity.magnitude) / 100;
+
+            //inputs
+            float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
+            float speedInput = speed * input.Vmove * Time.fixedDeltaTime * 1000;
+
+            //helping veriables
+
+            speedValue = speedInput * speedCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
+            if (seperateReverseCurve && carVelocity.z < 0 && speedInput < 0)
+            {
+                speedValue = speedInput * ReverseCurve.Evaluate(Mathf.Abs(carVelocity.z) / MaxSpeed);
+            }
+            SideFricValue = SideFriction * SideFrictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
+            fricValue = friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.magnitude / MaxSpeed));
             //friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.z / carVelocity.magnitude))+ friction * frictionCurve.Evaluate(Mathf.Abs(carVelocity.x / carVelocity.magnitude));
-        turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
+            turnValue = turnInput * turnCurve.Evaluate(carVelocity.magnitude / 100);
 
-        //grounded check
-        if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
-        {
-            accelarationLogic();
-            turningLogic();
-            frictionLogic();
-            brakeLogic();
-            AddAngularDrag();
-            OnDrift();
-            //for drift behaviour
-            //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
-
-            //draws green ground checking ray ....ingnore
-            Debug.DrawLine(groundCheck.position, hit.point, Color.green);
-            grounded = true;
-
-            //rb.centerOfMass = Vector3.zero;
-
-            normalDir = hit.normal;
-
-            //DownForce
-            rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
-
-            //Non-Slip Code
-            if (carVelocity.magnitude < 1)
+            //grounded check
+            if (Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                rb.drag = 2;
+                accelarationLogic();
+                turningLogic();
+                frictionLogic();
+                brakeLogic();
+                AddAngularDrag();
+                OnDrift();
+                //for drift behaviour
+                //rb.angularDrag = dragAngularAmount * driftCurve.Evaluate(Mathf.Abs(carVelocity.x) / 70);
+
+                //draws green ground checking ray ....ingnore
+                Debug.DrawLine(groundCheck.position, hit.point, Color.green);
+                grounded = true;
+
+                //rb.centerOfMass = Vector3.zero;
+
+                normalDir = hit.normal;
+
+                //DownForce
+                rb.AddForce(-transform.up * DownValue * carVelocity.magnitude);
+
+                //Non-Slip Code
+                if (carVelocity.magnitude < 1)
+                {
+                    rb.drag = 2;
+                }
+                else
+                {
+                    rb.drag = dragAmount;
+                }
             }
-            else
+            else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
             {
-                rb.drag = dragAmount;
+                //Debug.Log("air");
+                grounded = false;
+                rb.drag = 1f;
+                rb.angularDrag = 10f;
+                //rb.centerOfMass = CentreOfMass.localPosition;
+                /*
+                if (!airDrag)
+                {
+                    rb.angularDrag = 0.1f;
+                }
+                */
             }
+
         }
-        else if (!Physics.Raycast(groundCheck.position, -transform.up, out hit, maxRayLength))
-        {
-           //Debug.Log("air");
-            grounded = false;
-            rb.drag = 1f;
-            rb.angularDrag = 10f;
-            //rb.centerOfMass = CentreOfMass.localPosition;
-            /*
-            if (!airDrag)
-            {
-                rb.angularDrag = 0.1f;
-            }
-            */
-        }
-
-
 
     }
 

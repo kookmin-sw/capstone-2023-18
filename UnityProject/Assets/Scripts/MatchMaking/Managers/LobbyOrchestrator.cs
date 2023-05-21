@@ -15,7 +15,8 @@ public class LobbyOrchestrator : NetworkBehaviour {
     [SerializeField] public MainLobbyScreen _mainLobbyScreen;
     [SerializeField] public CreateLobbyScreen _createScreen;
     [SerializeField] public RoomScreen _roomScreen;
-    [SerializeField] public int _countTeam; // Team 카운트 0이하 -> Red팀, 0초과 -> Blue팀 배정, 
+    [SerializeField] public int _countTeam; // Team 카운트 0이하 -> Red팀, 0초과 -> Blue팀 배정, \
+    [SerializeField] public String _mapName;
 
     public static GameObject Instance { get; set; }
 
@@ -94,7 +95,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         using (new Load("Creating Lobby...")) {
             try {
                 await MatchmakingService.CreateLobbyWithAllocation(data);
-
+                _mapName = data.Map;
                 _createScreen.gameObject.SetActive(false);
                 _roomScreen.gameObject.SetActive(true);
                 // Starting the host immediately will keep the relay server alive
@@ -344,7 +345,8 @@ public class LobbyOrchestrator : NetworkBehaviour {
         using (new Load("Starting the game...")) {
             await MatchmakingService.LockLobby();
             ControlPanelClientRpc();
-            NetworkManager.Singleton.SceneManager.LoadScene("Kookmin_Multi", LoadSceneMode.Single);
+            
+            NetworkManager.Singleton.SceneManager.LoadScene(_mapName, LoadSceneMode.Single);
         }
     }
 
