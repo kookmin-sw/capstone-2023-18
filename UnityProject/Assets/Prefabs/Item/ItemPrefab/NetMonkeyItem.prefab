@@ -24509,8 +24509,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.48584908, g: 0.97966075, b: 1, a: 1}
-  m_Intensity: 8.904098
-  m_Range: 8.987384
+  m_Intensity: 10.699269
+  m_Range: 9.300983
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -25061,7 +25061,7 @@ MonoBehaviour:
   itemVelocity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 1
   groundCheckDistance: 1.5
   launchHeight: 0
   startSpeed: 100
@@ -25071,7 +25071,7 @@ MonoBehaviour:
   accel: 10
   moveDir: {x: 0, y: 0, z: 1}
   moveInAir: 1
-  gravityAdd: -10
+  gravityAdd: -30
   gravityDir: {x: 0, y: 1, z: 0}
   inheritKartGravity: 1
   gravityIsGroundNormal: 1
@@ -25085,13 +25085,13 @@ MonoBehaviour:
   bounceReflectForce: 1
   maxBounces: 3
   destroyOnWallHit: 0
-  destroyOnItemHit: 1
+  destroyOnItemHit: 0
   wallCollisionProps:
     wallDetectionType: 2
     wallDotLimit: 0.5
     wallMask:
       serializedVersion: 2
-      m_Bits: 1024
+      m_Bits: 1280
     wallTag: Wall
   despawnTime: 10
   casterIgnoreTime: 9999

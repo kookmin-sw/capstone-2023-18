@@ -112,12 +112,12 @@ namespace PowerslideKartPhysics
             Debug.Log(objectid  + " : " + spawnOwnerObjId);
             spinType = (int)kartSpin;
 
-            itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+            if(IsServer) itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
                 .GetComponent<NetKartController>();
             if (itemowner == null) return;
 
 
-            ownerTeamNum = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+            if(IsServer) ownerTeamNum = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
                 .GetComponent<NetPlayerInfo>().teamNumber.Value;
             
             
@@ -288,11 +288,12 @@ namespace PowerslideKartPhysics
                 WallCollisionProps wallProps = new WallCollisionProps(curCol, currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                 bool wallHit = wallDetector.WallTest(wallProps);
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
-
+                
                
                     
-                if ( curCol.otherCollider != casterCol || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
+                if ( (curCol.otherCollider != casterCol && colHit.gameObject.CompareTag("Kart")) || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
                     // Spin out kart upon collision
+                    Debug.Log("1");
                     if (!colHit.gameObject.CompareTag("Kart")) return;
                     ulong targetObjId = colHit.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
                     Debug.Log(spawnOwnerObjId+" / casterid : " +targetObjId  + " / hitter");
@@ -308,6 +309,7 @@ namespace PowerslideKartPhysics
                 }
                 
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
+                    Debug.Log("2");
                     // Destroy upon wall collision
                     if (IsServer)
                     {
@@ -316,6 +318,7 @@ namespace PowerslideKartPhysics
                     }
                 }
                 else {
+                    Debug.Log(wallHit + " : " + colHit.gameObject.tag);
                     // Bounce collision logic
                     if ((wallBounceReflect && wallHit) || (itemBounceReflect && itemHit)) {
                         moveDir = Vector3.ProjectOnPlane(Vector3.Reflect(moveDir, curCol.normal), currentGravityDir).normalized;
