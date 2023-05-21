@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca18b1aff5bb3e498b69d39cea4db5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolationBackTime: 0.01
+  interpolationBackTime: 0.05
   extrapolationMode: 1
   useExtrapolationTimeLimit: 1
   extrapolationTimeLimit: 5
@@ -1021,10 +1021,10 @@ MonoBehaviour:
   snapPositionThreshold: 0
   snapRotationThreshold: 0
   snapScaleThreshold: 0
-  positionLerpSpeed: 1
-  rotationLerpSpeed: 1
-  scaleLerpSpeed: 1
-  timeCorrectionSpeed: 0.01
+  positionLerpSpeed: 0.9
+  rotationLerpSpeed: 0.9
+  scaleLerpSpeed: 0.9
+  timeCorrectionSpeed: 0.05
   snapTimeThreshold: 3
   syncPosition: 0
   syncRotation: 0
@@ -1040,11 +1040,11 @@ MonoBehaviour:
   isSmoothingAuthorityChanges: 0
   transformSource: 0
   whenToUpdateTransform: 1
-  sendRate: 144
+  sendRate: 30
   networkChannel: 
   childObjectToSync: {fileID: 0}
   setVelocityInsteadOfPositionOnNonOwners: 1
-  maxPositionDifferenceForVelocitySyncing: 5
+  maxPositionDifferenceForVelocitySyncing: 0.5
   useLocalTransformOnly: 0
   ownerChangeIndicator: 1
   receivedStatesCounter: 0

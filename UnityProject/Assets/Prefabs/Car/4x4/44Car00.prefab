@@ -32574,7 +32574,7 @@ GameObject:
   - component: {fileID: 999132855485064655}
   - component: {fileID: 5916931713319791244}
   - component: {fileID: 7993122645184551187}
-  - component: {fileID: 1788742113035525297}
+  - component: {fileID: 2354863758980125030}
   - component: {fileID: 6486597275927946356}
   - component: {fileID: 6931569128395207553}
   m_Layer: 3
@@ -33193,7 +33193,7 @@ MonoBehaviour:
   Item:
     m_InternalValue: 0
   touchedEndpoint: 0
---- !u!114 &1788742113035525297
+--- !u!114 &2354863758980125030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33205,7 +33205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca18b1aff5bb3e498b69d39cea4db5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolationBackTime: 0.01
+  interpolationBackTime: 0.05
   extrapolationMode: 1
   useExtrapolationTimeLimit: 1
   extrapolationTimeLimit: 5
@@ -33221,10 +33221,10 @@ MonoBehaviour:
   snapPositionThreshold: 0
   snapRotationThreshold: 0
   snapScaleThreshold: 0
-  positionLerpSpeed: 1
-  rotationLerpSpeed: 1
-  scaleLerpSpeed: 1
-  timeCorrectionSpeed: 0.01
+  positionLerpSpeed: 0.9
+  rotationLerpSpeed: 0.9
+  scaleLerpSpeed: 0.9
+  timeCorrectionSpeed: 0.05
   snapTimeThreshold: 3
   syncPosition: 0
   syncRotation: 0
@@ -33240,11 +33240,11 @@ MonoBehaviour:
   isSmoothingAuthorityChanges: 0
   transformSource: 0
   whenToUpdateTransform: 1
-  sendRate: 144
+  sendRate: 30
   networkChannel: 
   childObjectToSync: {fileID: 0}
   setVelocityInsteadOfPositionOnNonOwners: 1
-  maxPositionDifferenceForVelocitySyncing: 5
+  maxPositionDifferenceForVelocitySyncing: 0.5
   useLocalTransformOnly: 0
   ownerChangeIndicator: 1
   receivedStatesCounter: 0
@@ -33262,7 +33262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 951099334
   AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
+  DontDestroyWithOwner: 1
   AutoObjectParentSync: 1
 --- !u!114 &6931569128395207553
 MonoBehaviour:

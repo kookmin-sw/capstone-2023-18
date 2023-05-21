@@ -222,10 +222,9 @@ public class NetKartController : NetworkBehaviour
     {
         if (IsOwner)
         {
-            tireVisuals();
             audioControl();
-            
         }
+        tireVisuals();
     }
 
     IEnumerator WaitStart()
