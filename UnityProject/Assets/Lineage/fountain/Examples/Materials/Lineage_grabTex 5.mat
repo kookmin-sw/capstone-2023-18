@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lineage_grabTex 5
+  m_Shader: {fileID: 4800000, guid: 0eaec2c8b20590940821698a39a053a2, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3003
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 12f7822cfab15b5459340829e7f46425, type: 3}
+        m_Scale: {x: 1, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionTex:
+        m_Texture: {fileID: 8900000, guid: 23f0c10edc68dee478f3de512e71d958, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _causticTex:
+        m_Texture: {fileID: 2800000, guid: 90c5e0cab83ce7b4ba3da921811927a7, type: 3}
+        m_Scale: {x: 0.05, y: 0.05}
+        m_Offset: {x: 0, y: 0}
+    - _normal:
+        m_Texture: {fileID: 2800000, guid: c5ee30171a6e3b5498dfbb9ebff2c36e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _paomuTex:
+        m_Texture: {fileID: 2800000, guid: 381118d072d609e4f95b8fb4ddb33c31, type: 3}
+        m_Scale: {x: 12, y: 12}
+        m_Offset: {x: 0, y: 0}
+    - _waveTex:
+        m_Texture: {fileID: 2800000, guid: 4d09d8447507bc74b8ab58ab2054c57e, type: 3}
+        m_Scale: {x: 2, y: 5}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _CausticRange: 0.096
+    - _CullMode: 2
+    - _ReflecPow: 0.68
+    - _ReflectIntensity: 1.81
+    - _Speed: 2
+    - _depth: 2.68
+    - _dissolve: 0.262
+    - _distor: 3
+    - _maskCntor: 0
+    - _paomoRange: 1.53
+    - _paomobianyuan: 0.286
+    - _smooth: 80
+    - _specular_intensity: 221.1
+    - _speed: 0.1
+    - _value: -11.2
+    - _wave_intensity: 0.255
+    m_Colors:
+    - _BaseColor: {r: 1, g: 0.08018869, b: 0.08018869, a: 1}
+    - _BaseUVspeed: {r: 1, g: 0, b: 0.17, a: 0}
+    - _WaterColor01: {r: 0.7783019, g: 0.9173329, b: 1, a: 1}
+    - _WaterColor02: {r: 0, g: 0.346709, b: 0.6792453, a: 1}
+    - _normalUVspeed: {r: 0.5, g: 0.1, b: 0.3, a: -0.05}
+    - _paomoSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _paomo_color: {r: 1, g: 1, b: 1, a: 1}
+    - _vertexMoveSpeed: {r: 0, g: 1, b: 2, a: 0}
+  m_BuildTextureStacks: []
