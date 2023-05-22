@@ -127,7 +127,7 @@ public class NetKartController : NetworkBehaviour
 
             if(SceneManager.GetActiveScene().name == "Kookmin")
             {
-                DisAdvantage = 1000;
+                DisAdvantage = 2000;
             }
         }
     }
