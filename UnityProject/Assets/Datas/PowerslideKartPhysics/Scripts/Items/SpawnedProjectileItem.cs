@@ -63,9 +63,10 @@ namespace PowerslideKartPhysics
         WallCollision wallDetector;
         public WallDetectProps wallCollisionProps = WallDetectProps.Default;
 
-        private float despawnTime = 10f;
+        public float despawnTime = 10f;
         float lifeTime = 0.0f;
-        [Header("Caster")]
+        [Header("Caster")] 
+        private ulong spawnOwnerObjId;
         public float casterIgnoreTime = 0.5f;
         public bool canHitCaster = true;
         Collider casterCol;
@@ -102,19 +103,21 @@ namespace PowerslideKartPhysics
             wallDetector = WallCollision.CreateFromType(wallCollisionProps.wallDetectionType);
         }
 
+        [ClientRpc]
         // Initialze spawned item with the given launch properties
-        public virtual void Initialize(ItemCastProperties props , ulong userid)
+        public virtual void InitializeClientRpc(ItemCastProperties props , ulong userid, ulong objectid)
         {
             //init spinType
-
+            spawnOwnerObjId = objectid;
+            Debug.Log(objectid  + " : " + spawnOwnerObjId);
             spinType = (int)kartSpin;
 
-            itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+            if(IsServer) itemowner = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
                 .GetComponent<NetKartController>();
             if (itemowner == null) return;
 
 
-            ownerTeamNum = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
+            if(IsServer) ownerTeamNum = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(userid)
                 .GetComponent<NetPlayerInfo>().teamNumber.Value;
             
             
@@ -153,9 +156,23 @@ namespace PowerslideKartPhysics
 
         // Sets the target kart to the given kart
         public virtual void SetHomingTarget(NetKartController target) {
-            Debug.Log("find Target");
+            
             targetKart = target;
+            ulong uid = target.GetComponent<NetworkObject>().OwnerClientId;
+            
+            TargetActiveClientRpc(uid);
         }
+
+        [ClientRpc]
+        public void TargetActiveClientRpc(ulong uid)
+        {
+            if (uid == NetworkManager.Singleton.LocalClientId)
+            {
+                GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().TargetWarning.SetActive(true);
+            }
+        }
+
+
 
         // Finds the best target kart to follow
         public virtual void FindHomingTarget() {
@@ -167,7 +184,7 @@ namespace PowerslideKartPhysics
                     if (allKarts[i] != itemowner)
                     {
                         
-                        Debug.Log(allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value);
+                        Debug.Log(ownerTeamNum + " : " + allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value);
                         if (ownerTeamNum == allKarts[i].GetComponent<NetPlayerInfo>().teamNumber.Value) continue;
                         
                         
@@ -189,6 +206,7 @@ namespace PowerslideKartPhysics
                             }
                             else if (curDist < closeDist || i == 0) {
                                 closeDist = curDist;
+                                
                                 SetHomingTarget(allKarts[i]);
                             }
                         }
@@ -207,7 +225,10 @@ namespace PowerslideKartPhysics
             
             
             lifeTime += Time.fixedDeltaTime;
-
+            if (IsServer)
+            {
+                if(lifeTime > despawnTime) gameObject.GetComponent<NetworkObject>().Despawn();
+            }
             rb.AddForce(currentGravityDir * gravityAdd, ForceMode.Acceleration); // Apply fake gravity
 
             // Ignore collision with casting kart
@@ -282,22 +303,28 @@ namespace PowerslideKartPhysics
                 WallCollisionProps wallProps = new WallCollisionProps(curCol, currentGravityDir, wallCollisionProps.wallDotLimit, wallCollisionProps.wallMask, wallCollisionProps.wallTag);
                 bool wallHit = wallDetector.WallTest(wallProps);
                 bool itemHit = curCol.otherCollider.IsSpawnedProjectileItem();
-
-                if (colHit.gameObject.CompareTag("Kart")) {
-                    //curCol.otherCollider != casterCol || 
-                    if ( (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
-                        // Spin out kart upon collision
-                        ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
-                        colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
-                        Debug.Log(curCol.otherCollider);
-                        if (IsServer)
-                        {
-                            gameObject.GetComponent<NetworkObject>().Despawn();
-                            break;
-                        }
+                
+               
+                    
+                if ( (curCol.otherCollider != casterCol && colHit.gameObject.CompareTag("Kart")) || (lifeTime > casterIgnoreTime && canHitCaster && curCol.otherCollider == casterCol)) {
+                    // Spin out kart upon collision
+                    Debug.Log("1");
+                    if (!colHit.gameObject.CompareTag("Kart")) return;
+                    ulong targetObjId = colHit.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+                    Debug.Log(spawnOwnerObjId+" / casterid : " +targetObjId  + " / hitter");
+                    if (spawnOwnerObjId == targetObjId) return;
+                    ulong uid = colHit.gameObject.GetComponent<NetworkObject>().OwnerClientId;
+                    colHit.gameObject.GetComponent<ItemCaster>().ImplementSpinServerRpc(spinType, kartSpinCount,uid);
+                    Debug.Log(curCol.otherCollider);
+                    if (IsServer)
+                    {
+                        gameObject.GetComponent<NetworkObject>().Despawn();
+                        break;
                     }
                 }
+                
                 else if ((wallHit && destroyOnWallHit) || (itemHit && destroyOnItemHit)) {
+                    Debug.Log("2");
                     // Destroy upon wall collision
                     if (IsServer)
                     {
@@ -306,6 +333,7 @@ namespace PowerslideKartPhysics
                     }
                 }
                 else {
+                    Debug.Log(wallHit + " : " + colHit.gameObject.tag);
                     // Bounce collision logic
                     if ((wallBounceReflect && wallHit) || (itemBounceReflect && itemHit)) {
                         moveDir = Vector3.ProjectOnPlane(Vector3.Reflect(moveDir, curCol.normal), currentGravityDir).normalized;

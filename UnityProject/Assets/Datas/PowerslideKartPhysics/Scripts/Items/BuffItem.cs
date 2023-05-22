@@ -11,6 +11,7 @@ namespace PowerslideKartPhysics
     public class BuffItem : Item
     {
         public float buffTime = 1f;
+        public float currSpeed = 21500;
 
         [ServerRpc(RequireOwnership = false)]
         public override void ActivateServerRpc(ItemCastProperties props, ulong userid, ulong objectid)
@@ -112,8 +113,7 @@ namespace PowerslideKartPhysics
 
         IEnumerator SlowBuffTimer(float bufftime, NetKartController playerController)
         {
-            float currSpeed = playerController.speed;
-            
+
             float currentTime = bufftime;
             while (currentTime > 0)
             {

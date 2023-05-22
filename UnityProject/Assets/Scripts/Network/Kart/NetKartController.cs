@@ -54,6 +54,7 @@ public class NetKartController : NetworkBehaviour
     [Header("Item")]
     public NetPlayerInfo npi;
 
+    public bool isTarget = false;
     public float BoostPower;
     public bool isBoost;
     public AnimationCurve BoostCurve;
@@ -90,8 +91,6 @@ public class NetKartController : NetworkBehaviour
     public bool active = true;
 
     public bool spinningOut = false;
-
-
     public bool isProtected = false;
     public Vector3 currentGravityDir = Vector3.up;
     [System.NonSerialized]

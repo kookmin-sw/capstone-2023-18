@@ -46,7 +46,7 @@ public class NetKartInput : NetworkBehaviour
                 {
                     if (caster != null)
                     {
-                        caster.Cast(NetworkManager.Singleton.LocalClientId,NetworkObjectId);
+                        caster.Cast(NetworkManager.Singleton.LocalClientId,GetComponent<NetworkObject>().NetworkObjectId);
                     }
                 }
             }

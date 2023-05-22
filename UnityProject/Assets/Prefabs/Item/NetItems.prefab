@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5042204
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: SquidItem
-  buffTime: 3
+  buffTime: 2
+  currSpeed: 21500
 --- !u!1 &18917197
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +94,7 @@ MonoBehaviour:
   itemName: BombItem
   itemPrefab: {fileID: 5462182083005470935, guid: 7413cf0e6865b4419ba6e234c225a003,
     type: 3}
-  spawnOffset: {x: 0, y: 1, z: 7}
+  spawnOffset: {x: 0, y: 0.5, z: 7}
 --- !u!1 &247806278
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &247806279
 Transform:
   m_ObjectHideFlags: 0
@@ -140,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: ThunderItem
   buffTime: 3
+  currSpeed: 21500
 --- !u!1 &310999767
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &405686736
 Transform:
   m_ObjectHideFlags: 0
@@ -233,7 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: SlowItem
-  buffTime: 3
+  buffTime: 1.5
+  currSpeed: 21500
 --- !u!1 &471230668
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &471230669
 Transform:
   m_ObjectHideFlags: 0
@@ -279,7 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: LimitSkillItem
-  buffTime: 3
+  buffTime: 2
+  currSpeed: 21500
 --- !u!1 &1771409442
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +331,7 @@ MonoBehaviour:
   itemName: FishItem
   itemPrefab: {fileID: 5462182083005470935, guid: 9bc7debd8e9ed4fb6a81232608b8acfa,
     type: 3}
-  spawnOffset: {x: 0, y: 0.5, z: -0.5}
+  spawnOffset: {x: 0, y: 0.5, z: -5}
 --- !u!1 &1821797360
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1821797361
 Transform:
   m_ObjectHideFlags: 0
@@ -392,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1892152895
 Transform:
   m_ObjectHideFlags: 0
@@ -423,7 +427,7 @@ MonoBehaviour:
   itemName: GuardOneItem
   itemPrefab: {fileID: 5462182083005470935, guid: cffa1fc9687504c4a8e913ab2d450ab0,
     type: 3}
-  spawnOffset: {x: 0, y: 3, z: 10}
+  spawnOffset: {x: 0, y: 0.5, z: 10}
 --- !u!1 &1288761326115993671
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +475,7 @@ MonoBehaviour:
   itemName: BirdStrikeItem
   itemPrefab: {fileID: 5462182083005470935, guid: 8f42fa2d2318a4969b77561b5a1f05d6,
     type: 3}
-  spawnOffset: {x: 0, y: 1, z: 7}
+  spawnOffset: {x: 0, y: 0.5, z: 7}
 --- !u!1 &1288761326816637276
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1288761326816637277
 Transform:
   m_ObjectHideFlags: 0
@@ -517,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: ShieldItem
-  defenseTime: 1
+  defenseTime: 2
 --- !u!1 &4662957067406137279
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4662957067406137276
 Transform:
   m_ObjectHideFlags: 0
@@ -659,7 +663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6715130052006031628
 Transform:
   m_ObjectHideFlags: 0
@@ -688,4 +692,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: BufferItem_ReverseTeam
-  buffTime: 3
+  buffTime: 1.5
+  currSpeed: 21500

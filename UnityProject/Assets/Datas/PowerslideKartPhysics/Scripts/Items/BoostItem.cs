@@ -50,6 +50,8 @@ namespace PowerslideKartPhysics
                     if(itemEffect != null )itemEffect.EffectOn(ItemEffect.effectType.rush, boostTime,userid);
                 }
                 //TODO : 피격무시 bool 처리 해주기
+                StartCoroutine(player.GetComponent<NetKartController>().OnProtected(boostTime+1f));
+
             }
             
             

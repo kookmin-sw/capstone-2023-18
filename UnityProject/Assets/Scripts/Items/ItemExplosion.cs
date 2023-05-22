@@ -22,7 +22,7 @@ public class ItemExplosion : NetworkBehaviour
     [ClientRpc]
     private void onExplosionClientRpc()
     {
-        StartCoroutine(onEffect(1f));
+        StartCoroutine(onEffect(0.5f));
     }
 
     IEnumerator onEffect(float time)

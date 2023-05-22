@@ -80,9 +80,9 @@ public class AICarAgent : Agent
         sensor.AddObservation(transform.InverseTransformDirection(agentRigidbody.velocity).magnitude); //1 local velocity of car
         sensor.AddObservation(isWrongway); //1
         sensor.AddObservation(isSpin); //1
-        sensor.AddObservation(cpNum);
-        sensor.AddObservation(nextcp.transform.position);
-        sensor.AddObservation((agentTransform.position - nextcp.transform.position).magnitude);
+        sensor.AddObservation(cpNum);//1
+        sensor.AddObservation(nextcp.transform.position);//3
+        sensor.AddObservation((agentTransform.position - nextcp.transform.position).magnitude);//1
         sensor.AddObservation(agentTransform.forward); // 3
         sensor.AddObservation(dir); //1
     }
