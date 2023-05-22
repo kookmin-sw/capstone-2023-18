@@ -46265,6 +46265,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   npi: {fileID: 0}
+  isTarget: 0
   BoostPower: 40000
   isBoost: 0
   BoostCurve:
@@ -46382,7 +46383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca18b1aff5bb3e498b69d39cea4db5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolationBackTime: 0.01
+  interpolationBackTime: 0.05
   extrapolationMode: 1
   useExtrapolationTimeLimit: 1
   extrapolationTimeLimit: 5
@@ -46398,10 +46399,10 @@ MonoBehaviour:
   snapPositionThreshold: 0
   snapRotationThreshold: 0
   snapScaleThreshold: 0
-  positionLerpSpeed: 1
-  rotationLerpSpeed: 1
-  scaleLerpSpeed: 1
-  timeCorrectionSpeed: 0.01
+  positionLerpSpeed: 0.9
+  rotationLerpSpeed: 0.9
+  scaleLerpSpeed: 0.9
+  timeCorrectionSpeed: 0.05
   snapTimeThreshold: 3
   syncPosition: 0
   syncRotation: 0
@@ -46417,11 +46418,11 @@ MonoBehaviour:
   isSmoothingAuthorityChanges: 0
   transformSource: 0
   whenToUpdateTransform: 1
-  sendRate: 144
+  sendRate: 30
   networkChannel: 
   childObjectToSync: {fileID: 0}
   setVelocityInsteadOfPositionOnNonOwners: 1
-  maxPositionDifferenceForVelocitySyncing: 5
+  maxPositionDifferenceForVelocitySyncing: 0.5
   useLocalTransformOnly: 0
   ownerChangeIndicator: 1
   receivedStatesCounter: 0
@@ -46568,22 +46569,22 @@ PrefabInstance:
     - target: {fileID: 374465591820776237, guid: 06c233ba3c9baef4f85239f0e4dbcd46,
         type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1537320702782786044, guid: 06c233ba3c9baef4f85239f0e4dbcd46,
         type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1814126182988517071, guid: 06c233ba3c9baef4f85239f0e4dbcd46,
         type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5347795497307870924, guid: 06c233ba3c9baef4f85239f0e4dbcd46,
         type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7586497862050114921, guid: 06c233ba3c9baef4f85239f0e4dbcd46,
         type: 3}
