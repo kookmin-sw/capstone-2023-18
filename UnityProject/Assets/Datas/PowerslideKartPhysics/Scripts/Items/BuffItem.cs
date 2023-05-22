@@ -47,7 +47,7 @@ namespace PowerslideKartPhysics
                 
                 switch (name)
                 {
-                    case "ReverseBuffTeam":
+                    case "BufferItem_ReverseTeam":
                         UseReverseBuffTeamClientRpc(t_userid,t_objid);
                         break;
                     case "SlowItem":
