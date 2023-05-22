@@ -34,6 +34,7 @@ public class NetPlayUI : NetworkBehaviour
     public Image[] RankImages;
     public Sprite[] ITEM_ICONS;
     public GameObject Warning;
+    public GameObject TargetWarning;
     public GameObject limitImage;
 
     [Space, Header("Rank")]
@@ -108,14 +109,15 @@ public class NetPlayUI : NetworkBehaviour
             RankIds[i] = Ranks[i].Find("name_Text").GetComponent<Text>();
         }
     }
-
+   
     void LoadIconImages()
     {
         limitImage = UI.transform.Find("ItemSlot").Find("LockUI").gameObject;
         ITEM_ICONS = UI.transform.Find("ItemSlot/ICON").gameObject.GetComponent<ITEMIcon>().ICONS;
+        TargetWarning = UI.transform.Find("TargetWarning").gameObject;
         Warning = UI.transform.Find("Warning").gameObject;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -135,6 +137,8 @@ public class NetPlayUI : NetworkBehaviour
         }
     }
 
+    
+    
     void UpdateLimit()
     {
         if (npm.isStart.Value == true)

@@ -54,6 +54,7 @@ public class NetKartController : NetworkBehaviour
     [Header("Item")]
     public NetPlayerInfo npi;
 
+    public bool isTarget = false;
     public float BoostPower;
     public bool isBoost;
     public AnimationCurve BoostCurve;

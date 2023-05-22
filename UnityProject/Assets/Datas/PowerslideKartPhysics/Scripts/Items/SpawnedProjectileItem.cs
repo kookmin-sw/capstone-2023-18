@@ -156,9 +156,23 @@ namespace PowerslideKartPhysics
 
         // Sets the target kart to the given kart
         public virtual void SetHomingTarget(NetKartController target) {
-            Debug.Log("find Target");
+            
             targetKart = target;
+            ulong uid = target.GetComponent<NetworkObject>().OwnerClientId;
+            
+            TargetActiveClientRpc(uid);
         }
+
+        [ClientRpc]
+        public void TargetActiveClientRpc(ulong uid)
+        {
+            if (uid == NetworkManager.Singleton.LocalClientId)
+            {
+                GameObject.Find("@PlayManager").GetComponent<NetPlayUI>().TargetWarning.SetActive(true);
+            }
+        }
+
+
 
         // Finds the best target kart to follow
         public virtual void FindHomingTarget() {
@@ -192,6 +206,7 @@ namespace PowerslideKartPhysics
                             }
                             else if (curDist < closeDist || i == 0) {
                                 closeDist = curDist;
+                                
                                 SetHomingTarget(allKarts[i]);
                             }
                         }
