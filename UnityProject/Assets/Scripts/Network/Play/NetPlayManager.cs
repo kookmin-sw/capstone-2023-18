@@ -250,6 +250,7 @@ public class NetPlayManager : NetworkBehaviour
         userinfo.myCharacter.Value = LO._playersInLobby[playerId].CharacterIndex;
         if (LO._playersInLobby[playerId].isRedTeam) userinfo.teamNumber.Value = 0;
         else userinfo.teamNumber.Value = 1;
+
         userinfo.myPosition.Value = (int)LO._playersInLobby[playerId].position;
 
 

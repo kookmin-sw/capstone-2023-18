@@ -17,6 +17,27 @@ public class SingleEndGame : MonoBehaviour
         WinUI.SetActive(false);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isEnd == false)
+        {
+            Debug.Log(other.name);
+
+            if (other.CompareTag("AI"))
+            {
+                Debug.Log("yes");
+                isEnd = true;
+                LoseUI.SetActive(true);
+            }
+
+            if (other.CompareTag("Kart"))
+            {
+                isEnd = true;
+                WinUI.SetActive(true);
+            }
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (isEnd == false)

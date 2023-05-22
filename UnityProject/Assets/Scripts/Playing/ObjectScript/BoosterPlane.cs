@@ -12,9 +12,12 @@ public class BoosterPlane : MonoBehaviour
    {
       if (other.CompareTag("Kart") || other.CompareTag("AI"))
       {
-         Rigidbody _rb = other.GetComponent<Rigidbody>();
-         
-         _rb.AddForce(transform.forward * force, ForceMode.Impulse);
-      }
+            Rigidbody _rb;
+            if(other.TryGetComponent<Rigidbody>(out _rb))
+            {
+                _rb.AddForce(transform.forward * force, ForceMode.Impulse);
+            }
+
+        }
    }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetKartController : NetworkBehaviour
 {
@@ -23,6 +24,7 @@ public class NetKartController : NetworkBehaviour
     [Space, Header("Kart Stats")]
     public float MaxSpeed = 100f;
     public float speed = 200f;
+    public float DisAdvantage = 0;
     public float DownValue = 100f;
     public float turn = 100f;
     public float friction = 70f;
@@ -122,6 +124,11 @@ public class NetKartController : NetworkBehaviour
         if (IsOwner)
         {
             StartCoroutine(WaitStart());
+
+            if(SceneManager.GetActiveScene().name == "Kookmin")
+            {
+                DisAdvantage = 1000;
+            }
         }
     }
     IEnumerator FindComponent()
@@ -144,7 +151,7 @@ public class NetKartController : NetworkBehaviour
 
             //inputs
             float turnInput = turn * input.Hmove * Time.fixedDeltaTime * 1000;
-            float speedInput = speed * input.Vmove * Time.fixedDeltaTime * 1000;
+            float speedInput = (speed - DisAdvantage) * input.Vmove * Time.fixedDeltaTime * 1000;
 
             //helping veriables
 
