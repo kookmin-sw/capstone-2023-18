@@ -213,6 +213,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             }
 
         }
+
     }
 
 
