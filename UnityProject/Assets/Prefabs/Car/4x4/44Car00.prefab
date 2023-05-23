@@ -32648,7 +32648,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2c3d914dbaa4b7d4a90dedb7e6ea952a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -32765,6 +32765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730cc7dc225febb47bba671ce11b858f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getItemSource: {fileID: 9156660448254542952}
+  getItemClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   npi: {fileID: 0}
   item: {fileID: 0}
   ammo: 0
@@ -32803,7 +32805,7 @@ MonoBehaviour:
   dragAngularAmount: 55
   dragAmount: 2
   TurnAngle: 30
-  maxRayLength: 0.57782125
+  maxRayLength: 0.5778212
   slerpTime: 0.2
   grounded: 0
   TireMeshes:
@@ -32998,11 +33000,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.17328537
-      inSlope: 1.0300823
-      outSlope: 1.0300823
+      inSlope: -0.37183917
+      outSlope: -0.37183917
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.0990762
+      value: 0.13644496
+      inSlope: 0.94894856
+      outSlope: 0.94894856
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.36104566
@@ -50168,6 +50179,12 @@ PrefabInstance:
 --- !u!4 &6374554222654314567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6374554222356237183, guid: c7e7603cc703f354fad812f0a92a44aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 868504376}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &9156660448254542952 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9156660447948085072, guid: c7e7603cc703f354fad812f0a92a44aa,
     type: 3}
   m_PrefabInstance: {fileID: 868504376}
   m_PrefabAsset: {fileID: 0}

@@ -43381,7 +43381,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2c3d914dbaa4b7d4a90dedb7e6ea952a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -43509,6 +43509,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   MaxSpeed: 1000
   speed: 21500
+  DisAdvantage: 0
   DownValue: 1000
   turn: 700
   friction: 2000
@@ -44010,6 +44011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730cc7dc225febb47bba671ce11b858f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getItemSource: {fileID: 9156660446685404875}
+  getItemClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   npi: {fileID: 0}
   item: {fileID: 0}
   ammo: 0
@@ -49792,6 +49795,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1432160667}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &9156660446685404875 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9156660447948085072, guid: c7e7603cc703f354fad812f0a92a44aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1432160667}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1508316152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49978,7 +49987,7 @@ PrefabInstance:
     - target: {fileID: 4617200985843581111, guid: cff042dc09a64614994eae37165408ec,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5887709166712594351, guid: cff042dc09a64614994eae37165408ec,
         type: 3}
