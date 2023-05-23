@@ -17,6 +17,7 @@ namespace PowerslideKartPhysics
         Transform kartTr;
         Rigidbody kartRb;
         Collider kartCol;
+        private AudioSource getItemSFX;
 
         public NetPlayerInfo npi;
         public Item item;
@@ -31,6 +32,7 @@ namespace PowerslideKartPhysics
             if (kart != null) {
                 kartTr = kart.transform;
                 kartRb = kart.GetComponent<Rigidbody>();
+                getItemSFX = GetComponentInChildren<AudioSource>();
                 /***
                 if (kart.CentreOfMass != null) {
                     kartCol = kart.CentreOfMass.GetComponent<Collider>();
@@ -97,6 +99,11 @@ namespace PowerslideKartPhysics
             }
         }
 
+        public void OnSound()
+        {
+            getItemSFX.Play();
+        }
+        
         // Cast currently equipped item
         
         public void Cast(ulong userid, ulong objectid) {
