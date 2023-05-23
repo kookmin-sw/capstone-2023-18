@@ -16,7 +16,7 @@ namespace PowerslideKartPhysics
         public int ammo = 1;
         public float cooldown = 5.0f;
         float offTime = 0.0f;
-
+        
         private void Awake() {
             manager = FindObjectOfType<ItemManager>();
             trig = GetComponent<Collider>();
@@ -42,8 +42,10 @@ namespace PowerslideKartPhysics
                 ItemCaster caster = other.transform.GetTopmostParentComponent<ItemCaster>();
                 if (caster != null) {
                     offTime = 0.0f;
+                    caster.OnSound();
                     int myRank = other.GetComponent<NetPlayerInfo>().myRank.Value;
                     ulong objid = other.GetComponent<NetworkObject>().NetworkObjectId;
+                    
                     // Give specific item if named, otherwise random item
                     caster.GiveItem(
                         string.IsNullOrEmpty(itemName) ? manager.GetRandomItem(myRank,true,objid) : manager.GetItem(itemName),
