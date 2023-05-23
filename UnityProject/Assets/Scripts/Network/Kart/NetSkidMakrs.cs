@@ -20,9 +20,11 @@ public class NetSkidMakrs : NetworkBehaviour
     {
 
             smoke = GetComponent<ParticleSystem>();
-            skidMark = GetComponent<TrailRenderer>();
+        smoke.Stop();
+        skidMark = GetComponent<TrailRenderer>();
             driftSound = GetComponent<AudioSource>();
-            skidMark.emitting = false;
+        driftSound.mute = true;
+        skidMark.emitting = false;
             transform.localPosition = new Vector3(0, -transform.parent.parent.GetComponent<SphereCollider>().radius + 0.03f, 0);
             if (kartController != null)
             {
@@ -60,19 +62,18 @@ public class NetSkidMakrs : NetworkBehaviour
             {
                 skidMark.emitting = true;
                 driftSound.mute = false;
-                smoke.Play();
+                //smoke.Play();
             }
             else
             {
                 skidMark.emitting = false;
                 driftSound.mute = true;
-                smoke.Stop();
+                //smoke.Stop();
             }
         }
         else
         {
             skidMark.emitting = false;
-            smoke.Stop();
         }
     }
 

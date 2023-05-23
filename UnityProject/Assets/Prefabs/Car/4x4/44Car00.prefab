@@ -32795,6 +32795,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   MaxSpeed: 1000
   speed: 21500
+  DisAdvantage: 0
   DownValue: 1000
   turn: 700
   friction: 2000
@@ -33232,11 +33233,11 @@ MonoBehaviour:
   syncScale: 7
   syncVelocity: 0
   syncAngularVelocity: 0
-  isPositionCompressed: 0
-  isRotationCompressed: 0
+  isPositionCompressed: 1
+  isRotationCompressed: 1
   isScaleCompressed: 0
-  isVelocityCompressed: 0
-  isAngularVelocityCompressed: 0
+  isVelocityCompressed: 1
+  isAngularVelocityCompressed: 1
   automaticallyResetTime: 1
   isSmoothingAuthorityChanges: 0
   transformSource: 0

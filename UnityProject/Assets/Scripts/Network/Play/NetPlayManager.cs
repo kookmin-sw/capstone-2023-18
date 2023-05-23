@@ -134,16 +134,7 @@ public class NetPlayManager : NetworkBehaviour
     //��ŷ ���
     void GetRank()
     {
-        //1. LAP �켱 ����
-        //2. CHECK POINT �� �켱 ����
-        //3. CHECK POINT ���� �� �Ÿ� ��� ���
 
-        /*
-        var _rank = from pair in Players
-                       orderby pair.Value.Lap, pair.Value.RpNum, pair.Value.CheckPointDistance
-                       select pair;
-
-        */
         var _rank = Players.OrderByDescending(r => r.Value, new NetPlayerInfoComparer())
                    .Select(r => r.Key)
                    .ToArray();
