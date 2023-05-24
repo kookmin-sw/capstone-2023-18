@@ -9,7 +9,10 @@ public class LobbyPlayerPanel : MonoBehaviour {
     public LobbyPlayerItem SelectItem;
 
     public ulong PlayerId { get; private set; }
-
+    public void OnEnable()
+    {
+        SelectItem = GameObject.Find("PlayerKart/" + gameObject.name).GetComponent<LobbyPlayerItem>();
+    }
     public void Init(ulong playerId) {
         PlayerId = playerId;
         _nameText.text = $"Player {playerId}";

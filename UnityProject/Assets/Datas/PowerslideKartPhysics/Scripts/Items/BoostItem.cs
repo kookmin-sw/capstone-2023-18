@@ -35,6 +35,7 @@ namespace PowerslideKartPhysics
             {
                 if (IsClient)
                 {
+                    GameManager.Sound.SFXPlay(GameManager.Sound.SFXList[(int)SFX_LIST.BOOSTER]);
                     NetKartController itemowner = player.GetComponent<NetKartController>();
                     if (itemowner != null) StartCoroutine(itemowner.OnBooster(boostTime));
                     else Debug.Log("itemowner null");

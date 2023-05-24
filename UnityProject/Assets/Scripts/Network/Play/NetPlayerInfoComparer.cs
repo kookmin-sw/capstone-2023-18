@@ -16,6 +16,9 @@ public class NetPlayerInfoComparer : IComparer<NetPlayerInfo>
                 int lapComparison = y.Lap.Value.CompareTo(x.Lap.Value);
                 if (lapComparison != 0) return -lapComparison;
 
+                int cpNumComparison = y.CpNum.Value.CompareTo(x.CpNum.Value);
+                if (cpNumComparison != 0) return -cpNumComparison;
+
                 //직선 구간을 많이 통과한 쪽이 우선
                 int rpNumComparison = y.RpNum.Value.CompareTo(x.RpNum.Value);
                 if (rpNumComparison != 0) return -rpNumComparison;

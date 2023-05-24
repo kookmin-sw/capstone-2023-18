@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class CheckRoading : NetworkBehaviour
 {
-
     public override void OnNetworkSpawn()
     {
-        //DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(gameObject);
         NetworkManager.Singleton.SceneManager.OnSceneEvent -= SceneManager_OnSceneEvent;
         NetworkManager.Singleton.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
     }
 
+    public void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void SceneManager_OnSceneEvent(SceneEvent sceneEvent)
     {
@@ -51,6 +52,7 @@ public class CheckRoading : NetworkBehaviour
             // Handle client to server LoadComplete notifications
             case SceneEventType.LoadComplete:
                 {
+                    
                     // This will let you know when a load is completed
                     // Server Side: receives this notification for both itself and all clients
                     if (IsServer)
@@ -92,20 +94,29 @@ public class CheckRoading : NetworkBehaviour
                 {
                     // This will let you know when all clients have finished loading a scene
                     // Received on both server and clients
-                    
-                        // Example of parsing through the clients that completed list
-                        if (IsServer)
+                    switch (SceneManager.GetActiveScene().name)
+                    {
+                        case "Kookmin_Multi":
+                            GameManager.Sound.BGMPlay(GameManager.Sound.BGMList[(int)BGMLIST.KOOKMIN]);
+                            break;
+                        case "Kookmin":
+                            GameManager.Sound.BGMPlay(GameManager.Sound.BGMList[(int)BGMLIST.KOOKMIN]);
+                            break;
+                    }
+
+                    // Example of parsing through the clients that completed list
+                    if (IsServer)
                         {
                             Debug.Log("All Clients LOADED!");
                         NetPlayManager npm;
                             switch (SceneManager.GetActiveScene().name)
                             {
                                 case "Kookmin_Multi":
-                                    npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
+                                npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
                                     StartCoroutine(npm.StartCountDown());
                                     break;
                                 case "Kookmin":
-                                    npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
+                                npm = GameObject.Find("@PlayManager").GetComponent<NetPlayManager>();
                                     StartCoroutine(npm.StartCountDown());
                                     break;
                         }

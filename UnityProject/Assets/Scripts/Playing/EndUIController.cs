@@ -120,11 +120,11 @@ public class EndUIController : NetworkBehaviour
     public void UpdateWinTeamClientRpc(string _banner, int _redScore, int _blueScore, Vector3 _mvpPosition, Quaternion _mvpRotation)
     {
         Camera.position = _mvpPosition + CameraOffset;
-        //Camera.rotation = _mvpRotation;
         Camera.LookAt(_mvpPosition);
         
 
         Banner.text = _banner;
+        Banner.color = _banner == "RED TEAM WIN" ? Color.red : Color.blue;
         RedScore.text = _redScore.ToString();
         BlueScore.text = _blueScore.ToString();
     }

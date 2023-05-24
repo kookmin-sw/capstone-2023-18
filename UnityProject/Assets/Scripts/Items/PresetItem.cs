@@ -13,8 +13,8 @@ public class PresetItem : MonoBehaviour
     public static Dictionary<int, PlayerPosition> KartType = new Dictionary<int, PlayerPosition>()
 {
     {0, PlayerPosition.Defender}, {1, PlayerPosition.Defender}, {2, PlayerPosition.Defender}, {3, PlayerPosition.Defender},
-    {4, PlayerPosition.Attack}, {5, PlayerPosition.Attack}, {6, PlayerPosition.Attack}, {7, PlayerPosition.Attack},
-    {8, PlayerPosition.Runner}, {9, PlayerPosition.Runner}, {10, PlayerPosition.Runner}, {11, PlayerPosition.Runner}
+    {4, PlayerPosition.Runner}, {5, PlayerPosition.Runner}, {6, PlayerPosition.Runner}, {7, PlayerPosition.Runner},
+    {8, PlayerPosition.Attack}, {9, PlayerPosition.Attack}, {10, PlayerPosition.Attack}, {11, PlayerPosition.Attack}
 };
     public EquipmentItems type;
     public PlayerPosition Position;

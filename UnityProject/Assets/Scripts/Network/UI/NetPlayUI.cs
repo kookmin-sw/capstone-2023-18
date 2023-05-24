@@ -224,6 +224,7 @@ public class NetPlayUI : NetworkBehaviour
     [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void CountdownClientRPC(int _count, ClientRpcParams rpcParams = default)
     {
+        
         if(_count == 0)
         {
             Count.text = "";
@@ -234,6 +235,8 @@ public class NetPlayUI : NetworkBehaviour
         }
         else
         {
+            GameManager.Sound.SFXPlay(GameManager.Sound.SFXList[(int)SFX_LIST.COUNT]);
+
             Count.text = _count.ToString();
         }
     }

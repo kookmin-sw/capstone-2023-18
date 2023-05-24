@@ -97,7 +97,10 @@ public class NetPlayManager : NetworkBehaviour
 
     public IEnumerator StartCountDown()
     {
+        
         ItemManager.instance.GetAllKarts();
+
+        yield return new WaitForSeconds(2);
         for (int i = 3; i > 0; i--)
         {
             //ui.Count.text = i.ToString();
@@ -127,7 +130,15 @@ public class NetPlayManager : NetworkBehaviour
     void setMapInfo()
     {
         //������ ���� ������ �޾ƿͼ� ����Ѵ�.
-        MaxLap = 1;
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Kookmin_Multi":
+                MaxLap = 2;
+                break;
+            case "Kookmin":
+                MaxLap = 1;
+                break;
+        }
         StartingPoints = GameObject.FindGameObjectsWithTag("StartPoint");
     }
 
@@ -194,8 +205,9 @@ public class NetPlayManager : NetworkBehaviour
     {
         using (new Load("Closing the game..."))
         {
-            await MatchmakingService.UnLockLobby();
             NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+            await MatchmakingService.LeaveLobby();
+            
         }
     }
 

@@ -7,11 +7,12 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class ButtonClick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
     public void OnPointerDown(PointerEventData eventData) {
-        PlayClip("ButtonUp");
+        GameManager.Sound.SFXPlay(GameManager.Sound.SFXList[(int)SFX_LIST.CLICK]);
+        //PlayClip("ButtonUp");
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-        PlayClip("ButtonDown");
+        //PlayClip("ButtonDown");
     }
 
     private static void PlayClip(string n) {

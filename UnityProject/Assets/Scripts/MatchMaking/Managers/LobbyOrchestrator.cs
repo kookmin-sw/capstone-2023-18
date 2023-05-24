@@ -46,7 +46,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
         else
         {
             Debug.Log("Destroy Lobby");
-            gameObject.GetComponent<NetworkObject>().Despawn(true);
+            Destroy(gameObject);
         }
 
         if (MatchmakingService.isJoiningLobby())
@@ -64,7 +64,7 @@ public class LobbyOrchestrator : NetworkBehaviour {
             lo._createScreen.gameObject.SetActive(false);
             lo._roomScreen.gameObject.SetActive(false);
         }
-
+        GameManager.Sound.BGMPlay(GameManager.Sound.BGMList[(int)BGMLIST.LOBBY]);
     }
 
     #region Main Lobby
@@ -150,9 +150,16 @@ public class LobbyOrchestrator : NetworkBehaviour {
                 newPlayer.isRedTeam = false;
                 _countTeam -= 1;
             }
-            
+            var uid = NetworkManager.Singleton.LocalClientId;
+            if (_playersInLobby.ContainsKey(uid))
+            {
+                _playersInLobby[uid] = newPlayer;
+            }
+            else
+            {
+                _playersInLobby.Add(uid, newPlayer);
 
-            _playersInLobby.Add(NetworkManager.Singleton.LocalClientId, newPlayer);
+            }
             UpdateInterface();
         }
 

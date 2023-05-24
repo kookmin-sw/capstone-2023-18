@@ -103,7 +103,7 @@ namespace PowerslideKartPhysics
         {
             if (IsOwner)
             {
-                getItemSource.PlayOneShot(getItemClip);
+                GameManager.Sound.SFXPlay(getItemClip);
             }
         }
         
@@ -178,6 +178,7 @@ namespace PowerslideKartPhysics
         {
             if (NetworkManager.Singleton.LocalClientId == _uid && !kart.spinningOut)
             {
+                GameManager.Sound.SFXPlay(GameManager.Sound.SFXList[(int)SFX_LIST.HIT]);
                 if(!kart.isProtected) StartCoroutine(kart.SpinCycle(_spinType, spinAmount));
             }
         }
