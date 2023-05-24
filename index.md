@@ -20,12 +20,18 @@ Unlike conventional racing games, there is a role group system. Players can choo
 
 It supports artificial intelligence competition using ML-AGENT Since there is a chronic problem that the gap between new and existing users is polarized due to the nature of Daejeon games, artificial intelligence models provide a way to strengthen and learn track-specific driving methods to compete with new users to improve their skills.
 
+![preview](/PageAssets/img/UseSkill.png)
+
 # 참고 자료
 
 **[중간 보고서](https://docs.google.com/document/d/1kCWk2_CrjqCVaZIaDynuhKjEEUW9UQDfQphZpbfuIc0/edit?usp=sharing)**
+**[수행결과보고서](https://docs.google.com/document/d/1el6h3vbfy4NVnQ2tmeXKjEI3khKlldmDTjSS26Iv97s/edit?usp=sharing)**
 
 ### 중간 발표 영상
 **[![Video Label](http://img.youtube.com/vi/f81jLIVbqJ0/0.jpg)](https://www.youtube.com/watch?v=f81jLIVbqJ0)**
+
+### 시연 영상
+**[![Video Label](http://img.youtube.com/vi/C-_7uvCk1UU/0.jpg)](https://youtu.be/C-_7uvCk1UU)**
 # 팀 소개
 
 ![teamLogo](/PageAssets/img/dripple-logo-color.png)
