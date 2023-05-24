@@ -34,6 +34,9 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 **[![Video Label](http://img.youtube.com/vi/C-_7uvCk1UU/0.jpg)](https://youtu.be/C-_7uvCk1UU)**
 # 팀 소개
 
+### 포스터
+![poster](/PageAssets/img/Poster.jpg)
+
 ![teamLogo](/PageAssets/img/dripple-logo-color.png)
 
 AI 담당, 컨트롤러 담당, 3D 오브젝트 담당 이렇게 크게 3개로 역할이 나뉘어진 3인 구성의 팀 'Driple'
