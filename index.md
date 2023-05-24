@@ -32,10 +32,12 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 
 ### 시연 영상
 **[![Video Label](http://img.youtube.com/vi/C-_7uvCk1UU/0.jpg)](https://youtu.be/C-_7uvCk1UU)**
-# 팀 소개
 
 ### 포스터
+
 ![poster](/PageAssets/img/Poster.jpg)
+
+# 팀 소개
 
 ![teamLogo](/PageAssets/img/dripple-logo-color.png)
 
