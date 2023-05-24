@@ -42,8 +42,8 @@ PlayerSettings:
   m_SplashScreenLogos: []
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
-  defaultScreenWidth: 800
-  defaultScreenHeight: 600
+  defaultScreenWidth: 1600
+  defaultScreenHeight: 1200
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
@@ -76,7 +76,7 @@ PlayerSettings:
   androidFullscreenMode: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
-  runInBackground: 0
+  runInBackground: 1
   captureSingleScreen: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
@@ -130,12 +130,16 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   m_SupportedAspectRatios:
     4:3: 1
-    5:4: 1
-    16:10: 1
-    16:9: 1
-    Others: 1
+    5:4: 0
+    16:10: 0
+    16:9: 0
+    Others: 0
   bundleVersion: 0.1.0
   preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
