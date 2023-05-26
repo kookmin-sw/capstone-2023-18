@@ -25,6 +25,7 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 # 참고 자료
 
 **[중간 보고서](https://docs.google.com/document/d/1kCWk2_CrjqCVaZIaDynuhKjEEUW9UQDfQphZpbfuIc0/edit?usp=sharing)**
+
 **[수행결과보고서](https://docs.google.com/document/d/1el6h3vbfy4NVnQ2tmeXKjEI3khKlldmDTjSS26Iv97s/edit?usp=sharing)**
 
 ### 중간 발표 영상
@@ -32,6 +33,9 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 
 ### 시연 영상
 **[![Video Label](http://img.youtube.com/vi/C-_7uvCk1UU/0.jpg)](https://youtu.be/C-_7uvCk1UU)**
+
+### 최종 발표 영상
+**[![Video Label](http://img.youtube.com/vi/EW2hJ_WXmEI/0.jpg)](https://www.youtube.com/watch?v=EW2hJ_WXmEI)**
 
 ### 포스터
 
