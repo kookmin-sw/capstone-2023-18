@@ -28,6 +28,23 @@ It supports artificial intelligence competition using ML-AGENT Since there is a 
 
 **[수행결과보고서](https://docs.google.com/document/d/1el6h3vbfy4NVnQ2tmeXKjEI3khKlldmDTjSS26Iv97s/edit?usp=sharing)**
 
+### 실행 파일
+**[실행파일 공유링크](https://1drv.ms/f/s!Aoe7hGnKbLVrhZ0ncqbkB6PUSjDS2g?e=RG6z4o)**
+
+해당 링크에 접속하여 다운로드 하신 후, UnityProject.exe 를 실행하시면 데모버전 플레이가 가능합니다.
+윈도우 환경에서만 가능하며 기본 해상도가 1600X1200으로 설정되어있어 이보다 낮은 해상도를 가지신 분들의 경우에는 현재 직접 해상도를 줄여주셔야 합니다.
+
+이 부분은 추후 수정이 될 예정입니다.
+
+추가적으로 게임 스타트 이후 CREATE를 눌러 방을 생성하신 후 게임을 시작해주시면 됩니다.
+원래대로라면 레드, 블루팀의 인원이 맞아야 실행이 가능해야 하지만 테스트목적상 이러한 제한이 없는 상황입니다.
+
+(23.05.23 이슈)
+현재 이슈로 인하여 게임 플레이 이후 로비로 돌아오는것에 문제가 간헐적으로 발생하는 중입니다.
+이러한 부분에 있어 빠르게 문제를 확인중이며 정상적으로 플레이 이후 로비로 돌아오게 되면 재업로드하겠습니다.
+
+
+
 ### 중간 발표 영상
 **[![Video Label](http://img.youtube.com/vi/f81jLIVbqJ0/0.jpg)](https://www.youtube.com/watch?v=f81jLIVbqJ0)**
 
