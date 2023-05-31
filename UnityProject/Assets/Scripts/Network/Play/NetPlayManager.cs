@@ -133,7 +133,7 @@ public class NetPlayManager : NetworkBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Kookmin_Multi":
-                MaxLap = 2;
+                MaxLap = 1;
                 break;
             case "Kookmin":
                 MaxLap = 1;
@@ -201,14 +201,9 @@ public class NetPlayManager : NetworkBehaviour
     }
     //���� ����
 
-    public async void OnGameClose()
+    public void OnGameClose()
     {
-        using (new Load("Closing the game..."))
-        {
-            NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
-            await MatchmakingService.LeaveLobby();
-            
-        }
+        NetworkManager.Singleton.SceneManager.LoadScene("Auth", LoadSceneMode.Single);
     }
 
     [ServerRpc(RequireOwnership = false)]
