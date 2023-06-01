@@ -184,7 +184,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
         if (other.CompareTag("EndPoint") && IsOwner && touchedEndpoint == false)
         {
             touchedEndpoint = true;
-            if (true || CpNum.Value == (npm.MaxCP - 1))
+            if (CpNum.Value == (npm.MaxCP - 1))
             {
                 //����
                 Debug.Log("EndPoint" + gameObject.name);

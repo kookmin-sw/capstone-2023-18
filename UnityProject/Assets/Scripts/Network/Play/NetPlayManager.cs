@@ -133,7 +133,7 @@ public class NetPlayManager : NetworkBehaviour
         switch (SceneManager.GetActiveScene().name)
         {
             case "Kookmin_Multi":
-                MaxLap = 1;
+                MaxLap = 2;
                 break;
             case "Kookmin":
                 MaxLap = 1;
