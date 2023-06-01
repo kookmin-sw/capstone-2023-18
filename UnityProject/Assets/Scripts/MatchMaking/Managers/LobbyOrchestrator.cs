@@ -51,19 +51,13 @@ public class LobbyOrchestrator : NetworkBehaviour {
 
         if (MatchmakingService.isJoiningLobby())
         {
-            var lo = Instance.GetComponent<LobbyOrchestrator>();
-            lo._mainLobbyScreen.gameObject.SetActive(false);
-            lo._createScreen.gameObject.SetActive(false);
-            lo._roomScreen.gameObject.SetActive(true);
+            OnLobbyLeft();
         }
-        else
-        {
-            _countTeam = 0;
-            var lo = Instance.GetComponent<LobbyOrchestrator>();
-            lo._mainLobbyScreen.gameObject.SetActive(true);
-            lo._createScreen.gameObject.SetActive(false);
-            lo._roomScreen.gameObject.SetActive(false);
-        }
+
+        var lo = Instance.GetComponent<LobbyOrchestrator>();
+        lo._mainLobbyScreen.gameObject.SetActive(true);
+        lo._createScreen.gameObject.SetActive(false);
+        lo._roomScreen.gameObject.SetActive(false);
         GameManager.Sound.BGMPlay(GameManager.Sound.BGMList[(int)BGMLIST.LOBBY]);
     }
 

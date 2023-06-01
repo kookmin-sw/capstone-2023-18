@@ -188,6 +188,7 @@ public class NetPlayerInfo : NetworkBehaviour, IComparable<NetPlayerInfo>
             {
                 //����
                 Debug.Log("EndPoint" + gameObject.name);
+                CpNum.Value = 0;
                 Lap.Value += 1;
                 float LastTime = 0;
                 float NowTime = npm.PlayTime.Value;

@@ -103,6 +103,12 @@ public class EndUIController : NetworkBehaviour
     {
         npm.OnGameClose();
     }
+    [ClientRpc(Delivery = RpcDelivery.Reliable)]
+    public void LeaveGameClientRpc()
+    {
+        npm.OnGameClose();
+    }
+
 
     [ClientRpc(Delivery = RpcDelivery.Reliable)]
     public void UpdateRankClientRpc(int _rank, float _Laptime, int _team, ulong _uid)

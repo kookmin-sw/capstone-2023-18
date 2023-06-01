@@ -201,14 +201,9 @@ public class NetPlayManager : NetworkBehaviour
     }
     //���� ����
 
-    public async void OnGameClose()
+    public void OnGameClose()
     {
-        using (new Load("Closing the game..."))
-        {
-            NetworkManager.Singleton.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
-            await MatchmakingService.LeaveLobby();
-            
-        }
+        NetworkManager.Singleton.SceneManager.LoadScene("Auth", LoadSceneMode.Single);
     }
 
     [ServerRpc(RequireOwnership = false)]

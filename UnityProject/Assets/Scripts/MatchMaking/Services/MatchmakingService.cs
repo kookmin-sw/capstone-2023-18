@@ -8,6 +8,7 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public static class MatchmakingService {
@@ -141,6 +142,7 @@ public static class MatchmakingService {
                 NetworkManager.Singleton.Shutdown();
             }
             catch (Exception e) {
+                NetworkManager.Singleton.Shutdown();
                 Debug.Log(e);
             }
     }
